@@ -4,50 +4,26 @@ import { Link, useLocation } from "react-router-dom";
 
 const navigation = [
   {
-    title: "Dashboard",
+    title: "Home",
     href: "/starter",
     icon: "bi bi-speedometer2",
   },
   {
-    title: "Alert",
+    title: "Report",
     href: "/alerts",
     icon: "bi bi-bell",
   },
   {
-    title: "Badges",
+    title: "Project overview",
     href: "/badges",
     icon: "bi bi-patch-check",
   },
   {
-    title: "Buttons",
+    title: "Tasks",
     href: "/buttons",
     icon: "bi bi-hdd-stack",
   },
-  {
-    title: "Cards",
-    href: "/cards",
-    icon: "bi bi-card-text",
-  },
-  {
-    title: "Grid",
-    href: "/grid",
-    icon: "bi bi-columns",
-  },
-  {
-    title: "Table",
-    href: "/table",
-    icon: "bi bi-layout-split",
-  },
-  {
-    title: "Forms",
-    href: "/forms",
-    icon: "bi bi-textarea-resize",
-  },
-  {
-    title: "Breadcrumbs",
-    href: "/breadcrumbs",
-    icon: "bi bi-link",
-  },
+  
   {
     title: "About",
     href: "/about",
@@ -98,7 +74,7 @@ const Sidebar = () => {
             className="mt-3"
             href="https://www.wrappixel.com/templates/xtreme-react-redux-admin/?ref=33"
           >
-            Upgrade To Pro
+            Know more
           </Button>
         </Nav>
       </div>

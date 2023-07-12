@@ -14,6 +14,8 @@ $warning: #ee9d01;
 $dark: #343a40;
 $light: #eaf2fb;
 $secondary: #35363b;
+$gray-900: #35363b;
+
 
 $theme-colors: (
   "primary": $primary,
@@ -29,6 +31,7 @@ $theme-colors: (
   "light-info": #d3edfa,
   "light-warning": #f8ecdc,
   "light-danger": #f8dddd,
+  "gray":$gray-900,
 );
 // scss-docs-start gray-color-variables
 $white: #fff !default;
