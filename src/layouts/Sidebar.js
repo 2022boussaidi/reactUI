@@ -29,6 +29,11 @@ const navigation = [
     href: "/about",
     icon: "bi bi-people",
   },
+  {
+    title: "ChatRoom",
+    href: "/chatroom",
+    icon: "bi bi-chat",
+  },
 ];
 
 const Sidebar = () => {
