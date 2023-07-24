@@ -2,6 +2,8 @@ import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import AddUser from "../components/dashboard/AddUser.js";
 import AddTeam from "../components/dashboard/AddTeam.js";
+import Chatroom from "../components/dashboard/Chatroom.js";
+import ChatroomLayout from "../layouts/ChatroomLayout.js";
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -23,6 +25,10 @@ const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 
 const ThemeRoutes = [
   {
+    path: "/chatroom",
+    element: <ChatroomLayout>{}<Chatroom /></ChatroomLayout>,
+  },
+  {
     path: "/",
     element: <FullLayout />,
     children: [
@@ -30,6 +36,7 @@ const ThemeRoutes = [
         path: "/adduser",
         element: <AddUser />,
       },
+     
       {
         path: "/addteam",
         element: <AddTeam />,
