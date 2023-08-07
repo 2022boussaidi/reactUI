@@ -9,6 +9,11 @@ const navigation = [
     icon: "bi bi-speedometer2",
   },
   {
+    title: "Chat",
+    href: "/about",
+    icon: "bi bi-people",
+  },
+  {
     title: "Report",
     href: "/alerts",
     icon: "bi bi-bell",
@@ -29,6 +34,7 @@ const navigation = [
     href: "/about",
     icon: "bi bi-people",
   },
+  
 ];
 
 const Sidebar = () => {

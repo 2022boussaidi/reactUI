@@ -9,7 +9,7 @@ import bg2 from "../assets/images/bg/bg2.jpg";
 import bg3 from "../assets/images/bg/bg3.jpg";
 import bg4 from "../assets/images/bg/bg4.jpg";
 import TeamManagement from "../components/dashboard/TeamManagment";
-import CalendarComponent from "../components/dashboard/CalendarComponent";
+//import CalendarComponent from "../components/dashboard/CalendarComponent";
 import Members from "../components/dashboard/Members";
 import Teams from "../components/dashboard/Teams";
 
