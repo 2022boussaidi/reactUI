@@ -31,7 +31,7 @@ const navigation = [
   
   {
     title: "About",
-    href: "/about",
+    href: "/Rdd",
     icon: "bi bi-people",
   },
   
@@ -78,7 +78,7 @@ const Sidebar = () => {
             tag="a"
             target="_blank"
             className="mt-3"
-            href="https://www.wrappixel.com/templates/xtreme-react-redux-admin/?ref=33"
+            href="https://esprit.tn"
           >
             Know more
           </Button>

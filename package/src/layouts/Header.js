@@ -60,13 +60,13 @@ const Header = () => {
         <Nav className="me-auto" navbar  >
           <NavItem   >
             
-            <Link to="/starter" className="nav-link" color="dark">
-              About RDD
+            <Link to="/Rdd" className="nav-link" color="dark">
+              About RDI
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/about" className="nav-link">
-              Contact us
+            <Link to="/" className="nav-link">
+              Contact@esprit.tn
             </Link>
           </NavItem>
           
