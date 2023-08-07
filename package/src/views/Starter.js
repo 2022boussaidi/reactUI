@@ -10,6 +10,8 @@ import bg3 from "../assets/images/bg/bg3.jpg";
 import bg4 from "../assets/images/bg/bg4.jpg";
 import TeamManagement from "../components/dashboard/TeamManagment";
 import CalendarComponent from "../components/dashboard/CalendarComponent";
+import Members from "../components/dashboard/Members";
+import Teams from "../components/dashboard/Teams";
 
 
 const BlogData = [
@@ -75,18 +77,22 @@ const Starter = () => {
       </Row>
       {/***TeamMangement & Feed***/}
       <Row>
-        <Col sm="4" lg="4" xl="6" xxl="6">
-          <TeamManagement/>
+        <Col sm="4" lg="4" xl="6" xxl="10">
+          <Members/>
         </Col>
+        <Col sm="4" lg="4" xl="6" xxl="10">
+          <Teams/>
+        </Col>
+        </Row>
+        <Row>
         <Col sm="6" lg="8" xl="7" xxl="6">
           <ProjectTables />
         </Col>
       </Row>
+     
       {/***Table ***/}
       <Row>
-        <Col sm="6" lg="8" xl="7" xxl="6">
-          <CalendarComponent/>
-        </Col>
+       
         <Col sm="6" lg="8" xl="7" xxl="6">
           <Feeds />
         </Col>

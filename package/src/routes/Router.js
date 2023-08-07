@@ -16,6 +16,14 @@ const Grid = lazy(() => import("../views/ui/Grid"));
 const Tables = lazy(() => import("../views/ui/Tables"));
 const Forms = lazy(() => import("../views/ui/Forms"));
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
+/**************components *************************/
+const AddUser = lazy(() => import ("../components/users/AddUser.js"))
+const EditUser = lazy(() => import ("../components/users/EditUser.js"))
+const ViewUser = lazy(() => import ("../components/users/ViewUser.js"))
+const AddTeam = lazy(() => import ("../components/teams/AddTeam.js"))
+const ViewTeam= lazy(() => import ("../components/teams/ViewTeam.js"))
+
+
 
 /*****Routes******/
 
@@ -35,6 +43,16 @@ const ThemeRoutes = [
       { path: "/table", exact: true, element: <Tables /> },
       { path: "/forms", exact: true, element: <Forms /> },
       { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
+      {path:"/adduser" , exact : true , element:<AddUser />},
+      {path:"/edituser/:id" , exact : true , element:<EditUser />},
+      {path:"/viewuser/:id" , exact : true , element:<ViewUser />},
+      {path:"/addteam" , exact : true , element:<AddTeam />},
+      {path:"/viewteam/:id" , exact : true , element:<ViewTeam />}
+
+
+
+
+
     ],
   },
 ];
