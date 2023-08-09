@@ -20,7 +20,7 @@ const navigation = [
   },
   {
     title: "Project overview",
-    href: "/badges",
+    href: "/overview",
     icon: "bi bi-patch-check",
   },
   {
