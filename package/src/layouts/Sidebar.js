@@ -13,15 +13,21 @@ const navigation = [
     href: "/about",
     icon: "bi bi-people",
   },
-  {
-    title: "Report",
-    href: "/alerts",
-    icon: "bi bi-bell",
-  },
+  
   {
     title: "Project overview",
     href: "/overview",
     icon: "bi bi-patch-check",
+  },
+  {
+    title: "Events",
+    href: "/events",
+    icon: "bi bi-patch-check",
+  },
+  {
+    title: "Report",
+    href: "/breadcrumbs",
+    icon: "bi bi-bell",
   },
   {
     title: "Tasks",

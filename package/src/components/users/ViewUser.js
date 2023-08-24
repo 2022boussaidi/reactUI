@@ -7,6 +7,10 @@ export default function ViewUser() {
     name: "",
     username: "",
     email: "",
+    phone: "",
+    accessLevel: "",
+    teamId: "",
+    assignedTasks :[],
   });
 
   const { id } = useParams();
@@ -42,7 +46,29 @@ export default function ViewUser() {
                   <b>Email:</b>
                   {user.email}
                 </li>
+                <li className="list-group-item">
+                  <b>Phone:</b>
+                  {user.phone}
+                </li>
+                <li className="list-group-item">
+                  <b>Access level:</b>
+                  {user.accessLevel}
+                </li>
+                <li className="list-group-item">
+                  <b>Team ID:</b>
+                  {user.teamId}
+                </li>
+                <li className="list-group-item">
+                <b>Tasks:</b>
+<ul>
+  {user.assignedTasks.map((task) => (
+    <li key={task.id}>{task.description}</li>
+  ))}
+</ul>
+                      
+                </li>
               </ul>
+             
             </div>
           </div>
           <Link className="btn btn-primary my-2" to={"/"}>

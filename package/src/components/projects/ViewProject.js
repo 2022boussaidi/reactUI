@@ -8,6 +8,8 @@ export default function ViewProject() {
     description: "",
     startDate: "",
     endDate: "",
+    tasks : [],
+   
   });
 
   const { id } = useParams();
@@ -47,10 +49,11 @@ export default function ViewProject() {
                   <b>End Date:</b>
                   {project.endDate}
                 </li>
+                
               </ul>
             </div>
           </div>
-          <Link className="btn btn-primary my-2" to={"/projects"}>
+          <Link className="btn btn-primary my-2" to={"/overview"}>
             Back to Home
           </Link>
         </div>

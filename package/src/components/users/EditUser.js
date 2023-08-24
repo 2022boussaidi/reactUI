@@ -11,10 +11,12 @@ export default function EditUser() {
     name: "",
     username: "",
     email: "",
+    phone: "",
+    accessLevel: "",
     teamId: "",
   });
 
-  const { name, username, email,teamId } = user;
+  const { name, username, email,teamId,phone,accessLevel } = user;
 
   const onInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -82,6 +84,32 @@ export default function EditUser() {
               />
             </div>
             <div className="mb-3">
+              <label htmlFor="Phone" className="form-label">
+                Phone
+              </label>
+              <input
+                type={"text"}
+                className="form-control"
+                placeholder="Enter your Phone number"
+                name="phone"
+                value={phone}
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="accessLevel" className="form-label">
+                Access level
+              </label>
+              <input
+                type={"text"}
+                className="form-control"
+                placeholder="Enter your Phone number"
+                name="accessLevel"
+                value={accessLevel}
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
+            <div className="mb-3">
               <label htmlFor="Team Id" className="form-label">
                 Team Id
               </label>
@@ -89,7 +117,7 @@ export default function EditUser() {
                 type={"text"}
                 className="form-control"
                 placeholder="Enter your Team Id"
-                name="Team Id"
+                name="teamId"
                 value={teamId}
                 onChange={(e) => onInputChange(e)}
               />

@@ -37,7 +37,7 @@ export default function Teams() {
                 <tr>
                   <th scope="col">Name</th>
                   <th scope="col">Project name</th>
-                  <th scope="col">Members</th>
+                  
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -46,13 +46,7 @@ export default function Teams() {
                   <tr key={index}>
                     <td>{team.name}</td>
                     <td>{team.project.name}</td> {/* Assuming project field has a 'name' property */}
-                    <td>
-                    <div>
-                        {team.members.map((member) => (
-                          <div key={member.id}>{member.name}</div>
-                        ))}
-                      </div>
-                    </td>
+                   
                     <td>
                       <Link
                         className="btn btn-primary mx-2"

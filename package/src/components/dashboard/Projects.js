@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
 import { Col, Row } from "reactstrap";
-import TopCards from "./TopCards";
+import TopCards from "../../views/ui/TopCards";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);

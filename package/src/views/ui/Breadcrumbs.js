@@ -1,48 +1,55 @@
-import {
-  Row,
-  Col,
-  Card,
-  CardBody,
-  CardTitle,
-  Breadcrumb,
-  BreadcrumbItem,
-} from "reactstrap";
+import React from "react";
+import { Col, Row } from "reactstrap";
+import { Link } from "react-router-dom";
+import TopCards from "./TopCards";
+import SalesChart from "./SalesChart"
 
 const Breadcrumbs = () => {
   return (
-    <Row>
-      <Col>
-        {/* --------------------------------------------------------------------------------*/}
-        {/* Card-1*/}
-        {/* --------------------------------------------------------------------------------*/}
-        <Card>
-          <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-            <i className="bi bi-link me-2"> </i>
-            Basic Breadcrumbs
-          </CardTitle>
-          <CardBody className="">
-            <Breadcrumb>
-              <BreadcrumbItem active>Home</BreadcrumbItem>
-            </Breadcrumb>
-            <Breadcrumb>
-              <BreadcrumbItem>
-                <a href="/">Home</a>
-              </BreadcrumbItem>
-              <BreadcrumbItem active>Library</BreadcrumbItem>
-            </Breadcrumb>
-            <Breadcrumb>
-              <BreadcrumbItem>
-                <a href="/">Home</a>
-              </BreadcrumbItem>
-              <BreadcrumbItem>
-                <a href="/">Library</a>
-              </BreadcrumbItem>
-              <BreadcrumbItem active>Data</BreadcrumbItem>
-            </Breadcrumb>
-          </CardBody>
-        </Card>
-      </Col>
-    </Row>
+    <div>
+      <Row>
+        <Col sm="6" lg="31">
+          
+            <TopCards
+              bg="bg-light-warning text-warning"
+              title="New Project"
+              subtitle="Total projects"
+              earning="XXXXX"
+              icon="bi bi-basket3"
+            >
+              <div className="d-flex align-items-center justify-content-end">
+            <Link className="btn btn-outline-primary mx-2" to="/addproject">
+              Add Project
+            </Link>
+            </div>
+            </TopCards>
+         
+          
+        </Col>
+        <Col sm="6" lg="31">
+         
+            <TopCards
+              bg="bg-light-info text-info"
+              title="Sales"
+              subtitle="Team size"
+              earning="XXXX"
+              icon="bi bi-bag"
+            >
+               <div className="d-flex align-items-center justify-content-end">
+            <Link className="btn btn-outline-primary mx-2" to="/addteam">
+              Add Team
+            </Link>
+          </div>
+          </TopCards>
+        </Col>
+      </Row>
+      <Row>
+     <Col sm="6" lg="6" xl="6" xxl="12">
+       <SalesChart/>
+     </Col>
+   </Row>
+    </div>
+     
   );
 };
 

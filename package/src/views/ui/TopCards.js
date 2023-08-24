@@ -1,10 +1,11 @@
+import React from "react";
 import { Card, CardBody } from "reactstrap";
 
 const TopCards = (props) => {
   return (
     <Card>
       <CardBody>
-        <div className="d-flex">
+        <div className="d-flex align-items-center">
           <div className={`circle-box lg-box d-inline-block ${props.bg}`}>
             <i className={props.icon}></i>
           </div>
@@ -13,6 +14,7 @@ const TopCards = (props) => {
             <small className="text-muted">{props.subtitle}</small>
           </div>
         </div>
+        {props.children} {/* Render children (buttons) */}
       </CardBody>
     </Card>
   );

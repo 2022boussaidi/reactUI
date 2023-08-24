@@ -94,10 +94,10 @@ export default function EditProject() {
                 onChange={(e) => onInputChange(e)}
               />
             </div>
-            <button type="submit" className="btn btn-outline-primary">
+            <button type="submit" className="btn btn-outline-primary" >
               Submit
             </button>
-            <Link className="btn btn-outline-danger mx-2" to="/projects">
+            <Link className="btn btn-outline-danger mx-2" to={"/overview"}>
               Cancel
             </Link>
           </form>

@@ -5,11 +5,11 @@ const SalesChart = () => {
   const chartoptions = {
     series: [
       {
-        name: "Iphone 13",
+        name: "Performane score",
         data: [0, 31, 40, 28, 51, 42, 109, 100],
       },
       {
-        name: "Oneplue 9",
+        name: "Progress percentage",
         data: [0, 11, 32, 45, 32, 34, 52, 41],
       },
     ],
@@ -45,10 +45,8 @@ const SalesChart = () => {
   return (
     <Card>
       <CardBody>
-        <CardTitle tag="h5">Sales Summary</CardTitle>
-        <CardSubtitle className="text-muted" tag="h6">
-          Yearly Sales Report
-        </CardSubtitle>
+        <CardTitle tag="h5">performance evaluation</CardTitle>
+        
         <Chart
           type="area"
           width="100%"

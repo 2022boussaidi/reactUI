@@ -6,7 +6,7 @@ export default function ViewTeam() {
   const [team, setTeam] = useState({
     name: "",
     project: "",
-    members: "",
+    members: [],
   });
 
   const { id } = useParams();
@@ -40,7 +40,10 @@ export default function ViewTeam() {
                 </li>
                 <li className="list-group-item">
                   <b>Members:</b>
-                  {team.members.name}
+                       <ul> {team.members.map((member) => (
+                          <li key={member.id}>{member.name}</li>
+                        ))}
+                      </ul>
                 </li>
               </ul>
             </div>

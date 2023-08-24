@@ -9,9 +9,12 @@ export default function AddUser() {
     name: "",
     username: "",
     email: "",
+    phone:"",
+    accessLevel:"",
+    teamId:"",
   });
 
-  const { name, username, email } = user;
+  const { name, username, email,phone,accessLevel ,teamId} = user;
 
   const onInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -66,6 +69,45 @@ export default function AddUser() {
                 placeholder="Enter your e-mail address"
                 name="email"
                 value={email}
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="phone" className="form-label">
+                Phone number
+              </label>
+              <input
+                type={"text"}
+                className="form-control"
+                placeholder="Enter your phone number"
+                name="phone"
+                value={phone}
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="accessLevel" className="form-label">
+                Access level
+              </label>
+              <input
+                type={"text"}
+                className="form-control"
+                placeholder="Enter your access level"
+                name="accessLevel"
+                value={accessLevel}
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="teamId" className="form-label">
+                Team ID
+              </label>
+              <input
+                type={"text"}
+                className="form-control"
+                placeholder="Enter your team ID"
+                name="teamId"
+                value={teamId}
                 onChange={(e) => onInputChange(e)}
               />
             </div>

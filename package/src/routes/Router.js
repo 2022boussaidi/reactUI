@@ -28,6 +28,11 @@ const Projects= lazy(() => import ("../components/dashboard/Projects.js"))
 const ViewProject = lazy(() => import ("../components/projects/ViewProject.js"))
 const EditProject = lazy(() => import ("../components/projects/EditProject.js"))
 const Overview = lazy(() => import("../views/Overview.js"));
+const Events = lazy(() => import("../components/dashboard/Events.js"))
+const AddEvent = lazy(() => import ("../components/events/AddEvent.js"))
+const EditEvent = lazy(() => import ("../components/events/EditEvent.js"))
+
+
 
 
 
@@ -63,6 +68,10 @@ const ThemeRoutes = [
       {path:"/viewproject/:id" , exact : true , element:<ViewProject />},
       {path:"/editproject/:id" , exact : true , element:<EditProject />},
       { path: "/overview", exact: true, element: <Overview /> },
+      { path: "/events", exact: true, element: <Events /> },
+      { path: "/addevent", exact: true, element: <AddEvent /> },
+      { path: "/editevent/:id", exact: true, element: <EditEvent /> },
+
 
 
 

@@ -1,6 +1,6 @@
 import { Col, Row } from "reactstrap";
 
-import TopCards from "../components/dashboard/TopCards";
+import TopCards from "./ui/TopCards";
 
 
 
