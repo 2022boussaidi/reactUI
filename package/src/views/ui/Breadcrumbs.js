@@ -3,8 +3,29 @@ import { Col, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import TopCards from "./TopCards";
 import SalesChart from "./SalesChart"
+import  { useEffect, useState } from "react";
+import axios from "axios";
 
 const Breadcrumbs = () => {
+  const [projects, setProjects] = useState([]);
+  const [teams, setTeams] = useState([]);
+
+  useEffect(() => {
+    loadTeams();
+  }, []);
+
+  const loadTeams = async () => {
+    const result = await axios.get("http://localhost:8080/teams");
+    setTeams(result.data);
+  };
+  useEffect(() => {
+    loadProjects();
+  }, []);
+
+  const loadProjects = async () => {
+    const result = await axios.get("http://localhost:8080/projects");
+    setProjects(result.data);
+  };
   return (
     <div>
       <Row>
@@ -14,7 +35,7 @@ const Breadcrumbs = () => {
               bg="bg-light-warning text-warning"
               title="New Project"
               subtitle="Total projects"
-              earning="XXXXX"
+              earning={projects.length}
               icon="bi bi-basket3"
             >
               <div className="d-flex align-items-center justify-content-end">
@@ -32,7 +53,7 @@ const Breadcrumbs = () => {
               bg="bg-light-info text-info"
               title="Sales"
               subtitle="Team size"
-              earning="XXXX"
+              earning={teams.length}
               icon="bi bi-bag"
             >
                <div className="d-flex align-items-center justify-content-end">

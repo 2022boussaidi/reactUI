@@ -31,6 +31,8 @@ const Overview = lazy(() => import("../views/Overview.js"));
 const Events = lazy(() => import("../components/dashboard/Events.js"))
 const AddEvent = lazy(() => import ("../components/events/AddEvent.js"))
 const EditEvent = lazy(() => import ("../components/events/EditEvent.js"))
+const Contact = lazy(() => import ("../components/dashboard/ContactCard.js"))
+
 
 
 
@@ -71,6 +73,7 @@ const ThemeRoutes = [
       { path: "/events", exact: true, element: <Events /> },
       { path: "/addevent", exact: true, element: <AddEvent /> },
       { path: "/editevent/:id", exact: true, element: <EditEvent /> },
+      { path: "/contact", exact: true, element: <Contact /> },
 
 
 

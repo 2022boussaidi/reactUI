@@ -80,7 +80,7 @@ const Sidebar = () => {
             </NavItem>
           ))}
           <Button
-            color="dark"
+            color="primary"
             tag="a"
             target="_blank"
             className="mt-3"
