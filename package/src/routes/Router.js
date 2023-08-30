@@ -41,6 +41,7 @@ const Contact = lazy(() => import ("../components/dashboard/ContactCard.js"))
 
 
 
+
 /*****Routes******/
 
 const ThemeRoutes = [
@@ -74,6 +75,7 @@ const ThemeRoutes = [
       { path: "/addevent", exact: true, element: <AddEvent /> },
       { path: "/editevent/:id", exact: true, element: <EditEvent /> },
       { path: "/contact", exact: true, element: <Contact /> },
+      
 
 
 

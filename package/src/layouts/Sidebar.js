@@ -20,9 +20,9 @@ const navigation = [
     icon: "bi bi-patch-check",
   },
   {
-    title: "Events",
+    title: "Calendar",
     href: "/events",
-    icon: "bi bi-patch-check",
+    icon: "bi bi-hdd-stack",
   },
   {
     title: "Report",
@@ -30,7 +30,7 @@ const navigation = [
     icon: "bi bi-bell",
   },
   {
-    title: "Tasks",
+    title: "Calendar",
     href: "/buttons",
     icon: "bi bi-hdd-stack",
   },

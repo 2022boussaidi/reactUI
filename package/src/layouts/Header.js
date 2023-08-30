@@ -15,6 +15,7 @@ import {
 } from "reactstrap";
 import { ReactComponent as LogoWhite } from "../assets/images/logos/xtremelogowhite.svg";
 import user1 from "../assets/images/users/user1.jpg";
+import "../assets/scss/NavStyle.css"
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
