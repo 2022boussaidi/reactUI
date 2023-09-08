@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
-import { Col, Row } from "reactstrap";
-import TopCards from "../../views/ui/TopCards";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
+  const [visibleProjects, setVisibleProjects] = useState([]);
+  const [showAll, setShowAll] = useState(false); // Indicates if all projects should be shown
 
   useEffect(() => {
     loadProjects();
@@ -22,17 +22,42 @@ export default function Projects() {
     loadProjects();
   };
 
+  // Set the number of initially visible projects
+  useEffect(() => {
+    if (projects.length > 0) {
+      setVisibleProjects(projects.slice(0, 2)); // Change 5 to the desired number
+    }
+  }, [projects]);
+
+  // Toggle between showing all projects or limited projects
+  const handleSeeMore = () => {
+    if (showAll) {
+      setVisibleProjects(projects.slice(0, 2)); // Change 5 to the desired number
+    } else {
+      setVisibleProjects(projects);
+    }
+    setShowAll(!showAll);
+  };
+
   return (
     <div className="container">
       <Card>
         <CardBody>
-          <CardTitle tag="h5">Projects Listing</CardTitle>
+          <div className="d-flex justify-content-between">
+            <CardTitle tag="h5">Projects Listing</CardTitle>
+            <button
+              className="btn btn-outline-primary"
+              onClick={handleSeeMore}
+            >
+              {showAll ? "Show Less" : "See More"}
+            </button>
+          </div>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
             Overview of the projects
           </CardSubtitle>
           <div className="py-4">
             {/* Display the total number of projects */}
-            <p>Total Projects: {projects.length}</p>
+           
 
             <table className="table border shadow">
               <thead>
@@ -45,7 +70,7 @@ export default function Projects() {
                 </tr>
               </thead>
               <tbody>
-                {projects.map((project, index) => (
+                {visibleProjects.map((project, index) => (
                   <tr key={index}>
                     <td>{project.name}</td>
                     <td>{project.description}</td>
@@ -81,8 +106,6 @@ export default function Projects() {
           </Link>
         </CardBody>
       </Card>
-      
     </div>
-    
   );
 }

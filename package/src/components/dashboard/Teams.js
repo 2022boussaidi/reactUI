@@ -5,6 +5,8 @@ import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
 
 export default function Teams() {
   const [teams, setTeams] = useState([]);
+  const [visibleTeams, setVisibleTeams] = useState([]);
+  const [showAll, setShowAll] = useState(false); // Indicates if all teams should be shown
 
   const { id } = useParams();
 
@@ -22,12 +24,36 @@ export default function Teams() {
     loadTeams();
   };
 
+  // Set the number of initially visible teams
+  useEffect(() => {
+    if (teams.length > 0) {
+      setVisibleTeams(teams.slice(0, 2)); // Change 5 to the desired number
+    }
+  }, [teams]);
+
+  // Toggle between showing all teams or limited teams
+  const handleSeeMore = () => {
+    if (showAll) {
+      setVisibleTeams(teams.slice(0, 2)); // Change 5 to the desired number
+    } else {
+      setVisibleTeams(teams);
+    }
+    setShowAll(!showAll);
+  };
+
   return (
     <div className="container">
       <Card>
         <CardBody>
-          <div className="d-flex justify-content-end"></div>
-          <CardTitle tag="h5">Teams Listing</CardTitle>
+        <div className="d-flex justify-content-between">
+            <CardTitle tag="h5">Teams Listing</CardTitle>
+            <button
+              className="btn btn-outline-primary"
+              onClick={handleSeeMore}
+            >
+              {showAll ? "Show Less" : "See More"}
+            </button>
+          </div>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
             Overview of the teams
           </CardSubtitle>
@@ -37,16 +63,14 @@ export default function Teams() {
                 <tr>
                   <th scope="col">Name</th>
                   <th scope="col">Project name</th>
-                  
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {teams.map((team, index) => (
-                  <tr key={index}>
+                {visibleTeams.map((team, index) => (
+                  <tr key={team.id}>
                     <td>{team.name}</td>
                     <td>{team.project.name}</td> {/* Assuming project field has a 'name' property */}
-                   
                     <td>
                       <Link
                         className="btn btn-primary mx-2"
@@ -71,6 +95,7 @@ export default function Teams() {
                 ))}
               </tbody>
             </table>
+           
           </div>
           <Link className="btn btn-outline-primary mx-2" to="/addteam">
             Add Team

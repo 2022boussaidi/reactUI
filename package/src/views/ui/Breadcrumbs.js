@@ -5,6 +5,8 @@ import TopCards from "./TopCards";
 import SalesChart from "./SalesChart"
 import  { useEffect, useState } from "react";
 import axios from "axios";
+import ProjectBar from "../../components/dashboard/ProjectBar";
+import ProjectPerformanceChart from "../../components/dashboard/ProjectPerformanceChart";
 
 const Breadcrumbs = () => {
   const [projects, setProjects] = useState([]);
