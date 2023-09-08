@@ -1,4 +1,4 @@
-import { Card, CardBody, CardSubtitle, CardTitle } from "reactstrap";
+import { Card, CardBody, CardTitle } from "reactstrap";
 import Chart from "react-apexcharts";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
