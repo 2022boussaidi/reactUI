@@ -74,12 +74,7 @@ const Header = () => {
         </Nav>
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="light">
-            <img
-              src={user1}
-              alt="profile"
-              className="rounded-circle"
-              width="30"
-            ></img>
+           
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem header>Info</DropdownItem>
