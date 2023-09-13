@@ -7,6 +7,9 @@ import  { useEffect, useState } from "react";
 import axios from "axios";
 import ProjectBar from "../../components/dashboard/ProjectBar";
 import ProjectPerformanceChart from "../../components/dashboard/ProjectPerformanceChart";
+import Grid from "./Grid";
+import Badges from "./Badges";
+import PieChart from "./PieChart";
 
 const Breadcrumbs = () => {
   const [projects, setProjects] = useState([]);
@@ -68,9 +71,13 @@ const Breadcrumbs = () => {
         </Col>
       </Row>
       <Row>
-     <Col sm="6" lg="6" xl="6" xxl="12">
+     <Col sm="6" lg="6" xl="6" xxl="6">
        <SalesChart/>
      </Col>
+     <Col sm="6" lg="6" xl="6" xxl="6">
+       <PieChart/>
+     </Col>
+    
    </Row>
     </div>
      

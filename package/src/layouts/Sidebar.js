@@ -9,18 +9,14 @@ const navigation = [
     icon: "bi bi-hdd-stack",
   },
   {
-    title: "Home",
+    title: "Team management",
     href: "/starter",
     icon: "bi bi-speedometer2",
   },
-  {
-    title: "Chat",
-    href: "/about",
-    icon: "bi bi-people",
-  },
+  
   
   {
-    title: "Project overview",
+    title: "Project management",
     href: "/overview",
     icon: "bi bi-patch-check",
   },
@@ -34,7 +30,11 @@ const navigation = [
     href: "/breadcrumbs",
     icon: "bi bi-bell",
   },
-  
+  {
+    title: "Chat",
+    href: "/about",
+    icon: "bi bi-people",
+  },
   
   {
     title: "About",

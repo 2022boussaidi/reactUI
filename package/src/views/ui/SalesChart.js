@@ -71,7 +71,7 @@ const SalesChart = () => {
   return (
     <Card>
       <CardBody>
-        <CardTitle tag="h5">performance evaluation</CardTitle>
+        <CardTitle tag="h5">Project evaluation</CardTitle>
         
         <Chart
           type="area"
