@@ -9,14 +9,14 @@ const navigation = [
     icon: "bi bi-hdd-stack",
   },
   {
-    title: "Team management",
+    title: "Teams",
     href: "/starter",
     icon: "bi bi-speedometer2",
   },
   
   
   {
-    title: "Project management",
+    title: "Projects",
     href: "/overview",
     icon: "bi bi-patch-check",
   },
@@ -35,7 +35,11 @@ const navigation = [
     href: "/about",
     icon: "bi bi-people",
   },
-  
+  {
+    title: "Prediction",
+    href: "/about",
+    icon: "bi bi-people",
+  },
   {
     title: "About",
     href: "/Rdd",
