@@ -37,7 +37,7 @@ const navigation = [
   },
   {
     title: "Prediction",
-    href: "/about",
+    href: "/predict",
     icon: "bi bi-people",
   },
   {
