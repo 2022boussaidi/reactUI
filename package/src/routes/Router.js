@@ -32,6 +32,8 @@ const Events = lazy(() => import("../components/dashboard/Events.js"))
 const AddEvent = lazy(() => import ("../components/events/AddEvent.js"))
 const EditEvent = lazy(() => import ("../components/events/EditEvent.js"))
 const Contact = lazy(() => import ("../components/dashboard/ContactCard.js"))
+const AddTask = lazy(() => import ("../components/tasks/AddTask.js"))
+const EditTask = lazy(() => import ("../components/tasks/EditTask.js"))
 
 
 
@@ -75,6 +77,8 @@ const ThemeRoutes = [
       { path: "/addevent", exact: true, element: <AddEvent /> },
       { path: "/editevent/:id", exact: true, element: <EditEvent /> },
       { path: "/contact", exact: true, element: <Contact /> },
+      { path: "/addtask", exact: true, element: <AddTask /> },
+      { path: "/edittask/:id", exact: true, element: <EditTask /> },
       
 
 

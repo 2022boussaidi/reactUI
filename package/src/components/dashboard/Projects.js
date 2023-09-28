@@ -163,12 +163,12 @@ const handleAddWithAdminVerification = () => {
             </table>
           </div>
           {isAdminAuthenticated ? (
-            <Link className="btn btn-outline-primary mx-2" to="/addteam">
-              Add Team
+            <Link className="btn btn-outline-primary mx-2" to="/addproject">
+              Add Project
             </Link>
           ) : (
             <button className="btn btn-outline-primary mx-2" onClick={() => handleAddWithAdminVerification("add")}>
-              Add Team
+              Add Project
             </button>
           )}
         </CardBody>
