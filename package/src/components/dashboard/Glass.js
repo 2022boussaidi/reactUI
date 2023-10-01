@@ -3,54 +3,64 @@ import { useState } from 'react'
 import axios from 'axios'
 
 function Glass() {
-  const [gender, setGender] = useState('')
-  const [bsc, setBsc] = useState('')
-  const [workex, setWorkex] = useState('')
-  const [etest_p, setEtest_p] = useState('')
-  const [msc, setMsc] = useState('')
-
+  const [ProjectStartDate, setProjectStartDate] = useState('')
+  const [ProjectEndDate, setProjectEndDate] = useState('')
+  const [PerformanceScore, setPerformanceScore] = useState('')
+  const [ProgressPercentage, setProgressPercentage] = useState('')
+  const [result, setResult] = useState('')
+  
   const handleSubmit = (e) => {
     e.preventDefault()
-    const params = { gender, bsc, workex, etest_p, msc }
+    const params = { ProjectStartDate, ProjectEndDate, PerformanceScore, ProgressPercentage }
 
-    axios
-      .post('http://localhost:8080/prediction', params)
+    // You can add a description here to explain the utility of this feature
+    const description = "This feature predicts XYZ based on the provided project data."
+
+    axios.post('http://127.0.0.1:5004/predict/XGBoost_2_AutoML_1_20230930_234233', params)
       .then((res) => {
-        const data = res.data.data
-        const parameters = JSON.stringify(params)
-        const msg = `Prediction: ${data.prediction}\nInterpretation: ${data.interpretation}\nParameters: ${parameters}`
-        alert(msg)
-        reset()
+        const data = res.data.Prediction;
+        const parameters = JSON.stringify(params);
+        const msg = `Prediction: ${data} \nParameters: ${parameters}`;
+        alert(msg);
+        setResult(msg);
+        reset();
       })
       .catch((error) => alert(`Error: ${error.message}`))
   }
 
   const reset = () => {
-    setGender('')
-    setBsc('')
-    setWorkex('')
-    setEtest_p('')
-    setMsc('')
+    setProjectStartDate('')
+    setProjectEndDate('')
+    setPerformanceScore('')
+    setProgressPercentage('')
   }
 
   return (
+    
     <div className="glass">
+     <h2>Project Data Prediction</h2>
+<p>Use this feature to predict the outcome of your project based on the provided data. Follow these steps to make a prediction:</p>
+<ol>
+  <li>Enter the project's start date in the "Project Start Date" field.</li>
+  <li>Enter the project's end date in the "Project End Date" field.</li>
+  <li>Provide the performance score in the "Performance Score" field (e.g., a numerical value).</li>
+  <li>Specify the progress percentage in the "Progress Percentage" field (e.g., a number between 0 and 100).</li>
+  <li>Click the "Submit" button to get the prediction result.</li>
+</ol>
+<p>The prediction result will be displayed below, showing the projected outcome based on the provided information. Please ensure that all fields are filled out correctly before submitting.</p>
+
+     
       <form onSubmit={(e) => handleSubmit(e)} className="glass__form">
-        <h4>Project Data</h4>
+       
         <div className="glass__form__group">
           <input
             id="gender"
             className="glass__form__input"
-            placeholder="Gender (1 = Male or 0 = Female)"
+            placeholder="Project start date"
             required
-            autoFocus
-            min="0"
-            max="1"
-            pattern="[0-9]{0,1}"
-            title="Gender must either be (1 = Male or 0 = Female)"
-            type="number"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
+            type="text"
+            value={ProjectStartDate}
+            onChange={(e) => setProjectStartDate(e.target.value)}
           />
         </div>
 
@@ -58,16 +68,12 @@ function Glass() {
           <input
             id="bsc"
             className="glass__form__input"
-            placeholder="BSc CGPA (1.00 - 5.00)"
+            placeholder="Project end date"
             required
-            min="0"
-            max="5"
-            type="number"
-            title="BSc CGPA must be in the range (1.00 - 5.00)"
-            pattern="[0-9]+([\.,][0-9]+)?"
-            step="0.01"
-            value={bsc}
-            onChange={(e) => setBsc(e.target.value)}
+            type="text"
+            title="Project end date"
+            value={ProjectEndDate}
+            onChange={(e) => setProjectEndDate(e.target.value)}
           />
         </div>
 
@@ -75,14 +81,11 @@ function Glass() {
           <input
             id="workex"
             className="glass__form__input"
-            placeholder="Work Experience (1 = True or 0 = False)"
+            placeholder="Performance score"
             required
-            min="0"
-            max="1"
-            type="number"
-            title="Work Experience must either be (1 = True or 0 = False)"
-            value={workex}
-            onChange={(e) => setWorkex(e.target.value)}
+            type="text"
+            value={PerformanceScore}
+            onChange={(e) => setPerformanceScore(e.target.value)}
           />
         </div>
 
@@ -90,33 +93,11 @@ function Glass() {
           <input
             id="etest_p"
             className="glass__form__input"
-            placeholder="E-Test Score (1.00 - 100.00)"
+            placeholder="Progress percentage"
             required
-            min="0"
-            max="100"
-            type="number"
-            title="E-Test score must be in the range (1.00 - 100)"
-            pattern="[0-9]+([\.,][0-9]+)?"
-            step="0.01"
-            value={etest_p}
-            onChange={(e) => setEtest_p(e.target.value)}
-          />
-        </div>
-
-        <div className="glass__form__group">
-          <input
-            id="msc"
-            className="glass__form__input"
-            placeholder="MSc CGPA (1.00 - 5.00)"
-            required
-            min="0"
-            max="5"
-            type="number"
-            title="MSc CGPA must be in the range (1.00 - 5.00)"
-            pattern="[0-9]+([\.,][0-9]+)?"
-            step="0.01"
-            value={msc}
-            onChange={(e) => setMsc(e.target.value)}
+            type="text"
+            value={ProgressPercentage}
+            onChange={(e) => setProgressPercentage(e.target.value)}
           />
         </div>
 
@@ -126,7 +107,13 @@ function Glass() {
           </button>
         </div>
       </form>
+     
+      <p>{result}</p>
+     
+      
+    
     </div>
+   
   )
 }
 
