@@ -118,7 +118,7 @@ export default function AddTask() {
             </div>
             <div className="mb-3">
             <label htmlFor="assignee" className="form-label">
-          Project
+          Member
         </label>
         <select
           className="form-select"

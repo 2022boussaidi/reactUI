@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
+import "./card.css"; // Import your CSS file
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
@@ -45,50 +46,43 @@ export default function Tasks() {
           <div className="py-4">
             {Object.values(tasksByProject).map((projectData, index) => (
               <div key={index} className="mb-4">
-                <h5 className="mb-3 text-primary">
-                  Project: {projectData.project.name}
+                <h5 className="mb-3 text-gray">
+                  Project name: {projectData.project.name}
                 </h5>
-                <table className="table border shadow">
-                  <thead>
-                    <tr>
-                      <th scope="col">Name</th>
-                      <th scope="col">Description</th>
-                      <th scope="col">Deadline</th>
-                      <th scope="col">Completed</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {projectData.tasks.map((task, taskIndex) => (
-                      <tr key={taskIndex}>
-                        <td>{task.name}</td>
-                        <td>{task.description}</td>
-                        <td>{task.deadline}</td>
-                        <td>{task.completed ? "Yes" : "No"}</td>
-                        <td>
-                          <Link
-                            className="btn btn-primary mx-2"
+                <div className="row">
+                  {projectData.tasks.map((task, taskIndex) => (
+                    <div key={taskIndex} className="col-md-4 mb-3">
+                      <Card className="gray-card small-card"> 
+                        <CardBody>
+                          <h6 className="card-title">{task.name}</h6>
+                          <p className="card-text">{task.description}</p>
+                          <Button
+                            color="primary"
+                            className="mr-2"
+                            tag={Link}
                             to={`/viewtask/${task.id}`}
                           >
                             View
-                          </Link>
-                          <Link
-                            className="btn btn-outline-primary mx-2"
+                          </Button>
+                          <Button
+                            color="outline-primary"
+                            className="mr-2"
+                            tag={Link}
                             to={`/edittask/${task.id}`}
                           >
                             Edit
-                          </Link>
-                          <button
-                            className="btn btn-danger mx-2"
+                          </Button>
+                          <Button
+                            color="danger"
                             onClick={() => deleteTask(task.id)}
                           >
                             Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                          </Button>
+                        </CardBody>
+                      </Card>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
