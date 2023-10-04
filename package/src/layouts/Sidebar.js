@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, Nav, NavItem } from "reactstrap";
 import Logo from "./Logo";
 import { Link, useLocation } from "react-router-dom";
@@ -7,45 +8,31 @@ const navigation = [
     title: "Dashboard",
     href: "/buttons",
     icon: "bi bi-hdd-stack",
+    subtitle: "Navigation",
   },
   {
-    title: "Teams",
+    title: "Create request",
     href: "/starter",
     icon: "bi bi-speedometer2",
+    subtitle: "Requests",
   },
-  
-  
   {
-    title: "Projects",
+    title: "Search",
     href: "/overview",
     icon: "bi bi-patch-check",
+    subtitle: "Offer",
   },
   {
-    title: "Calendar",
+    title: "Create an offer",
     href: "/events",
     icon: "bi bi-hdd-stack",
   },
   {
-    title: "Report",
+    title: "Steps",
     href: "/breadcrumbs",
     icon: "bi bi-bell",
+   
   },
-  {
-    title: "Chat",
-    href: "/about",
-    icon: "bi bi-people",
-  },
-  {
-    title: "Prediction",
-    href: "/predict",
-    icon: "bi bi-people",
-  },
-  {
-    title: "About",
-    href: "/Rdd",
-    icon: "bi bi-people",
-  },
-  
 ];
 
 const Sidebar = () => {
@@ -59,12 +46,12 @@ const Sidebar = () => {
       <div className="d-flex align-items-center">
         <Logo />
         <span className="ms-auto d-lg-none">
-        <Button
-          close
-          size="sm"
-          className="ms-auto d-lg-none"
-          onClick={() => showMobilemenu()}
-        ></Button>
+          <Button
+            close
+            size="sm"
+            className="ms-auto d-lg-none"
+            onClick={() => showMobilemenu()}
+          ></Button>
         </span>
       </div>
       <div className="pt-4 mt-2">
@@ -79,20 +66,16 @@ const Sidebar = () => {
                     : "nav-link text-secondary py-3"
                 }
               >
+                {navi.subtitle && ( // Display subtitle if it exists
+                  <div className="d-block text-muted subtitle mb-1">
+                    {navi.subtitle}
+                  </div>
+                )}
                 <i className={navi.icon}></i>
                 <span className="ms-3 d-inline-block">{navi.title}</span>
               </Link>
             </NavItem>
           ))}
-          <Button
-            color="primary"
-            tag="a"
-            target="_blank"
-            className="mt-3"
-            href="https://esprit.tn"
-          >
-            Know more
-          </Button>
         </Nav>
       </div>
     </div>
