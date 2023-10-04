@@ -22,7 +22,7 @@ const EditUser = lazy(() => import ("../components/users/EditUser.js"))
 const ViewUser = lazy(() => import ("../components/users/ViewUser.js"))
 const AddTeam = lazy(() => import ("../components/teams/AddTeam.js"))
 const ViewTeam= lazy(() => import ("../components/teams/ViewTeam.js"))
-const Rdd = lazy(() => import("../components/pages/Rdd.js"));
+const Login = lazy(() => import("../components/pages/Login.js"));
 const AddProject = lazy(() => import ("../components/projects/AddProject.js"))
 const Projects= lazy(() => import ("../components/dashboard/Projects.js"))
 const ViewProject = lazy(() => import ("../components/projects/ViewProject.js"))
@@ -69,7 +69,7 @@ const ThemeRoutes = [
       {path:"/viewuser/:id" , exact : true , element:<ViewUser />},
       {path:"/addteam" , exact : true , element:<AddTeam />},
       {path:"/viewteam/:id" , exact : true , element:<ViewTeam />},
-      { path: "/Rdd", exact: true, element: <Rdd /> },
+      { path: "/login", exact: true, element: <Login /> },
       { path: "/addproject", exact: true, element: <AddProject /> },
       { path: "/projects", exact: true, element: <Projects /> },
       {path:"/viewproject/:id" , exact : true , element:<ViewProject />},

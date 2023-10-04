@@ -29,7 +29,7 @@ const Header = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
   return (
-    <Navbar color="primary" dark expand="md">
+    <Navbar color="white" dark expand="md">
       <div className="d-flex align-items-center">
         <NavbarBrand href="/" className="d-lg-none">
           <LogoWhite />
@@ -59,33 +59,16 @@ const Header = () => {
 
       <Collapse navbar isOpen={isOpen}>
         <Nav className="me-auto" navbar  >
-          <NavItem color="dark"  >
+          <NavItem color="black"  >
             
-            <Link to="/Rdd" className="nav-link" >
-              About RDI
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/contact" className="nav-link">
-              Contact@esprit.tn
+            <Link to="/login" className="nav-link" >
+              Login
             </Link>
           </NavItem>
           
+          
         </Nav>
-        <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-          <DropdownToggle color="light">
-           
-          </DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem header>Info</DropdownItem>
-            <DropdownItem>My Account</DropdownItem>
-            <DropdownItem>tasks</DropdownItem>
-            
-           
-            <DropdownItem>notifications</DropdownItem>
-            <DropdownItem>Logout</DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+       
       </Collapse>
     </Navbar>
   );

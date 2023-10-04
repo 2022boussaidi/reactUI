@@ -2,6 +2,11 @@
 
 /* Override Bootstrap's default link color */
 .navbar-dark .navbar-nav .nav-link {
-    color: white !important; /* Set the color to white */
+    color: black !important; 
+    padding-left:1100px;
+    size: 22em;
+    font-style: oblique;
+    font-weight: 600;
+    font-size: larger;/* Set the color to white */
   }
   
