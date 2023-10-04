@@ -17,14 +17,23 @@ import SalesChart from "./SalesChart";
 const Buttons = () => {
   const [projects, setProjects] = useState([]);
   const [teams, setTeams] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  const loadTasks = async () => {
+    const result = await axios.get("http://localhost:8080/tasks");
+    setTeams(result.data);
+  };
 
   useEffect(() => {
     loadTeams();
   }, []);
 
   const loadTeams = async () => {
-    const result = await axios.get("http://localhost:8080/teams");
-    setTeams(result.data);
+    const result = await axios.get("http://localhost:8080/tasks");
+    setTasks(result.data);
   };
   useEffect(() => {
     loadProjects();
@@ -98,7 +107,7 @@ const Buttons = () => {
              bg="bg-light-warning text-warning"
              title="New Project"
              subtitle="Total tasks"
-             earning={projects.length}
+             earning={tasks.length}
              icon="bi bi-basket3"
            >
             

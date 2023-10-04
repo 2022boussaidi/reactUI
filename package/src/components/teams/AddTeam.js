@@ -1,17 +1,30 @@
 import axios from "axios";
 
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function AddTeam() {
   let navigate = useNavigate();
   const [team, setTeam] = useState({
     name: "",
+    project:";"
   });
 
+  const [projects, setProjects] = useState([]);
+  
 
+  useEffect(() => {
+    // Fetch the list of projects when the component mounts
+    axios.get("http://localhost:8080/projects")
+      .then((response) => {
+        setProjects(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching projects:", error);
+      });
+  }, []);
 
-  const { name} = team;
+  const { name,project} = team;
   const onInputChange = (e) => {
     setTeam({ ...team, [e.target.name]: e.target.value });
 };
@@ -40,7 +53,24 @@ export default function AddTeam() {
                 onChange={(e) => onInputChange(e)}
               />
             </div>
-          
+            <div className="mb-3">
+            <label htmlFor="project" className="form-label">
+          Project
+        </label>
+        <select
+          className="form-select"
+          name="project"
+          value={project}
+          onChange={(e) => onInputChange(e)}
+        >
+          <option value="">Select a project</option>
+          {projects.map((project) => (
+            <option key={project.id} value={project.id}>
+              {project.name}
+            </option>
+          ))}
+        </select>
+            </div>
          
             <button type="submit" className="btn btn-outline-primary">
               Submit

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function AddUser() {
@@ -11,10 +11,22 @@ export default function AddUser() {
     email: "",
     phone:"",
     accessLevel:"",
-    teamId:"",
+    team:"",
   });
+  const [teams, setTeams] = useState([]);
+  
 
-  const { name, username, email,phone,accessLevel ,teamId} = user;
+  useEffect(() => {
+    // Fetch the list of projects when the component mounts
+    axios.get("http://localhost:8080/teams")
+      .then((response) => {
+        setTeams(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching teams:", error);
+      });
+  }, []);
+  const { name, username, email,phone,accessLevel ,team} = user;
 
   const onInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -99,17 +111,22 @@ export default function AddUser() {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="teamId" className="form-label">
-                Team ID
-              </label>
-              <input
-                type={"text"}
-                className="form-control"
-                placeholder="Enter your team ID"
-                name="teamId"
-                value={teamId}
-                onChange={(e) => onInputChange(e)}
-              />
+            <label htmlFor="project" className="form-label">
+          Project
+        </label>
+        <select
+          className="form-select"
+          name="team"
+          value={team}
+          onChange={(e) => onInputChange(e)}
+        >
+          <option value="">Select a team</option>
+          {teams.map((team) => (
+            <option key={team.id} value={team.id}>
+              {team.name}
+            </option>
+          ))}
+        </select>
             </div>
             <button type="submit" className="btn btn-outline-primary">
               Submit

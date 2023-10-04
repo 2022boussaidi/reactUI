@@ -33,6 +33,8 @@ export default function Events() {
     start: selectedStartDate,
     end: selectedEndDate,
   });
+  const [visibleEvents, setVisibleEvents] = useState([]);
+  const [showAll, setShowAll] = useState(false); // Indicates if all users should be shown
 
   useEffect(() => {
     loadEvents();
@@ -82,6 +84,22 @@ export default function Events() {
       start: selectedStartDate,
       end: selectedEndDate,
     });
+  };
+   // Set the number of initially visible users
+   useEffect(() => {
+    if (events.length > 0) {
+      setVisibleEvents(events.slice(0, 2)); // Change 5 to the desired number
+    }
+  }, [events]);
+
+  // Toggle between showing all users or limited users
+  const handleSeeMore = () => {
+    if (showAll) {
+      setVisibleEvents(events.slice(0, 2)); // Change 5 to the desired number
+    } else {
+      setVisibleEvents(events);
+    }
+    setShowAll(!showAll);
   };
 
   return (
@@ -153,6 +171,12 @@ export default function Events() {
             </Card>
             <Card>
               <CardBody>
+              <div className="d-flex justify-content-between">
+            <CardTitle tag="h5">Members Listing</CardTitle>
+            <button className="btn btn-outline-primary" onClick={handleSeeMore}>
+              {showAll ? "Show Less" : "See More"}
+            </button>
+          </div>
                 <CardSubtitle className="mb-4 text-muted">
                   Overview of all events
                 </CardSubtitle>
@@ -166,7 +190,7 @@ export default function Events() {
                     </tr>
                   </thead>
                   <tbody>
-                    {events.map((event, index) => (
+                    {visibleEvents.map((event, index) => (
                       <tr key={event.id}>
                         <td>{event.title}</td>
                         <td>{event.start}</td>

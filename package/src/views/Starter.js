@@ -41,6 +41,7 @@ const Starter = () => {
 
   return (
     <div>
+       <h2>Team management</h2>
       {/***Top Cards***/}
       <Row>
        
@@ -89,20 +90,7 @@ const Starter = () => {
           <Teams/>
         </Col>
         </Row>
-        {/***<Row>
-        <Col sm="6" lg="8" xl="7" xxl="6">
-          <ProjectTables />
-        </Col>
-      </Row>
-     
-      {/***Table ***/}
-      {/***<Row>
        
-        <Col sm="6" lg="8" xl="7" xxl="6">
-          <Feeds />
-        </Col>
-      </Row>
-      {/***Blog Cards***/}
      
     </div>
   );
