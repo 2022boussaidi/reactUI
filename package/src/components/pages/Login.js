@@ -42,7 +42,7 @@ const Login = () => {
   };
 
   return (
-    <Row style={{ marginLeft: "600px", marginRight:"5px" }}>
+    <Row style={{ marginLeft: "500px", marginRight:"5px" }}>
     
       <Card>
         <CardBody>
