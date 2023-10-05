@@ -13,6 +13,7 @@ import {
   Col,
   Row,
 } from "reactstrap";
+import { Link } from "react-router-dom";
 // Import your custom icon images
 import facebookIcon from "../../assets/images/logos/logo_fcbk.png";
 import twitterIcon from "../../assets/images/logos/logo_twit.png";
@@ -47,7 +48,7 @@ const Login = () => {
         <CardBody>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>Login</div>
-            <div style={{ color: "#00cbff" }}>Don't have an account?</div>
+            <Link  to="/register" style={{ color: "#00cbff" }}>Don't have an account?</Link>
           </div>
 
           <Form onSubmit={handleLogin}>

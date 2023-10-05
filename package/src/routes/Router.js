@@ -23,6 +23,7 @@ const ViewUser = lazy(() => import ("../components/users/ViewUser.js"))
 const AddTeam = lazy(() => import ("../components/teams/AddTeam.js"))
 const ViewTeam= lazy(() => import ("../components/teams/ViewTeam.js"))
 const Login = lazy(() => import("../components/pages/Login.js"));
+const Register = lazy(() => import("../components/pages/Register.js"));
 const AddProject = lazy(() => import ("../components/projects/AddProject.js"))
 const Projects= lazy(() => import ("../components/dashboard/Projects.js"))
 const ViewProject = lazy(() => import ("../components/projects/ViewProject.js"))
@@ -70,6 +71,7 @@ const ThemeRoutes = [
       {path:"/addteam" , exact : true , element:<AddTeam />},
       {path:"/viewteam/:id" , exact : true , element:<ViewTeam />},
       { path: "/login", exact: true, element: <Login /> },
+      { path: "/register", exact: true, element: <Register /> },
       { path: "/addproject", exact: true, element: <AddProject /> },
       { path: "/projects", exact: true, element: <Projects /> },
       {path:"/viewproject/:id" , exact : true , element:<ViewProject />},
