@@ -36,9 +36,9 @@ export default function Tasks() {
   }, {});
 
   return (
-    <div className="container">
-      <Card>
-        <CardBody>
+    <div className="container" >
+      <Card  >
+        <CardBody >
           <CardTitle tag="h5">Tasks Listing</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
             Tasks by Project
@@ -49,11 +49,11 @@ export default function Tasks() {
                 <h5 className="mb-3 text-gray">
                   Project name: {projectData.project.name}
                 </h5>
-                <div className="row">
+                <div className="row" style={{marginRight:"450px"}}>
                   {projectData.tasks.map((task, taskIndex) => (
-                    <div key={taskIndex} className="col-md-4 mb-3">
-                      <Card className="gray-card small-card"> 
-                        <CardBody>
+                    <div key={taskIndex} className="col-md-4 mb-3" >
+                      <Card className="gray-card small-card"style={{marginBottom:"20px"}}> 
+                        <CardBody >
                           <h6 className="card-title">{task.name}</h6>
                           <p className="card-text">{task.description}</p>
                           <Button

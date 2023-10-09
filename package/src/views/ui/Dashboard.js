@@ -62,8 +62,12 @@ const Buttons = () => {
 
   return (
     <div>
-     
-       <h2>Dashboard</h2>
+      <div className="text-right mt-2" style={{display:"flex", justifyContent:"space-between"}}>
+   
+    <h2>Dashboard</h2>
+    <Button color="success" style={{marginBottom:"10px"}}>Generate Report </Button>
+  </div>
+      
        
        
       
@@ -118,9 +122,7 @@ const Buttons = () => {
        </Row>
        <Row>
        <Col sm="6" lg="8" xl="7" xxl="12">
-  <div className="text-right mt-2">
-    <Button color="success">Generate Report</Button>
-  </div>
+ 
 </Col>
         <Col sm="6" lg="8" xl="7" xxl="12">
           <SalesChart />
