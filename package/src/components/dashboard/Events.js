@@ -172,7 +172,7 @@ export default function Events() {
             <Card>
               <CardBody>
               <div className="d-flex justify-content-between">
-            <CardTitle tag="h5">Members Listing</CardTitle>
+            <CardTitle tag="h5">Events Listing</CardTitle>
             <button className="btn btn-outline-primary" onClick={handleSeeMore}>
               {showAll ? "Show Less" : "See More"}
             </button>
