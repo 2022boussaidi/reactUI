@@ -64,7 +64,7 @@ const Buttons = () => {
     <div>
       <div className="text-right mt-2" style={{display:"flex", justifyContent:"space-between"}}>
    
-    <h2>Dashboard</h2>
+    <h2>dashboard</h2>
     <Button color="success" style={{marginBottom:"10px"}}>Generate Report </Button>
   </div>
       
