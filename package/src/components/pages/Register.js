@@ -1,16 +1,8 @@
 import React, { useState } from "react";
-import {
-  Card,
-  CardBody,
-  CardTitle,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Button,
-  Col,
-  Row, // Import Row from reactstrap
-} from "reactstrap";
+import axios from "axios";
+import { Card, CardBody, CardTitle, Form, FormGroup, Label, Input, Button, Col, Row } from "reactstrap";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +13,7 @@ const Register = () => {
     address: "",
     phoneNum: "",
     country: "",
+    role: "farmer",
     website: "",
     yearOfCreation: "",
     millingCapacity: "",
@@ -31,7 +24,6 @@ const Register = () => {
     practice: "",
     Qualitycertificate: "",
     Idmill_manager: "",
-    role: "farmer", // Default role
   });
 
   const handleChange = (e) => {
@@ -41,23 +33,35 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can perform registration logic here based on the selected role
+
+    let endpoint = "";
+
     switch (formData.role) {
       case "farmer":
-        alert("Registered as a Farmer!");
+        endpoint = "http://localhost:8000/farmers/";
         break;
       case "consumer":
-        alert("Registered as a Consumer!");
+        endpoint = "http://localhost:8000/consumers/";
         break;
       case "mill_manager":
-        alert("Registered as a Mill Manager!");
+        endpoint = "http://localhost:8000/mill_managers/";
         break;
       case "administrator":
-        alert("Registered as an Administrator!");
+        endpoint = "http://localhost:8000/administrators/";
         break;
       default:
         break;
     }
+
+    axios
+      .post(endpoint, formData)
+      .then((response) => {
+        toast.success("Registration successful!");
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
@@ -70,25 +74,13 @@ const Register = () => {
               <Col md="6">
                 <FormGroup>
                   <Label for="firstName">First Name</Label>
-                  <Input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    required
-                  />
+                  <Input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
                 </FormGroup>
               </Col>
               <Col md="6">
                 <FormGroup>
                   <Label for="lastName">Last Name</Label>
-                  <Input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    required
-                  />
+                  <Input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
                 </FormGroup>
               </Col>
             </Row>
@@ -96,25 +88,13 @@ const Register = () => {
               <Col md="6">
                 <FormGroup>
                   <Label for="email">Email</Label>
-                  <Input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
+                  <Input type="email" name="email" value={formData.email} onChange={handleChange} required />
                 </FormGroup>
               </Col>
               <Col md="6">
                 <FormGroup>
                   <Label for="password">Password</Label>
-                  <Input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                  />
+                  <Input type="password" name="password" value={formData.password} onChange={handleChange} required />
                 </FormGroup>
               </Col>
             </Row>
@@ -122,25 +102,13 @@ const Register = () => {
               <Col md="6">
                 <FormGroup>
                   <Label for="address">Address</Label>
-                  <Input
-                    type="address"
-                    name="Address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    required
-                  />
+                  <Input type="text" name="address" value={formData.address} onChange={handleChange} required />
                 </FormGroup>
               </Col>
               <Col md="6">
                 <FormGroup>
                   <Label for="country">Country</Label>
-                  <Input
-                    type="country"
-                    name="Country"
-                    value={formData.country}
-                    onChange={handleChange}
-                    required
-                  />
+                  <Input type="text" name="country" value={formData.country} onChange={handleChange} required />
                 </FormGroup>
               </Col>
             </Row>
@@ -148,24 +116,13 @@ const Register = () => {
               <Col md="6">
                 <FormGroup>
                   <Label for="phoneNb">Phone Number</Label>
-                  <Input
-                    type="text"
-                    name="phoneNumber"
-                    value={formData.phoneNum}
-                    onChange={handleChange}
-                    required
-                  />
+                  <Input type="tel" name="phoneNb" value={formData.phoneNb} onChange={handleChange} required />
                 </FormGroup>
               </Col>
               <Col md="6">
                 <FormGroup>
                   <Label for="role">Role</Label>
-                  <Input
-                    type="select"
-                    name="role"
-                    value={formData.role}
-                    onChange={handleChange}
-                  >
+                  <Input type="select" name="role" value={formData.role} onChange={handleChange}>
                     <option value="farmer">Farmer</option>
                     <option value="consumer">Consumer</option>
                     <option value="mill_manager">Mill Manager</option>
@@ -180,51 +137,27 @@ const Register = () => {
                   <Col md="6">
                     <FormGroup>
                       <Label for="id">Mill manager Id</Label>
-                      <Input
-                        type="text"
-                        name="id"
-                        value={formData.Idmill_manager}
-                        onChange={handleChange}
-                        required
-                      />
+                      <Input type="text" name="id" value={formData.id} onChange={handleChange} required />
                     </FormGroup>
                   </Col>
                   <Col md="6">
                     <FormGroup>
                       <Label for="website">Website</Label>
-                      <Input
-                        type="text"
-                        name="website"
-                        value={formData.website}
-                        onChange={handleChange}
-                        required
-                      />
+                      <Input type="text" name="website" value={formData.website} onChange={handleChange} required />
                     </FormGroup>
                   </Col>
                 </Row>
                 <Row>
                   <Col md="6">
                     <FormGroup>
-                      <Label for="yearOfCreation">Year Of Creation</Label>
-                      <Input
-                        type="text"
-                        name="yearofCreation"
-                        value={formData.yearOfCreation}
-                        onChange={handleChange}
-                        required
-                      />
+                      <Label for="yearofCreation">Year Of Creation</Label>
+                      <Input type="text" name="yearofCreation" value={formData.yearofCreation} onChange={handleChange} required />
                     </FormGroup>
                   </Col>
                   <Col md="6">
                     <FormGroup>
                       <Label for="millingCapacity">MillingCapacity</Label>
-                      <Input
-                        type="text"
-                        name="millingCapacity"
-                        value={formData.millingCapacity}
-                        onChange={handleChange}
-                        required
-                      />
+                      <Input type="text" name="millingCapacity" value={formData.millingCapacity} onChange={handleChange} required />
                     </FormGroup>
                   </Col>
                 </Row>
@@ -232,24 +165,13 @@ const Register = () => {
                   <Col md="6">
                     <FormGroup>
                       <Label for="nbofchains">NumberOfChains</Label>
-                      <Input
-                        type={"number"}
-                        name="NumberOfChains"
-                        value={formData.NumberOfChains}
-                        onChange={handleChange}
-                        required
-                      />
+                      <Input type={"number"} name="NumberOfChains" value={formData.NumberOfChains} onChange={handleChange} required />
                     </FormGroup>
                   </Col>
                   <Col md="6">
                     <FormGroup>
                       <Label for="hasLab">Has Lab</Label>
-                      <Input
-                        type="select"
-                        name="hasLab"
-                        value={formData.has_lab}
-                        onChange={handleChange}
-                      >
+                      <Input type="select" name="hasLab" value={formData.has_lab} onChange={handleChange}>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                       </Input>
@@ -260,12 +182,7 @@ const Register = () => {
                   <Col md="6">
                     <FormGroup>
                       <Label for="hasPackagingUnit">Has packaging unit?</Label>
-                      <Input
-                        type="select"
-                        name="hasPackagingUnit"
-                        value={formData.has_packaging_unit}
-                        onChange={handleChange}
-                      >
+                      <Input type="select" name="hasPackagingUnit" value={formData.has_packaging_unit} onChange={handleChange}>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                       </Input>
@@ -274,13 +191,7 @@ const Register = () => {
                   <Col md="6">
                     <FormGroup>
                       <Label for="storageCapacity">Storage Capacity</Label>
-                      <Input
-                        type="double"
-                        name="storageCapacity"
-                        value={formData.storageCapacity}
-                        onChange={handleChange}
-                        required
-                      />
+                      <Input type="double" name="storageCapacity" value={formData.storageCapacity} onChange={handleChange} required />
                     </FormGroup>
                   </Col>
                 </Row>
@@ -288,12 +199,7 @@ const Register = () => {
                   <Col md="6">
                     <FormGroup>
                       <Label for="practice">Practice</Label>
-                      <Input
-                        type="select"
-                        name="practice"
-                        value={formData.practice}
-                        onChange={handleChange}
-                      >
+                      <Input type="select" name="practice" value={formData.practice} onChange={handleChange}>
                         <option value="conventional">Conventional</option>
                         <option value="organic">Organic</option>
                       </Input>
@@ -301,14 +207,8 @@ const Register = () => {
                   </Col>
                   <Col md="6">
                     <FormGroup>
-                      <Label for="quantity certification">Quantity certificate</Label>
-                      <Input
-                        type="text"
-                        name="=quantity certification"
-                        value={formData.Qualitycertificate}
-                        onChange={handleChange}
-                        required
-                      />
+                      <Label for="quantity_certification">Quantity certificate</Label>
+                      <Input type="text" name="quantity_certification" value={formData.quantity_certification} onChange={handleChange} required />
                     </FormGroup>
                   </Col>
                 </Row>
@@ -320,6 +220,7 @@ const Register = () => {
           </Form>
         </CardBody>
       </Card>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </Col>
   );
 };
