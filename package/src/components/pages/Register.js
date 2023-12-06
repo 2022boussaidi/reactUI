@@ -68,7 +68,7 @@ const Register = () => {
     <Col xs="12" md="15">
       <Card>
         <CardBody>
-          <CardTitle tag="h2">Registration Form</CardTitle>
+          <CardTitle tag="h2">General information </CardTitle>
           <Form onSubmit={handleSubmit}>
             <Row>
               <Col md="6">

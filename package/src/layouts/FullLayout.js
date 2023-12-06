@@ -4,12 +4,13 @@ import Header from "./Header";
 import { Container } from "reactstrap";
 
 const FullLayout = () => {
+  const userRole = 'user'; // or 'user'
   return (
     <main>
       <div className="pageWrapper d-lg-flex">
         {/********Sidebar**********/}
         <aside className="sidebarArea shadow" id="sidebarArea">
-          <Sidebar />
+        <Sidebar userRole={userRole} />
         </aside>
         {/********Content Area**********/}
 

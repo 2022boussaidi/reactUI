@@ -3,43 +3,56 @@ import { Button, Nav, NavItem } from "reactstrap";
 import Logo from "./Logo";
 import { Link, useLocation } from "react-router-dom";
 
-const navigation = [
-  {
-    title: "Dashboard",
-    href: "/buttons",
-    icon: "bi bi-hdd-stack",
-    subtitle: "Navigation",
-  },
-  {
-    title: "Create request",
-    href: "/starter",
-    icon: "bi bi-speedometer2",
-    subtitle: "Requests",
-  },
-  {
-    title: "Search",
-    href: "/overview",
-    icon: "bi bi-patch-check",
-    subtitle: "Offer",
-  },
-  {
-    title: "Create an offer",
-    href: "/events",
-    icon: "bi bi-hdd-stack",
-  },
-  {
-    title: "Steps",
-    href: "/breadcrumbs",
-    icon: "bi bi-bell",
-   
-  },
-];
+const navigation = {
+  admin: [
+    {
+      title: "Dashboard",
+      href: "/buttons",
+      icon: "bi bi-hdd-stack",
+      subtitle: "Navigation",
+    },
+    {
+      title: "Create request",
+      href: "/starter",
+      icon: "bi bi-speedometer2",
+      subtitle: "Requests",
+    },
+    {
+      title: "Search",
+      href: "/overview",
+      icon: "bi bi-patch-check",
+      subtitle: "Offer",
+    },
+    {
+      title: "Create an offer",
+      href: "/events",
+      icon: "bi bi-hdd-stack",
+    },
+    {
+      title: "Steps",
+      href: "/breadcrumbs",
+      icon: "bi bi-bell",
+    },
+  ],
+  user: [
+    // Define user-specific navigation items here
+    {
+      title: "User Dashboard",
+      href: "/user-dashboard",
+      icon: "bi bi-person",
+      subtitle: "Navigation",
+    },
+    // Add more user-specific items as needed
+  ],
+};
 
-const Sidebar = () => {
+const Sidebar = ({ userRole }) => {
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
   let location = useLocation();
+
+  const navItems = userRole === "admin" ? navigation.admin : navigation.user;
 
   return (
     <div className="p-3">
@@ -56,7 +69,7 @@ const Sidebar = () => {
       </div>
       <div className="pt-4 mt-2">
         <Nav vertical className="sidebarNav">
-          {navigation.map((navi, index) => (
+          {navItems.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
               <Link
                 to={navi.href}
