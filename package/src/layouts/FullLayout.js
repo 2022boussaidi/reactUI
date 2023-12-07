@@ -4,7 +4,7 @@ import Header from "./Header";
 import { Container } from "reactstrap";
 
 const FullLayout = () => {
-  const userRole = 'user'; // or 'user'
+  const userRole = 'farmer'; // or 'user'
   return (
     <main>
       <div className="pageWrapper d-lg-flex">

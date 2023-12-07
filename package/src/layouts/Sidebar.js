@@ -7,42 +7,87 @@ const navigation = {
   admin: [
     {
       title: "Dashboard",
-      href: "/buttons",
+      href: "/admin/dashboard",
       icon: "bi bi-hdd-stack",
       subtitle: "Navigation",
     },
     {
       title: "Create request",
-      href: "/starter",
+      href: "/admin/create-request",
       icon: "bi bi-speedometer2",
       subtitle: "Requests",
     },
     {
       title: "Search",
-      href: "/overview",
+      href: "/admin/search",
       icon: "bi bi-patch-check",
       subtitle: "Offer",
     },
     {
       title: "Create an offer",
-      href: "/events",
+      href: "/admin/create-offer",
       icon: "bi bi-hdd-stack",
     },
     {
       title: "Steps",
-      href: "/breadcrumbs",
+      href: "/admin/steps",
       icon: "bi bi-bell",
     },
   ],
-  user: [
-    // Define user-specific navigation items here
+  farmer: [
     {
-      title: "User Dashboard",
-      href: "/user-dashboard",
+      title: "My goods",
+      href: "/farmer/dashboard",
+      icon: "bi bi-person",
+     
+    },
+    {
+      title: "Dashboard",
+      href: "/farmer/dashboard",
+      icon: "bi bi-person",
+   
+    },
+    {
+      title: "Storage Area",
+      href: "/farmer/dashboard",
+      icon: "bi bi-pencil-square",
+    
+    },{
+      title: "Create Request",
+      href: "/farmer/dashboard",
+      icon: "bi bi-pencil-square",
+
+    },{
+      title: "Create an Offer",
+      href: "/farmer/dashboard",
+      icon: "bi bi-pencil-square",
+   
+    },
+    {
+      title: "Search",
+      href: "/farmer/dashboard",
+      icon: "bi bi-search",
+      
+    },
+    // Add more farmer-specific items as needed
+  ],
+  mileManager: [
+    {
+      title: "Mile Manager Dashboard",
+      href: "/mile-manager/dashboard",
       icon: "bi bi-person",
       subtitle: "Navigation",
     },
-    // Add more user-specific items as needed
+    // Add more mileManager-specific items as needed
+  ],
+  consumer: [
+    {
+      title: "Consumer Dashboard",
+      href: "/consumer/dashboard",
+      icon: "bi bi-person",
+      subtitle: "Navigation",
+    },
+    // Add more consumer-specific items as needed
   ],
 };
 
@@ -52,7 +97,7 @@ const Sidebar = ({ userRole }) => {
   };
   let location = useLocation();
 
-  const navItems = userRole === "admin" ? navigation.admin : navigation.user;
+  const navItems = navigation[userRole] || [];
 
   return (
     <div className="p-3">
@@ -79,7 +124,7 @@ const Sidebar = ({ userRole }) => {
                     : "nav-link text-secondary py-3"
                 }
               >
-                {navi.subtitle && ( // Display subtitle if it exists
+                {navi.subtitle && (
                   <div className="d-block text-muted subtitle mb-1">
                     {navi.subtitle}
                   </div>
