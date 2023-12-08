@@ -37,7 +37,7 @@ const navigation = {
   farmer: [
     {
       title: "My goods",
-      href: "/farmer/dashboard",
+      href: "/farmer/goods",
       icon: "bi bi-person",
      
     },

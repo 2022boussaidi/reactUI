@@ -165,7 +165,7 @@ export default function Home() {
           </div>
           {isAdminAuthenticated ? (
             <Link className="btn btn-outline-primary mx-2" to="/adduser">
-              Add Member
+              Add Member 
             </Link>
           ) : (
             <button className="btn btn-outline-primary mx-2" onClick={() => handleAddWithAdminVerification("add")}>
