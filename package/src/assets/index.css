@@ -124,3 +124,17 @@ ul {
 .message.self{
   justify-content: end;
 }
+.my-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.my-table th, .my-table td {
+  border: 1px solid #ddd; /* Add border between cells */
+  padding: 8px;
+  text-align: left;
+}
+
+.my-table th {
+  background-color: #f2f2f2; /* Background color for header */
+}

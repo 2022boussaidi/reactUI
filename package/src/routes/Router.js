@@ -35,11 +35,16 @@ const EditEvent = lazy(() => import ("../components/events/EditEvent.js"))
 const Contact = lazy(() => import ("../components/dashboard/ContactCard.js"))
 const AddTask = lazy(() => import ("../components/tasks/AddTask.js"))
 const EditTask = lazy(() => import ("../components/tasks/EditTask.js"))
+
 const Goods= lazy(() => import ("../components/dashboard/Mygoods.js"))
 const Grove= lazy(() => import ("../components/create/Grove.js"))
 const Harvest= lazy(() => import ("../components/create/Harvest.js"))
 
 
+
+
+const Prediction= lazy(() => import ("../components/dashboard/Glass.js"))
+const Request= lazy(() => import ("../components/dashboard/Request.js"))
 
 
 
@@ -88,11 +93,16 @@ const ThemeRoutes = [
       { path: "/contact", exact: true, element: <Contact /> },
       { path: "/addtask", exact: true, element: <AddTask /> },
       { path: "/edittask/:id", exact: true, element: <EditTask /> },
+
       { path: "/farmer/goods", exact: true, element: <Goods/> },
       { path: "/grove", exact: true, element: <Grove/> },
       { path: "/harvest", exact: true, element: <Harvest/> },
 
       
+
+      { path: "/predict", exact: true, element: <Prediction/> },
+      { path: "/create_request", exact: true, element: <Request/> },
+
 
 
 
