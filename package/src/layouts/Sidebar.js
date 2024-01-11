@@ -7,7 +7,7 @@ const navigation = {
   admin: [
     {
       title: "Dashboard",
-      href: "/admin/dashboard",
+      href: "/register",
       icon: "bi bi-hdd-stack",
       subtitle: "Navigation",
     },
@@ -43,13 +43,13 @@ const navigation = {
     },
     {
       title: "Dashboard",
-      href: "/farmer/dashboard",
+      href: "/grid",
       icon: "bi bi-person",
    
     },
     {
       title: "Storage Area",
-      href: "/farmer/dashboard",
+      href: "/grove",
       icon: "bi bi-pencil-square",
     
     },{
@@ -59,13 +59,13 @@ const navigation = {
 
     },{
       title: "Create an Offer",
-      href: "/farmer/dashboard",
+      href: "/offer",
       icon: "bi bi-pencil-square",
    
     },
     {
       title: "Search",
-      href: "/farmer/dashboard",
+      href: "/search",
       icon: "bi bi-search",
       
     },

@@ -45,6 +45,8 @@ const Harvest= lazy(() => import ("../components/create/Harvest.js"))
 
 const Prediction= lazy(() => import ("../components/dashboard/Glass.js"))
 const Request= lazy(() => import ("../components/dashboard/Request.js"))
+const Offer= lazy(() => import ("../components/dashboard/Offer.js"))
+const Search = lazy(() => import ("../components/dashboard/Search.js"))
 
 
 
@@ -102,6 +104,8 @@ const ThemeRoutes = [
 
       { path: "/predict", exact: true, element: <Prediction/> },
       { path: "/create_request", exact: true, element: <Request/> },
+      { path: "/offer", exact: true, element: <Offer/> },
+      { path: "/search", exact: true, element: <Search/> },
 
 
 

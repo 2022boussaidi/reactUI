@@ -1,54 +1,64 @@
 import React, { useState } from "react";
+import axios from "axios";
 import {
   Card,
   CardBody,
-  CardTitle,
-  CardSubtitle,
   Form,
   FormGroup,
   Label,
   Input,
   Button,
-  Table,
-  Col,
   Row,
+  Alert,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-// Import your custom icon images
 import facebookIcon from "../../assets/images/logos/logo_fcbk.png";
 import twitterIcon from "../../assets/images/logos/logo_twit.png";
 import googleIcon from "../../assets/images/logos/google.png";
+
 const Login = () => {
-  // State to store user input
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // State to track if the input is focused
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
-
-  // State to track "Keep me signed in" checkbox
   const [keepMeSignedIn, setKeepMeSignedIn] = useState(false);
 
-  // Handle form submission
-  const handleLogin = (e) => {
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [loginError, setLoginError] = useState(null);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Add your authentication logic here
+    try {
+      const response = await axios.post("http://localhost:8000/login/", {
+        email,
+        password,
+      });
+
+      // Handle the response here (e.g., store user information, redirect, etc.)
+      setLoginSuccess(true);
+      setLoginError(null);
+      console.log("Login successful:", response.data);
+    } catch (error) {
+      // Handle error (e.g., display error message)
+      setLoginSuccess(false);
+      setLoginError("Invalid email or password. Please try again.");
+      console.error("Login failed:", error.response.data);
+    }
   };
 
-  // Handle "Keep me signed in" checkbox change
   const handleKeepMeSignedInChange = () => {
     setKeepMeSignedIn(!keepMeSignedIn);
   };
 
   return (
-    <Row style={{ marginLeft: "500px", marginRight:"5px" }}>
-    
+    <Row style={{ marginLeft: "500px", marginRight: "5px" }}>
       <Card>
         <CardBody>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>Login</div>
-            <Link  to="/register" style={{ color: "#00cbff" }}>Don't have an account?</Link>
+            <Link to="/register" style={{ color: "#00cbff" }}>
+              Don't have an account?
+            </Link>
           </div>
 
           <Form onSubmit={handleLogin}>
@@ -65,7 +75,7 @@ const Login = () => {
                 style={{
                   borderColor: emailFocused ? "#00cbff" : "",
                   boxShadow: emailFocused ? "none" : "",
-                }} // Apply #00cbff border when focused
+                }}
               />
             </FormGroup>
             <FormGroup>
@@ -81,46 +91,57 @@ const Login = () => {
                 style={{
                   borderColor: passwordFocused ? "#00cbff" : "",
                   boxShadow: passwordFocused ? "none" : "",
-                }} // Apply #00cbff border when focused
+                }}
               />
             </FormGroup>
-            <div style={{ display: "flex", justifyContent: "space-between", }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <FormGroup check>
                 <Label check>
                   <Input
                     type="checkbox"
                     checked={keepMeSignedIn}
                     onChange={handleKeepMeSignedInChange}
-                    
                   />{" "}
-                  Keep me sign in
+                  Keep me signed in
                 </Label>
               </FormGroup>
-
               <a href="#" style={{ color: "black" }}>
                 Forgot password?
               </a>
             </div>
             <div style={{ marginTop: "20px" }}>
-            <Button  style={{ width: "600px" ,marginTop: "20px"}} color="blue" type="submit">
-              Login
-            </Button>
+              <Button style={{ width: "600px", marginTop: "20px" }} color="blue" type="submit">
+                Login
+              </Button>
             </div>
           </Form>
-          <Row style={{ marginLeft: "260px" ,marginTop:"20px" }} > Login with  </Row>
-          <div style={{ marginTop: "20px" , marginBottom:"20px" }}>
-            <Button style={{ borderColor: "gray" ,marginLeft:"5px"}} color="white" className="mr-2">
-            <img src={facebookIcon} alt="Facebook"style={{ width: "30px", height: "20px", marginRight: "8px" }} />  Facebook
+
+          {loginSuccess && (
+            <Alert color="success" style={{ marginTop: "20px" }}>
+              Login successful! Redirecting...
+            </Alert>
+          )}
+
+          {loginError && (
+            <Alert color="danger" style={{ marginTop: "20px" }}>
+              {loginError}
+            </Alert>
+          )}
+
+          <Row style={{ marginLeft: "260px", marginTop: "20px" }}> Login with </Row>
+          <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+            <Button style={{ borderColor: "gray", marginLeft: "5px" }} color="white" className="mr-2">
+              <img src={facebookIcon} alt="Facebook" style={{ width: "30px", height: "20px", marginRight: "8px" }} /> Facebook
             </Button>
-            <Button style={{ borderColor: "gray",marginLeft:"100px" }}color="white" className="mr-2">
-            <img src={twitterIcon} alt="Twitter" style={{ width: "30px", height: "20px", marginRight: "8px" }} />    Twitter
+            <Button style={{ borderColor: "gray", marginLeft: "100px" }} color="white" className="mr-2">
+              <img src={twitterIcon} alt="Twitter" style={{ width: "30px", height: "20px", marginRight: "8px" }} /> Twitter
             </Button>
             <Button style={{ borderColor: "gray", marginLeft: "100px" }} color="white">
               <img src={googleIcon} alt="Google" style={{ width: "30px", height: "20px", marginRight: "8px" }} /> Google
-            </Button>          </div>
+            </Button>
+          </div>
         </CardBody>
       </Card>
-   
     </Row>
   );
 };

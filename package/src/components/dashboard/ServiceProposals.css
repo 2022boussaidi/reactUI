@@ -1,0 +1,75 @@
+/* ServiceProposals.css */
+.service-proposals {
+  font-family: 'Arial', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filters {
+  width: 20%;
+  margin-right: 2%;
+}
+
+.filters h3, .proposals h2 {
+  color: #333;
+  font-size: 1.2em;
+  margin-bottom: 1em;
+}
+
+.proposals {
+  width: 78%;
+}
+
+.proposals .proposal-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1em;
+}
+
+.proposal-item {
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.proposal-item img {
+  width: 100%;
+  display: block;
+}
+
+.proposal-info {
+  padding: 1em;
+}
+
+.proposal-info h3 {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+.proposal-info p {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 0.5em;
+}
+
+.proposal-info .price {
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.proposal-info .rating {
+  color: #ffd700; /* Star rating color */
+}
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+/* Adjust the padding and margin as necessary to match the provided design exactly */
