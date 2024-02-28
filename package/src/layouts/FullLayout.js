@@ -35,7 +35,7 @@ const FullLayout = () => {
       // Clear any previous error messages
       setLoginError(null);
       // Redirect to dashboard upon successful login
-      navigate('/starter'); // Use navigate function to redirect
+      navigate('/sites'); // Use navigate function to redirect
     } catch (error) {
       console.error('Login failed:', error.response.data);
       // Set login success state to false

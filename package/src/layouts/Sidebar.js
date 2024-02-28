@@ -11,14 +11,14 @@ const navigation = [
   },
   {
     title: "Sites",
-    href: "/starter",
+    href: "/sites",
     icon: "bi bi-speedometer2",
   },
   
   
   {
     title: "Robots",
-    href: "/overview",
+    href: "/robots",
     icon: "bi bi-patch-check",
   },
   {
@@ -90,7 +90,7 @@ const Sidebar = () => {
             tag="a"
             target="_blank"
             className="mt-3"
-            href="https://esprit.tn"
+            href="https://www.ip-label.fr"
           >
             Know more
           </Button>

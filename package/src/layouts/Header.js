@@ -1,25 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
   Collapse,
   Nav,
   NavItem,
   NavbarBrand,
-  UncontrolledDropdown,
+  Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Dropdown,
   Button,
 } from "reactstrap";
 import { ReactComponent as LogoWhite } from "../assets/images/logos/xtremelogowhite.svg";
-import user1 from "../assets/images/users/user1.jpg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faInfoCircle, faQuestionCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import "../assets/scss/NavStyle.css"
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
+  const navigate = useNavigate(); // Access to the navigate function
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   const Handletoggle = () => {
@@ -28,6 +29,14 @@ const Header = () => {
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
+
+  const handleLogout = () => {
+    // Perform logout actions here, such as clearing token from local storage
+    localStorage.removeItem('token');
+    // Redirect to login page after logout
+    navigate('/');
+  };
+
   return (
     <Navbar color="primary" dark expand="md">
       <div className="d-flex align-items-center">
@@ -58,32 +67,32 @@ const Header = () => {
       </div>
 
       <Collapse navbar isOpen={isOpen}>
-        <Nav className="me-auto" navbar  >
-          <NavItem color="dark"  >
-            
-            <Link to="/Rdd" className="nav-link" >
+        <Nav className="me-auto" navbar>
+          <NavItem color="dark">
+            <Link to="https://www.ip-label.fr" className="nav-link">
+              <FontAwesomeIcon icon={faInfoCircle} /> {/* Icon for "About Ekara" */}
               About Ekara
             </Link>
           </NavItem>
           <NavItem>
             <Link to="/contact" className="nav-link">
-              Contact
+              <FontAwesomeIcon icon={faQuestionCircle} /> {/* Icon for "Contact" */}
+              Help
             </Link>
           </NavItem>
-          
         </Nav>
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="light">
-           
+            <FontAwesomeIcon icon={faUser} />
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem header>Info</DropdownItem>
             <DropdownItem>My Account</DropdownItem>
-            <DropdownItem>tasks</DropdownItem>
+            <DropdownItem>Tasks</DropdownItem>
+            <DropdownItem>Notifications</DropdownItem>
+            <DropdownItem onClick={handleLogout}>Logout <FontAwesomeIcon icon={faSignOutAlt} /></DropdownItem>
+            <DropdownItem divider />
             
-           
-            <DropdownItem>notifications</DropdownItem>
-            <DropdownItem>Logout</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </Collapse>
