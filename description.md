@@ -1,1 +1,1 @@
-a user-friendly template for team and project management 
+a user-friendly template for ip label
