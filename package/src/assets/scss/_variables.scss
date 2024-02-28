@@ -6,10 +6,10 @@ $font-family-sans-serif: "Nunito", sans-serif;
 /*******************/
 // Theme Colors
 /********************/
-$primary: rgb(181, 8, 8);
-$info: #3699ff;
-$danger: #f64e60;
-$success: #0bb7af;
+$primary: rgb(102, 155, 152);
+$info: #10ad92;
+$danger: #8d3737;
+$success: #161817;
 $warning: #ee9d01;
 $dark: #f5f6f8;
 $light: #eaf2fb;
@@ -32,6 +32,10 @@ $theme-colors: (
   "light-warning": #f8ecdc,
   "light-danger": #f8dddd,
   "gray":$gray-900,
+ 
+
+  
+  
 );
 // scss-docs-start gray-color-variables
 $white: #fff !default;
@@ -82,5 +86,5 @@ $btn-focus-width: 0px;
 /*******************/
 // Theme sidebar width
 /********************/
-$sidebarWidth: 260px;
+$sidebarWidth: 175px;
 $sidebarColor: $white;

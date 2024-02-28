@@ -10,19 +10,19 @@ const navigation = [
   
   },
   {
-    title: "Teams",
+    title: "Sites",
     href: "/starter",
     icon: "bi bi-speedometer2",
   },
   
   
   {
-    title: "Projects",
+    title: "Robots",
     href: "/overview",
     icon: "bi bi-patch-check",
   },
   {
-    title: "Calendar",
+    title: "Queues",
     href: "/events",
     icon: "bi bi-hdd-stack",
   },
@@ -32,13 +32,13 @@ const navigation = [
     icon: "bi bi-bell",
   },
   {
-    title: "Chat",
+    title: "Alerts",
     href: "/about",
-    icon: "bi bi-people",
+    icon: "bi bi-bell",
   },
   {
-    title: "Prediction",
-    href: "/predict",
+    title: "History",
+    href: "/Rdd",
     icon: "bi bi-people",
   },
   {

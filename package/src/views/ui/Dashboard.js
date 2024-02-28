@@ -15,6 +15,8 @@ import {
 import SalesChart from "./SalesChart";
 
 const Buttons = () => {
+
+
   const [projects, setProjects] = useState([]);
   const [teams, setTeams] = useState([]);
   const [tasks, setTasks] = useState([]);
@@ -65,8 +67,8 @@ const Buttons = () => {
       <div className="text-right mt-2" style={{display:"flex", justifyContent:"space-between"}}>
    
     <h2>dashboard</h2>
-    <Button color="success" style={{marginBottom:"10px"}}>Generate Report </Button>
-  </div>
+  
+ </div>
       
        
        
@@ -83,7 +85,7 @@ const Buttons = () => {
            <TopCards
              bg="bg-light-warning text-warning"
              title="New Project"
-             subtitle="Total projects"
+             subtitle="Total sites"
              earning={projects.length}
              icon="bi bi-basket3"
            >
@@ -97,7 +99,7 @@ const Buttons = () => {
           <TopCards
             bg="bg-light-info text-info"
             title="Sales"
-            subtitle="Team size"
+            subtitle=" Total robots"
             earning={teams.length}
             icon="bi bi-bag"
           >
@@ -110,7 +112,7 @@ const Buttons = () => {
            <TopCards
              bg="bg-light-warning text-warning"
              title="New Project"
-             subtitle="Total tasks"
+             subtitle="Total queues"
              earning={tasks.length}
              icon="bi bi-basket3"
            >

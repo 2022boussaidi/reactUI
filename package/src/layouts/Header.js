@@ -62,12 +62,12 @@ const Header = () => {
           <NavItem color="dark"  >
             
             <Link to="/Rdd" className="nav-link" >
-              About RDI
+              About Ekara
             </Link>
           </NavItem>
           <NavItem>
             <Link to="/contact" className="nav-link">
-              Contact@esprit.tn
+              Contact
             </Link>
           </NavItem>
           
