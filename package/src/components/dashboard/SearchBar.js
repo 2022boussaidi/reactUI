@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
-import './Searchbar.css'; // Import CSS file for styling
+import React, { useState } from "react";
+import { InputGroup, Input, InputGroupAddon, Button, InputGroupText } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import "./Searchbar.css"; // Import custom styles for the search bar
 
 const SearchBar = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+ 
 
-  const handleSearch = () => {
-    // Pass the search term to the parent component
-    onSearch(searchTerm);
-  };
+  
 
+  
   return (
-    <div className="search-container">
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+    <InputGroup className="search-bar">
+      <Input
         className="search-input"
+        placeholder="Search..."
+        
       />
-      <button onClick={handleSearch} className="search-button">
-        Search
-      </button>
-    </div>
+      <InputGroupText addonType="append">
+        <Button className="search-button" >
+          <FontAwesomeIcon icon={faSearch} />
+        </Button>
+      </InputGroupText>
+    </InputGroup>
   );
 };
 

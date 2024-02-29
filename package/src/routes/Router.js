@@ -46,6 +46,10 @@ const OverviewRobots = lazy(() => import("../views/OverviewRobots.js"));
 const ViewRobot = lazy(() => import ("../components/robots/ViewRobot.js"))
 
 /**************************robots*************************** */
+/*******************************queues***//////////////// */
+const OverviewQueues = lazy(() => import("../views/OverviewQueues.js"));
+/******************************///*******queueus */ */
+
 
 
 
@@ -90,9 +94,15 @@ const ThemeRoutes = [
       /*********Sites ********************************************/
       { path: "/viewsite/:id", exact: true, element: <ViewSite /> },
       /*****************sites **************************************
-       * /***********************robots*////////////////////////
+       * /***********************robots*//////////////////////////////////
+       { path: "/robots", exact: true, element: <OverviewRobots /> },
        { path: "/viewrobot/:id", exact: true, element: <ViewRobot /> },
-       /*********************************robiots */
+       /*********************************robiots ////////////////////////////*/
+
+       /***************************Queuues/////////************* *******************/ 
+       { path: "/queues", exact: true, element: <OverviewQueues/> },
+       /***************************queussssss ****************************************/
+
        
       { path: "/addteam", exact: true, element: <AddTeam /> },
       { path: "/viewteam/:id", exact: true, element: <ViewTeam /> },
@@ -101,7 +111,7 @@ const ThemeRoutes = [
       { path: "/projects", exact: true, element: <Projects /> },
       { path: "/viewproject/:id", exact: true, element: <ViewProject /> },
       { path: "/editproject/:id", exact: true, element: <EditProject /> },
-      { path: "/robots", exact: true, element: <OverviewRobots /> },
+      
       { path: "/events", exact: true, element: <Events /> },
       { path: "/addevent", exact: true, element: <AddEvent /> },
       { path: "/editevent/:id", exact: true, element: <EditEvent /> },

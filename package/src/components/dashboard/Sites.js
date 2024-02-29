@@ -93,7 +93,7 @@ export default function Sites() {
                       <Link className="btn btn-primary mx-2" to={`/viewsite/${site.siteId}`}>
                         <FontAwesomeIcon icon={faInfo} /> Details
                       </Link>
-                      <button className="btn btn-danger mx-2" onClick={() => handleResetConfirmation(site.siteId)}>
+                      <button className="btn btn-gray mx-2" onClick={() => handleResetConfirmation(site.siteId)}>
                         <FontAwesomeIcon icon={faUndo} /> Reset
                       </button>
                     </td>

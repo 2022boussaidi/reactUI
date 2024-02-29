@@ -92,7 +92,7 @@ export default function Overview() {
                       <Link className="btn btn-primary mx-2" to={`/viewrobot/${robot.robotId}`}>
                         Details
                       </Link>
-                      <button className="btn btn-danger mx-2"onClick={() => handleRebootConfirmation(robot.robotId)} >
+                      <button className="btn btn-gray mx-2"onClick={() => handleRebootConfirmation(robot.robotId)} >
                         <FontAwesomeIcon icon={faSpinner} /> Reboot
                       </button>
                     </td>

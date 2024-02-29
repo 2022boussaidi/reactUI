@@ -23,7 +23,7 @@ const navigation = [
   },
   {
     title: "Queues",
-    href: "/events",
+    href: "/queues",
     icon: "bi bi-hdd-stack",
   },
   {
