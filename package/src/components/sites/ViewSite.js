@@ -51,7 +51,7 @@ export default function ViewSite() {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
+      
           <h2 className="text-center m-4">Site Details</h2>
 
           <div className="card">
@@ -88,8 +88,9 @@ export default function ViewSite() {
               </ul>
             </div>
           </div>
-          <Link className="btn btn-primary my-2" to={"/"}>
-            Back to Home
+          <div className="col-md-6  ">
+          <Link className="btn btn-primary my-2" to={"/sites"}>
+            Back to Sites
           </Link>
         </div>
       </div>

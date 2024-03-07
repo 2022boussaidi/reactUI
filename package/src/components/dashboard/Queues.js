@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardSubtitle, Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAlignRight, faInfo, faPlay, faReceipt, faRecycle, faRedo, faRefresh, faRegistered, faRightLeft, faRobot, faSpinner, faSpoon, faSprayCan, faStar, faStop, faToggleOff, faToggleOn, faTriangleCircleSquare, faTriangleExclamation, faUndo } from "@fortawesome/free-solid-svg-icons";
+import { faAlignRight, faCheckCircle, faClock, faExclamationCircle, faInfo, faPlay, faReceipt, faRecycle, faRedo, faRefresh, faRegistered, faRightLeft, faRobot, faSpinner, faSpoon, faSprayCan, faStar, faStop, faTimesCircle, faToggleOff, faToggleOn, faTriangleCircleSquare, faTriangleExclamation, faUndo } from "@fortawesome/free-solid-svg-icons";
 
 export default function Overview() {
   const [queues, setQueues] = useState([]);
@@ -134,8 +134,15 @@ export default function Overview() {
               <thead>
                 <tr>
                 
-                  <th scope="col">Site Id</th>
                   <th scope="col">Site name</th>
+                  <th scope="col">Robot name</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Interactive</th>
+                  
+
+                  <th scope="col">Action</th>
+                  
+                 
                 
                 </tr>
               </thead>
@@ -143,12 +150,25 @@ export default function Overview() {
                 {queues.map((queue, index) => (
                   <tr key={queue.queueId}>
                     
-                    <td>{queue.siteId}</td>
                     <td>{queue.siteName}</td>
-                   
-                   
+                    <td>{queue.robot.name}</td>
                     <td>
-                      <Link className="btn btn-primary mx-2" to={`/viewrobot/${queue.queueId}`}>
+                      {queue.status ? (
+                        <FontAwesomeIcon icon={faClock} className="text-success" />
+                      ) : (
+                        <FontAwesomeIcon icon={faExclamationCircle} className="text-danger" />
+                      )}
+                    </td>
+                    
+                    <td>
+                      {queue.interactive ? (
+                        <FontAwesomeIcon icon={faCheckCircle} className="text-success" />
+                      ) : (
+                        <FontAwesomeIcon icon={faTimesCircle} className="text-danger"  />
+                      )}
+                    </td>
+                    <td>
+                      <Link className="btn btn-primary mx-2" to={`/viewqueue/${queue.queueId}`}>
                         Details
                       </Link>
                       <Link className="btn btn-secondry mx-2"onClick={() => handleResetConfirmation(queue.queueId)} >

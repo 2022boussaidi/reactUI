@@ -36,7 +36,7 @@ const Contact = lazy(() => import ("../components/dashboard/ContactCard.js"))
 const AddTask = lazy(() => import ("../components/tasks/AddTask.js"))
 const EditTask = lazy(() => import ("../components/tasks/EditTask.js"))
 const Prediction= lazy(() => import ("../components/dashboard/Glass.js"))
-const Login= lazy(() => import ("../layouts/Login.js"))
+
 /*******************Sites *******************************************/
 const ViewSite = lazy(() => import ("../components/sites/ViewSite.js"))
 const OverviewSites = lazy(() => import("../views/OverviewSites.js"));
@@ -48,6 +48,7 @@ const ViewRobot = lazy(() => import ("../components/robots/ViewRobot.js"))
 /**************************robots*************************** */
 /*******************************queues***//////////////// */
 const OverviewQueues = lazy(() => import("../views/OverviewQueues.js"));
+const ViewQueue = lazy(() => import ("../components/queues/ViewQueue.js"))
 /******************************///*******queueus */ */
 
 
@@ -101,9 +102,11 @@ const ThemeRoutes = [
 
        /***************************Queuues/////////************* *******************/ 
        { path: "/queues", exact: true, element: <OverviewQueues/> },
+       { path: "/viewqueue/:id", exact: true, element: <ViewQueue/> },
+
        /***************************queussssss ****************************************/
 
-       
+    
       { path: "/addteam", exact: true, element: <AddTeam /> },
       { path: "/viewteam/:id", exact: true, element: <ViewTeam /> },
       { path: "/Rdd", exact: true, element: <Rdd /> },

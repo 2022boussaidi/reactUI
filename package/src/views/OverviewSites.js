@@ -16,6 +16,7 @@ import TeamManagement from "../components/dashboard/TeamManagment";
 import { Link } from "react-router-dom";
 import Sites from "../components/dashboard/Sites";
 import SearchBar from "../components/dashboard/SearchBar";
+import DataGridDemo from "../components/dashboard/DataGridDemo";
 
 const OverviewSites = () => {
   
@@ -27,7 +28,7 @@ const OverviewSites = () => {
 
   return (
     <div>
-       <h4>Site management</h4>
+       <h4>Sites</h4>
       {/***Top Cards***/}
      
       <Row>
@@ -36,6 +37,7 @@ const OverviewSites = () => {
         <Col sm="6" lg="6" xl="6" xxl="12">
           <Sites/>
         </Col>
+        
         
         </Row>
        

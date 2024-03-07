@@ -7,15 +7,24 @@ import {
   NavItem,
   NavbarBrand,
   Dropdown,
-  DropdownToggle,
   DropdownMenu,
   DropdownItem,
   Button,
+  UncontrolledDropdown,
+  DropdownToggle,
+  Form,
+  FormGroup,
+  InputGroupText,
+  Input,
+  InputGroup,
+  Container,
+  Media,
+  InputGroupAddon, // Import InputGroupAddon from reactstrap
 } from "reactstrap";
 import { ReactComponent as LogoWhite } from "../assets/images/logos/xtremelogowhite.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faInfoCircle, faQuestionCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import "../assets/scss/NavStyle.css"
+import "../assets/scss/NavStyle.css";
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -80,7 +89,9 @@ const Header = () => {
               Help
             </Link>
           </NavItem>
-        </Nav>
+        </Nav> 
+        
+      
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="light">
             <FontAwesomeIcon icon={faUser} />
@@ -92,7 +103,6 @@ const Header = () => {
             <DropdownItem>Notifications</DropdownItem>
             <DropdownItem onClick={handleLogout}>Logout <FontAwesomeIcon icon={faSignOutAlt} /></DropdownItem>
             <DropdownItem divider />
-            
           </DropdownMenu>
         </Dropdown>
       </Collapse>

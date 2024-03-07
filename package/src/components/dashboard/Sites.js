@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardSubtitle, Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfo, faUndo } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faInfo, faQuestionCircle, faTimesCircle, faUndo, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
+import ReactPaginate from 'react-paginate';
+import "./Sites.css"; // Import custom CSS for pagination styling
 
 export default function Sites() {
   const [sites, setSites] = useState([]);
@@ -11,10 +13,18 @@ export default function Sites() {
   const [resetSiteId, setResetSiteId] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [filter, setFilter] = useState({
+    name: "",
+    scenarioCount: "",
+    zoneCount: "",
+    queueCount: ""
+  });
+  const pageSize = 10; // Number of items per page
 
   useEffect(() => {
     loadSites();
-  }, []);
+  }, [currentPage]); // Reload sites when current page changes
 
   const loadSites = async () => {
     try {
@@ -58,6 +68,27 @@ export default function Sites() {
     }
   };
 
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilter({ ...filter, [name]: value });
+  };
+
+  const filteredSites = sites.filter(site => {
+    return (
+      site.name.toLowerCase().includes(filter.name.toLowerCase()) //&&
+     // String(site.scenarioNb).includes(filter.scenarioCount) &&
+     // String(site.zoneNb).includes(filter.zoneCount) &&
+     // String(site.queueNb).includes(filter.queueCount)
+    );
+  });
+
+  const offset = currentPage * pageSize;
+  const pageCount = Math.ceil(filteredSites.length / pageSize);
+
   return (
     <div className="container">
       <Card>
@@ -72,26 +103,58 @@ export default function Sites() {
             Overview of the sites
           </CardSubtitle>
           <div className="py-4">
+            <div className="form-row mb-3">
+              <div className="col">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Filter by name"
+                  name="name"
+                  value={filter.name}
+                  onChange={handleFilterChange}
+                />
+              </div>
+              
+             
+              
+            </div>
             <table className="table border shadow">
               <thead>
                 <tr>
                   <th scope="col">Name</th>
-                  <th scope="col">Scenario Count</th>
+                  <th scope="col">Privacy</th>
                   <th scope="col">Zone Count</th>
-                  <th scope="col">Queue Count</th>
+                  <th scope="col">Proxy</th>
+                  <th scope="col">Site manager issue</th>
+
                   <th scope="col">Actions</th>
+                  
                 </tr>
               </thead>
               <tbody>
-                {sites.map((site, index) => (
+                {filteredSites.slice(offset, offset + pageSize).map((site, index) => (
                   <tr key={site.siteId}>
-                    <td>{site.name}</td>
-                    <td>{site.scenarioNb}</td>
-                    <td>{site.zoneNb}</td>
-                    <td>{site.queueNb}</td>
+                   <td>{site.name}</td>
+
+                   <td>{site.isPrivate ? <span className="badge bg-primary">Private</span> : <span className="badge bg-secondary">Public</span>}</td>
+                   <td>{site.zoneNb}</td>
+                   <td>
+  {site.proxy ? (
+    <span className="badge bg-secondary">{`${site.proxy.url}:${site.proxy.port} - ${site.proxy.type}`}</span>
+  ) : (
+    <FontAwesomeIcon icon={faQuestionCircle} className="text-danger" />
+  )}
+</td>
+<td>
+  {site.hasSiteManagerIssue ? (
+    <FontAwesomeIcon icon={faCheckCircle} />
+  ) : (
+    <FontAwesomeIcon icon={faTimesCircle} />
+  )}
+</td>
                     <td>
                       <Link className="btn btn-primary mx-2" to={`/viewsite/${site.siteId}`}>
-                        <FontAwesomeIcon icon={faInfo} /> Details
+                         Details
                       </Link>
                       <button className="btn btn-gray mx-2" onClick={() => handleResetConfirmation(site.siteId)}>
                         <FontAwesomeIcon icon={faUndo} /> Reset
@@ -101,6 +164,16 @@ export default function Sites() {
                 ))}
               </tbody>
             </table>
+            <ReactPaginate
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageChange}
+              containerClassName={"pagination"}
+              activeClassName={"active"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+            />
           </div>
         </CardBody>
       </Card>

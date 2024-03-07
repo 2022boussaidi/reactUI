@@ -68,9 +68,7 @@ export default function ViewRobot() {
     };
     
     return (
-        <div className="container">
             <div className="row">
-                <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
                     <h2 className="text-center m-4">Robot Details</h2>
 
                     <div className="card">
@@ -158,11 +156,13 @@ export default function ViewRobot() {
                             </ul>
                         </div>
                     </div>
-                    <Link className="btn btn-primary my-2" to={"/"}>
-                        Back to Home
+                    <div className="col-md-6 ">
+
+                    <Link className="btn btn-primary my-2" to={"/robots"}>
+                        Back to Robots
                     </Link>
                 </div>
             </div>
-        </div>
+        
     );
 }
