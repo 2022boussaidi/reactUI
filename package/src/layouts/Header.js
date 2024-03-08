@@ -93,7 +93,7 @@ const Header = () => {
         
       
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-          <DropdownToggle color="light">
+          <DropdownToggle color="primary">
             <FontAwesomeIcon icon={faUser} />
           </DropdownToggle>
           <DropdownMenu>

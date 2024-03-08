@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardSubtitle, Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAlignRight, faCheckCircle, faClock, faExclamationCircle, faInfo, faPlay, faReceipt, faRecycle, faRedo, faRefresh, faRegistered, faRightLeft, faRobot, faSpinner, faSpoon, faSprayCan, faStar, faStop, faTimesCircle, faToggleOff, faToggleOn, faTriangleCircleSquare, faTriangleExclamation, faUndo } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faClock, faExclamationCircle, faTimesCircle, faRedo, faPlay, faStop, faRefresh, faEyeDropper, faEye } from "@fortawesome/free-solid-svg-icons";
+import ReactPaginate from 'react-paginate';
 
 export default function Overview() {
   const [queues, setQueues] = useState([]);
   const [showAll, setShowAll] = useState(false);
-  const [startQueueId, setStartQueueId] = useState(null);
-  const [stopQueueId, setStopQueueId] = useState(null);
   const [resetQueueId, setResetQueueId] = useState(null);
-  const [reserveQueueId, setReserveQueueId] = useState(null);
-
   const [modalOpen, setModalOpen] = useState(false);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [filter, setFilter] = useState({
+    siteName: "",
+    robotName: "",
+    status: "",
+    interactive: ""
+  });
+  const [currentPage, setCurrentPage] = useState(0);
+  const pageSize = 10; // Number of items per page
 
   useEffect(() => {
     loadQueues();
@@ -37,84 +42,90 @@ export default function Overview() {
       console.error("Error loading queues:", error);
     }
   };
-    const handleResetConfirmation = (queueId) => {
-      setResetQueueId(queueId);
-      setModalOpen(true);
-    };
-    const handleStart = async () => {
-      try {
-        const bearerToken = localStorage.getItem('token');
-        await axios.post(
-          `http://localhost:8080/queue/start/${startQueueId}`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${bearerToken}`
-            }
+
+  const handleResetConfirmation = (queueId) => {
+    setResetQueueId(queueId);
+    setModalOpen(true);
+  };
+
+  const handleReset = async () => {
+    try {
+      const bearerToken = localStorage.getItem('token');
+      await axios.post(
+        `http://localhost:8080/queue/reset/${resetQueueId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${bearerToken}`
           }
-        );
-        setSuccessModalOpen(true);
-        setModalOpen(false);
-      } catch (error) {
-        console.error("Error starting  queue:", error);
-      }
-    };
-    const handleStop = async () => {
-        try {
-          const bearerToken = localStorage.getItem('token');
-          await axios.post(
-            `http://localhost:8080/queue/start/${stopQueueId}`,
-            {},
-            {
-              headers: {
-                Authorization: `Bearer ${bearerToken}`
-              }
-            }
-          );
-          setSuccessModalOpen(true);
-          setModalOpen(false);
-        } catch (error) {
-          console.error("Error stoping  queue:", error);
         }
-      };
-    
-      const handleReset = async () => {
-        try {
-          const bearerToken = localStorage.getItem('token');
-          await axios.post(
-            `http://localhost:8080/queue/reset/${stopQueueId}`,
-            {},
-            {
-              headers: {
-                Authorization: `Bearer ${bearerToken}`
-              }
-            }
-          );
-          setSuccessModalOpen(true);
-          setModalOpen(false);
-        } catch (error) {
-          console.error("Error reseting  queue:", error);
+      );
+      setSuccessModalOpen(true);
+      setModalOpen(false);
+    } catch (error) {
+      console.error("Error resetting queue:", error);
+    }
+  };
+
+  const handleStart = async (queueId) => {
+    try {
+      const bearerToken = localStorage.getItem('token');
+      await axios.post(
+        `http://localhost:8080/queue/start/${queueId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${bearerToken}`
+          }
         }
-      };
-      const handleReserve = async () => {
-        try {
-          const bearerToken = localStorage.getItem('token');
-          await axios.post(
-            `http://localhost:8080/queue/reserve/${stopQueueId}`,
-            {},
-            {
-              headers: {
-                Authorization: `Bearer ${bearerToken}`
-              }
-            }
-          );
-          setSuccessModalOpen(true);
-          setModalOpen(false);
-        } catch (error) {
-          console.error("Error reserving  queue:", error);
+      );
+      setSuccessModalOpen(true);
+      setModalOpen(false);
+    } catch (error) {
+      console.error("Error starting queue:", error);
+    }
+  };
+
+  const handleStop = async (queueId) => {
+    try {
+      const bearerToken = localStorage.getItem('token');
+      await axios.post(
+        `http://localhost:8080/queue/stop/${queueId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${bearerToken}`
+          }
         }
-      };
- 
+      );
+      setSuccessModalOpen(true);
+      setModalOpen(false);
+    } catch (error) {
+      console.error("Error stopping queue:", error);
+    }
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilter({ ...filter, [name]: value });
+  };
+
+  const filteredQueues = queues.filter(queue => {
+    return (
+      (queue.siteName?.toLowerCase().includes(filter.siteName.toLowerCase()) || filter.siteName === "") &&
+      (queue.robot?.name?.toLowerCase().includes(filter.robotName.toLowerCase()) || filter.robotName === "") &&
+      (String(queue.status)?.includes(filter.status) || filter.status === "") &&
+      (String(queue.interactive)?.includes(filter.interactive) || filter.interactive === "")
+    );
+  });
+  
+
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
+  const offset = currentPage * pageSize;
+  const pageCount = Math.ceil(filteredQueues.length / pageSize);
 
   return (
     <div className="container">
@@ -127,29 +138,64 @@ export default function Overview() {
             </button>
           </div>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
-            Overview of the queues 
+            Overview of the queues
           </CardSubtitle>
           <div className="py-4">
+            <div className="form-row mb-3">
+              <div className="col">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Filter by site name"
+                  name="siteName"
+                  value={filter.siteName}
+                  onChange={handleFilterChange}
+                />
+              </div>
+              <div className="col">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Filter by robot name"
+                  name="robotName"
+                  value={filter.robotName}
+                  onChange={handleFilterChange}
+                />
+              </div>
+              <div className="col">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Filter by status"
+                  name="status"
+                  value={filter.status}
+                  onChange={handleFilterChange}
+                />
+              </div>
+              <div className="col">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Filter by interactive"
+                  name="interactive"
+                  value={filter.interactive}
+                  onChange={handleFilterChange}
+                />
+              </div>
+            </div>
             <table className="table border shadow">
               <thead>
                 <tr>
-                
                   <th scope="col">Site name</th>
                   <th scope="col">Robot name</th>
                   <th scope="col">Status</th>
                   <th scope="col">Interactive</th>
-                  
-
                   <th scope="col">Action</th>
-                  
-                 
-                
                 </tr>
               </thead>
               <tbody>
-                {queues.map((queue, index) => (
+                {filteredQueues.slice(offset, offset + pageSize).map((queue, index) => (
                   <tr key={queue.queueId}>
-                    
                     <td>{queue.siteName}</td>
                     <td>{queue.robot.name}</td>
                     <td>
@@ -159,41 +205,53 @@ export default function Overview() {
                         <FontAwesomeIcon icon={faExclamationCircle} className="text-danger" />
                       )}
                     </td>
-                    
                     <td>
                       {queue.interactive ? (
                         <FontAwesomeIcon icon={faCheckCircle} className="text-success" />
                       ) : (
-                        <FontAwesomeIcon icon={faTimesCircle} className="text-danger"  />
+                        <FontAwesomeIcon icon={faTimesCircle} className="text-danger" />
                       )}
                     </td>
                     <td>
                       <Link className="btn btn-primary mx-2" to={`/viewqueue/${queue.queueId}`}>
-                        Details
+                      <FontAwesomeIcon icon={faEye} /> Details
                       </Link>
                       <Link className="btn btn-secondry mx-2"onClick={() => handleResetConfirmation(queue.queueId)} >
                         <FontAwesomeIcon icon={faRedo} /> 
+                        
                       </Link>
-                      <button className="btn btn-secondry mx-2"onClick={() => handleResetConfirmation(queue.queueId)} >
+                      <Link className="btn btn-secondry mx-2" onClick={() => handleStart(queue.queueId)}>
                         <FontAwesomeIcon icon={faPlay} /> 
-                      </button>
-                      <button className="btn btn-secondry mx-2"onClick={() => handleResetConfirmation(queue.queueId)} >
+                      </Link>
+                      <Link className="btn btn-secondry mx-2" onClick={() => handleStop(queue.queueId)}>
                         <FontAwesomeIcon icon={faStop} /> 
-                      </button>
-                      <button className="btn btn-secondry mx-2"onClick={() => handleResetConfirmation(queue.queueId)} >
+                      </Link>
+                      <Link className="btn btn-secondry mx-2" onClick={() => handleReset(queue.queueId)}>
                         <FontAwesomeIcon icon={faRefresh} /> 
-                      </button>
+                      </Link>
+                     
+                      
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            <ReactPaginate
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageChange}
+              containerClassName={"pagination"}
+              activeClassName={"active"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+            />
           </div>
         </CardBody>
       </Card>
       <Modal isOpen={modalOpen} toggle={() => setModalOpen(!modalOpen)}>
         <ModalHeader toggle={() => setModalOpen(!modalOpen)}>Confirmation</ModalHeader>
-        <ModalBody>Are you sure you want to reboot thid robot?</ModalBody>
+        <ModalBody>Are you sure you want to reset this queue?</ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={handleReset}>Yes</Button>{' '}
           <Button color="secondary" onClick={() => setModalOpen(!modalOpen)}>Cancel</Button>
@@ -202,7 +260,7 @@ export default function Overview() {
 
       <Modal isOpen={successModalOpen} toggle={() => setSuccessModalOpen(!successModalOpen)}>
         <ModalHeader toggle={() => setSuccessModalOpen(!successModalOpen)}>Success</ModalHeader>
-        <ModalBody>Robot reboot successfully!</ModalBody>
+        <ModalBody>Queue reset successfully!</ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={() => setSuccessModalOpen(!successModalOpen)}>Close</Button>
         </ModalFooter>

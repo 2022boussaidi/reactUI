@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardSubtitle, Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faInfo, faQuestionCircle, faTimesCircle, faUndo, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faEye, faInfo, faQuestionCircle, faTimesCircle, faUndo, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from 'react-paginate';
 import "./Sites.css"; // Import custom CSS for pagination styling
 
@@ -154,7 +154,7 @@ export default function Sites() {
 </td>
                     <td>
                       <Link className="btn btn-primary mx-2" to={`/viewsite/${site.siteId}`}>
-                         Details
+                      <FontAwesomeIcon icon={faEye} /> Details
                       </Link>
                       <button className="btn btn-gray mx-2" onClick={() => handleResetConfirmation(site.siteId)}>
                         <FontAwesomeIcon icon={faUndo} /> Reset
