@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Card, CardBody, CardTitle, CardSubtitle, Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle, Modal, ModalHeader, ModalBody, ModalFooter, Button ,Row,Col} from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faClock, faExclamationCircle, faInfo, faSpinner, faTimesCircle, faUndo } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faClock, faExclamationCircle, faPlayCircle, faSpinner, faStopCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from 'react-paginate';
 
 export default function Overview() {
@@ -88,6 +88,11 @@ export default function Overview() {
   const offset = currentPage * pageSize;
   const pageCount = Math.ceil(filteredRobots.length / pageSize);
 
+  // Calculate the counts of robots with different statuses
+  const runningCount = filteredRobots.filter(robot => robot.hbStatus).length;
+  const stoppedCount = filteredRobots.filter(robot => !robot.hbStatus).length;
+  const delayedCount = filteredRobots.filter(robot => robot.needUpdate).length;
+
   return (
     <div className="container">
       <Card>
@@ -102,7 +107,8 @@ export default function Overview() {
             Overview of the robots
           </CardSubtitle>
           <div className="py-4">
-            <div className="form-row mb-3">
+         
+          <div className="form-row mb-3">
               <div className="col">
                 <input
                   type="text"
@@ -113,7 +119,30 @@ export default function Overview() {
                   onChange={handleFilterChange}
                 />
               </div>
+              
+             
+              
             </div>
+            <Row className="form-row mb-3 ">
+            
+        
+       <Col sm="4" lg="31">
+    <FontAwesomeIcon icon={faPlayCircle}size="2x" className="mr-1 text-success"  /> Running: {runningCount}
+    </Col>
+ 
+    <Col sm="4" lg="31">
+    <FontAwesomeIcon icon={faStopCircle} size="2x" className="mr-1 text-danger"/> Stopped: {stoppedCount}
+    </Col>
+    <Col sm="4" lg="31">
+    <FontAwesomeIcon icon={faExclamationCircle} size="2x"  className="mr-1 text-warning" /> Delayed: {delayedCount}
+    </Col>
+  
+</Row>
+
+
+
+
+
             <table className="table border shadow">
               <thead>
                 <tr>
@@ -131,9 +160,9 @@ export default function Overview() {
                     <td>{robot.name}</td>
                     <td>
                       {robot.hbStatus ? (
-                        <FontAwesomeIcon icon={faClock} />
+                        <FontAwesomeIcon icon={faCheckCircle} />
                       ) : (
-                        <FontAwesomeIcon icon={faExclamationCircle} />
+                        <FontAwesomeIcon icon={faTimesCircle} />
                       )}
                     </td>
                     <td>{robot.storageName ? robot.storageName : <FontAwesomeIcon icon={faExclamationCircle}  className="text-warning"/>}</td>

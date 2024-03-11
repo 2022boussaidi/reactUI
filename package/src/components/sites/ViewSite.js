@@ -1,6 +1,8 @@
+import { faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function ViewSite() {
   const [site, setSite] = useState({
@@ -88,11 +90,20 @@ export default function ViewSite() {
               </ul>
             </div>
           </div>
-          <div className="col-md-6  ">
+          <div className="d-flex justify-content-between">
+       
           <Link className="btn btn-primary my-2" to={"/sites"}>
             Back to Sites
           </Link>
-        </div>
+         
+       
+
+          <Link className="btn btn-primary my-2" to={"/sites"}>
+          <FontAwesomeIcon icon={faAngleDoubleRight} />  More Details
+          </Link>
+          
+          </div>
+       
       </div>
     </div>
   );

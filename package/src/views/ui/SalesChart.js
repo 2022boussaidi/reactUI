@@ -6,16 +6,25 @@ import axios from "axios";
 const SalesChart = () => {
 
 
-  const [projects, setProjects] = useState([]);
+  const [robots, setRobots] = useState([]);
   const [loading, setLoading] = useState(true); // Initialize loading state
   useEffect(() => {
-    loadProjects();
+    loadRobots();
   }, []);
 
-  const loadProjects = async () => {
+  const loadRobots = async () => {
     try {
-      const result = await axios.get("http://localhost:8080/projects");
-      setProjects(result.data);
+      const bearerToken = localStorage.getItem('token');
+      const response = await axios.post(
+        "http://localhost:8080/callrobots",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${bearerToken}`
+          }
+        }
+      );
+      setRobots(response.data.robots);
       setLoading(false); // Set loading to false when data is available
     } catch (error) {
       console.error("Error loading projects:", error);
@@ -23,28 +32,28 @@ const SalesChart = () => {
   };
      // Render a loading indicator while data is being fetched
   if (loading) {
-    return <p>Loading project data...</p>;
+    return <p>Loading robot data...</p>;
   }
 
   // Check if projects is empty
-  if (projects.length === 0) {
-    return <p>No project data available.</p>;
+  if (robots.length === 0) {
+    return <p>No robot data available.</p>;
   }
 
   // Extract project names, performance scores, and progress percentages
-  const projectNames = projects.map((project) => project.name);
-  const performanceScores = projects.map((project) => project.performanceScore);
-  const progressPercentages = projects.map((project) => project.progressPercentage);
+  const robotsNames = robots.map((robot) => robot.name);
+  const Status = robots.map((robot) =>robot.hbStatus);
+  const Storage_name= robots.map((robot) => robot.storageName);
 
   const chartoptions = {
     series: [
       {
-        name: "Performane score",
-        data: performanceScores,
+        name: "Status",
+        data: Status,
       },
       {
-        name: "Progress percentage",
-        data: progressPercentages,
+        name: "Storage name",
+        data: Storage_name
 
       },
     ],
@@ -64,14 +73,14 @@ const SalesChart = () => {
         width: 1,
       },
       xaxis: {
-         categories: projectNames,
+         categories: robotsNames,
       },
     },
   };
   return (
     <Card>
       <CardBody>
-        <CardTitle tag="h5">Project evaluation</CardTitle>
+        <CardTitle tag="h5">Robot deatils</CardTitle>
         
         <Chart
           type="area"

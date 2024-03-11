@@ -13,11 +13,12 @@ import {
   Col,
 } from "reactstrap";
 import SalesChart from "./SalesChart";
+import ProjectPerformanceChart from "../../components/dashboard/ProjectPerformanceChart";
 
 const Buttons = () => {
 
 
-  const [projects, setProjects] = useState([]);
+  /*const [projects, setProjects] = useState([]);
   const [teams, setTeams] = useState([]);
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
@@ -60,7 +61,7 @@ const Buttons = () => {
       cSelected.splice(index, 1);
     }
     setCSelected([...cSelected]);
-  };
+  };*/
 
   return (
     <div>
@@ -77,10 +78,10 @@ const Buttons = () => {
    
 
         {/***Top Cards***/}
-      <Row>
+     <Row>
        
         
-       <Col sm="4" lg="31">
+        {/***<Col sm="4" lg="31">
            
            <TopCards
              bg="bg-light-warning text-warning"
@@ -125,7 +126,7 @@ const Buttons = () => {
        <Row>
        <Col sm="6" lg="8" xl="7" xxl="12">
  
-</Col>
+  </Col>**/}
         <Col sm="6" lg="8" xl="7" xxl="12">
           <SalesChart />
         </Col>

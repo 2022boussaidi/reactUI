@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Card, CardBody, CardTitle, CardSubtitle, Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle, Modal, ModalHeader, ModalBody, ModalFooter, Button ,Col,Row} from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faClock, faExclamationCircle, faTimesCircle, faRedo, faPlay, faStop, faRefresh, faEyeDropper, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faClock, faExclamationCircle, faTimesCircle, faRedo, faPlay, faStop, faRefresh, faEyeDropper, faEye, faSpinner, faPlayCircle, faStopCircle } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from 'react-paginate';
 
 export default function Overview() {
@@ -18,12 +18,20 @@ export default function Overview() {
     status: "",
     interactive: ""
   });
+  const [runningCount, setRunningCount] = useState(0);
+  const [stoppedCount, setStoppedCount] = useState(0);
+  const [interactiveCount, setInteractiveCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const pageSize = 10; // Number of items per page
 
   useEffect(() => {
     loadQueues();
   }, []);
+
+  useEffect(() => {
+    // Update counts whenever queues change
+    updateCounts();
+  }, [queues]);
 
   const loadQueues = async () => {
     try {
@@ -41,6 +49,18 @@ export default function Overview() {
     } catch (error) {
       console.error("Error loading queues:", error);
     }
+  };
+
+  const updateCounts = () => {
+    // Calculate counts of running, stopped, and interactive queues
+    const running = queues.filter(queue => queue.status === "running").length;
+    const stopped = queues.filter(queue => queue.status === "stopped").length;
+    const interactive = queues.filter(queue => queue.interactive).length;
+    
+    // Update state variables with the counts
+    setRunningCount(running);
+    setStoppedCount(stopped);
+    setInteractiveCount(interactive);
   };
 
   const handleResetConfirmation = (queueId) => {
@@ -112,13 +132,12 @@ export default function Overview() {
 
   const filteredQueues = queues.filter(queue => {
     return (
-      (queue.siteName?.toLowerCase().includes(filter.siteName.toLowerCase()) || filter.siteName === "") &&
-      (queue.robot?.name?.toLowerCase().includes(filter.robotName.toLowerCase()) || filter.robotName === "") &&
-      (String(queue.status)?.includes(filter.status) || filter.status === "") &&
-      (String(queue.interactive)?.includes(filter.interactive) || filter.interactive === "")
+      //(queue.siteName?.toLowerCase().includes(filter.siteName.toLowerCase()) || filter.siteName === "") &&
+      (queue.robot?.name?.toLowerCase().includes(filter.robotName.toLowerCase()) || filter.robotName === "") //&&
+      //(String(queue.status)?.includes(filter.status) || filter.status === "") &&
+     // (String(queue.interactive)?.includes(filter.interactive) || filter.interactive === "")
     );
   });
-  
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);
@@ -146,43 +165,29 @@ export default function Overview() {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Filter by site name"
-                  name="siteName"
-                  value={filter.siteName}
-                  onChange={handleFilterChange}
-                />
-              </div>
-              <div className="col">
-                <input
-                  type="text"
-                  className="form-control"
                   placeholder="Filter by robot name"
                   name="robotName"
                   value={filter.robotName}
                   onChange={handleFilterChange}
                 />
               </div>
-              <div className="col">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Filter by status"
-                  name="status"
-                  value={filter.status}
-                  onChange={handleFilterChange}
-                />
-              </div>
-              <div className="col">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Filter by interactive"
-                  name="interactive"
-                  value={filter.interactive}
-                  onChange={handleFilterChange}
-                />
-              </div>
             </div>
+            <Row className="form-row mb-3 ">
+            
+        
+            <Col sm="4" lg="31">
+         <FontAwesomeIcon icon={faPlayCircle} size="2x" className="  mr-1 text-success col-1"  /> Running: {runningCount}
+         </Col>
+      
+         <Col sm="4" lg="31">
+         <FontAwesomeIcon icon={faStopCircle}size="2x" className="mr-1 text-danger col-1"/> Stopped: {stoppedCount}
+         </Col>
+         <Col sm="4" lg="31">
+         <FontAwesomeIcon icon={faExclamationCircle} size="2x" className="mr-1 text-warning col-1" /> Interactive: {interactiveCount}
+         </Col>
+       
+     </Row>
+     
             <table className="table border shadow">
               <thead>
                 <tr>
@@ -214,11 +219,10 @@ export default function Overview() {
                     </td>
                     <td>
                       <Link className="btn btn-primary mx-2" to={`/viewqueue/${queue.queueId}`}>
-                      <FontAwesomeIcon icon={faEye} /> Details
+                        <FontAwesomeIcon icon={faEye} /> Details
                       </Link>
                       <Link className="btn btn-secondry mx-2"onClick={() => handleResetConfirmation(queue.queueId)} >
                         <FontAwesomeIcon icon={faRedo} /> 
-                        
                       </Link>
                       <Link className="btn btn-secondry mx-2" onClick={() => handleStart(queue.queueId)}>
                         <FontAwesomeIcon icon={faPlay} /> 
@@ -229,8 +233,6 @@ export default function Overview() {
                       <Link className="btn btn-secondry mx-2" onClick={() => handleReset(queue.queueId)}>
                         <FontAwesomeIcon icon={faRefresh} /> 
                       </Link>
-                     
-                      
                     </td>
                   </tr>
                 ))}

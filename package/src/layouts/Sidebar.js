@@ -3,6 +3,7 @@ import { Button, Nav, NavItem } from "reactstrap";
 import Logo from "./Logo";
 import { Link, useLocation } from "react-router-dom";
 
+
 const navigation = [
   {
     title: "Home",
@@ -10,7 +11,7 @@ const navigation = [
       {
         title: "Dashboard",
         href: "/buttons",
-        icon: "bi bi-hdd-stack",
+        icon: "bi bi-grid-fill",
       },
     ]
   },
@@ -20,12 +21,12 @@ const navigation = [
       {
         title: "Sites",
         href: "/sites",
-        icon: "bi bi-speedometer2",
+        icon: "bi bi-newspaper",
       },
       {
         title: " charts",
         href: "/sites",
-        icon: "bi bi-patch-check",
+        icon: "bi bi-bar-chart",
       },
     ]
   },
@@ -35,12 +36,12 @@ const navigation = [
       {
         title: "Robots  ",
         href: "/robots",
-        icon: "bi bi-hdd-stack",
+        icon: "bi bi-list-columns",
       },
       {
         title: " charts",
         href: "/sites",
-        icon: "bi bi-hdd-stack",
+        icon: "bi bi-bar-chart-line-fill",
       },
     ]
   },
@@ -52,12 +53,12 @@ const navigation = [
       {
         title: "Queues  ",
         href: "/queues",
-        icon: "bi bi-hdd-stack",
+        icon: "bi bi-layout-text-sidebar-reverse",
       },
       {
         title: " charts",
         href: "/sites",
-        icon: "bi bi-hdd-stack",
+        icon: "bi bi-bar-chart-fill",
       },    ]
   },
   // Add more subtitles with their respective titles
