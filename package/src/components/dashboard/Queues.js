@@ -62,68 +62,73 @@ export default function Overview() {
     setStoppedCount(stopped);
     setInteractiveCount(interactive);
   };
+  const [actionQueueId, setActionQueueId] = useState(null);
+  const [actionType, setActionType] = useState(null);
 
-  const handleResetConfirmation = (queueId) => {
-    setResetQueueId(queueId);
+  const handleActionConfirmation = (queueId, type) => {
+    setActionQueueId(queueId);
+    setActionType(type);
     setModalOpen(true);
   };
 
-  const handleReset = async () => {
+  const handleAction = async () => {
     try {
       const bearerToken = localStorage.getItem('token');
-      await axios.post(
-        `http://localhost:8080/queue/reset/${resetQueueId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${bearerToken}`
-          }
-        }
-      );
+      switch (actionType) {
+        case 'reset':
+          await axios.patch(
+            `http://localhost:8080/queue/reset/${actionQueueId}`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${bearerToken}`
+              }
+            }
+          );
+          break;
+        case 'start':
+          await axios.patch(
+            `http://localhost:8080/queue/start/${actionQueueId}`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${bearerToken}`
+              }
+            }
+          );
+          break;
+        case 'stop':
+          await axios.patch(
+            `http://localhost:8080/queue/stop/${actionQueueId}`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${bearerToken}`
+              }
+            }
+          );
+          break;
+        case 'reserve':
+          await axios.post(
+            `http://localhost:8080/queue/reserve/${actionQueueId}`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${bearerToken}`
+              }
+            }
+          );
+          break;
+        default:
+          break;
+      }
       setSuccessModalOpen(true);
       setModalOpen(false);
     } catch (error) {
-      console.error("Error resetting queue:", error);
+      console.error(`Error ${actionType} queue:`, error);
     }
   };
 
-  const handleStart = async (queueId) => {
-    try {
-      const bearerToken = localStorage.getItem('token');
-      await axios.post(
-        `http://localhost:8080/queue/start/${queueId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${bearerToken}`
-          }
-        }
-      );
-      setSuccessModalOpen(true);
-      setModalOpen(false);
-    } catch (error) {
-      console.error("Error starting queue:", error);
-    }
-  };
-
-  const handleStop = async (queueId) => {
-    try {
-      const bearerToken = localStorage.getItem('token');
-      await axios.post(
-        `http://localhost:8080/queue/stop/${queueId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${bearerToken}`
-          }
-        }
-      );
-      setSuccessModalOpen(true);
-      setModalOpen(false);
-    } catch (error) {
-      console.error("Error stopping queue:", error);
-    }
-  };
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -151,13 +156,13 @@ export default function Overview() {
       <Card>
         <CardBody>
           <div className="d-flex justify-content-between">
-            <CardTitle tag="h5">Queues Listing</CardTitle>
+            <CardTitle tag="h5">Workers Listing</CardTitle>
             <button className="btn btn-outline-primary" onClick={() => setShowAll(!showAll)}>
               {showAll ? "Show Less" : "Show All"}
             </button>
           </div>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
-            Overview of the queues
+            Overview of the workers
           </CardSubtitle>
           <div className="py-4">
             <div className="form-row mb-3">
@@ -221,16 +226,16 @@ export default function Overview() {
                       <Link className="btn btn-primary mx-2" to={`/viewqueue/${queue.queueId}`}>
                         <FontAwesomeIcon icon={faEye} /> Details
                       </Link>
-                      <Link className="btn btn-secondry mx-2"onClick={() => handleResetConfirmation(queue.queueId)} >
+                      <Link className="btn btn-secondry mx-2"onClick={() => handleActionConfirmation(queue.queueId, 'reset')} >
                         <FontAwesomeIcon icon={faRedo} /> 
                       </Link>
-                      <Link className="btn btn-secondry mx-2" onClick={() => handleStart(queue.queueId)}>
+                      <Link className="btn btn-secondry mx-2" onClick={() => handleActionConfirmation(queue.queueId, 'start')}>
                         <FontAwesomeIcon icon={faPlay} /> 
                       </Link>
-                      <Link className="btn btn-secondry mx-2" onClick={() => handleStop(queue.queueId)}>
+                      <Link className="btn btn-secondry mx-2"onClick={() => handleActionConfirmation(queue.queueId, 'stop')}>
                         <FontAwesomeIcon icon={faStop} /> 
                       </Link>
-                      <Link className="btn btn-secondry mx-2" onClick={() => handleReset(queue.queueId)}>
+                      <Link className="btn btn-secondry mx-2" onClick={() => handleActionConfirmation(queue.queueId, 'reserve')}>
                         <FontAwesomeIcon icon={faRefresh} /> 
                       </Link>
                     </td>
@@ -253,16 +258,16 @@ export default function Overview() {
       </Card>
       <Modal isOpen={modalOpen} toggle={() => setModalOpen(!modalOpen)}>
         <ModalHeader toggle={() => setModalOpen(!modalOpen)}>Confirmation</ModalHeader>
-        <ModalBody>Are you sure you want to reset this queue?</ModalBody>
+        <ModalBody>Are you sure you want to {actionType} this queue?</ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={handleReset}>Yes</Button>{' '}
+          <Button color="danger" onClick={handleAction}>Yes</Button>{' '}
           <Button color="secondary" onClick={() => setModalOpen(!modalOpen)}>Cancel</Button>
         </ModalFooter>
       </Modal>
 
       <Modal isOpen={successModalOpen} toggle={() => setSuccessModalOpen(!successModalOpen)}>
         <ModalHeader toggle={() => setSuccessModalOpen(!successModalOpen)}>Success</ModalHeader>
-        <ModalBody>Queue reset successfully!</ModalBody>
+        <ModalBody>Queue {actionType}ed successfully!</ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={() => setSuccessModalOpen(!successModalOpen)}>Close</Button>
         </ModalFooter>

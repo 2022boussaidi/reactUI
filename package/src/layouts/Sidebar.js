@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+
 import { Button, Nav, NavItem } from "reactstrap";
 import Logo from "./Logo";
 import { Link, useLocation } from "react-router-dom";
@@ -13,16 +14,28 @@ const navigation = [
         href: "/buttons",
         icon: "bi bi-grid-fill",
       },
-    ]
-  },
-  {
-    title: "Sites overview",
-    items: [
       {
         title: "Sites",
         href: "/sites",
         icon: "bi bi-newspaper",
       },
+      {
+        title: "Robots  ",
+        href: "/robots",
+        icon: "bi bi-list-columns",
+      },
+      {
+        title: "Workers  ",
+        href: "/queues",
+        icon: "bi bi-layout-text-sidebar-reverse",
+      },
+    ]
+  },
+  
+  {
+    title: "Sites overview",
+    items: [
+     
       {
         title: " charts",
         href: "/sites",
@@ -33,11 +46,7 @@ const navigation = [
   {
     title: "Robots overview",
     items: [
-      {
-        title: "Robots  ",
-        href: "/robots",
-        icon: "bi bi-list-columns",
-      },
+      
       {
         title: " charts",
         href: "/sites",
@@ -47,28 +56,18 @@ const navigation = [
   },
     
       
-  {
-    title: "Queues overview",
-    items: [
-      {
-        title: "Queues  ",
-        href: "/queues",
-        icon: "bi bi-layout-text-sidebar-reverse",
-      },
-      {
-        title: " charts",
-        href: "/sites",
-        icon: "bi bi-bar-chart-fill",
-      },    ]
-  },
-  // Add more subtitles with their respective titles
+  
 ];
 
 const Sidebar = () => {
-  const showMobilemenu = () => {
-    document.getElementById("sidebarArea").classList.toggle("showSidebar");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const location = useLocation();
+
+  const toggleDropdown = (index) => {
+    setSelectedItem(index);
+    setDropdownOpen(!dropdownOpen);
   };
-  let location = useLocation();
 
   return (
     <div className="p-3">
@@ -79,45 +78,67 @@ const Sidebar = () => {
             close
             size="sm"
             className="ms-auto d-lg-none"
-            onClick={() => showMobilemenu()}
+            onClick={() => toggleDropdown(null)}
           ></Button>
         </span>
       </div>
       <div className="pt-4 mt-2">
-      <Nav vertical className="sidebarNav">
-  {navigation.map((subtitle, index) => (
-    <React.Fragment key={index}>
-      <NavItem className="sidenav-bg">
-        <span className="subtitle">{subtitle.title}</span>
-      </NavItem>
-      {subtitle.items.map((navi, index) => (
-        <NavItem key={index} className="sidenav-bg">
-          <Link
-            to={navi.href}
-            className={
-              location.pathname === navi.href
-                ? "text-primary nav-link py-3"
-                : "nav-link text-secondary py-3"
-            }
+        <Nav vertical className="sidebarNav">
+          {navigation.map((subtitle, index) => (
+            <React.Fragment key={index}>
+              <NavItem className="sidenav-bg">
+                <span className="subtitle">{subtitle.title}</span>
+              </NavItem>
+              {subtitle.items.map((navi, subIndex) => (
+                <NavItem key={subIndex} className="sidenav-bg">
+                  <Link
+                    to={navi.href}
+                    className={
+                      location.pathname === navi.href
+                        ? "text-primary nav-link py-3"
+                        : "nav-link text-secondary py-3"
+                    }
+                    onClick={() => toggleDropdown(subIndex)}
+                  >
+                    <i className={navi.icon}></i>
+                    <span className="ms-3 d-inline-block">{navi.title}</span>
+                  </Link>
+                </NavItem>
+              ))}
+              {selectedItem === index && dropdownOpen && (
+                <div>
+                  {/* Render dropdown items here */}
+                  {subtitle.items.map((navi, subIndex) => (
+                    <NavItem key={subIndex} className="sidenav-bg">
+                      <Link
+                        to={navi.href}
+                        className={
+                          location.pathname === navi.href
+                            ? "text-primary nav-link py-3"
+                            : "nav-link text-secondary py-3"
+                        }
+                      >
+                        <i className={navi.icon}></i>
+                        <span className="ms-3 d-inline-block">
+                          {navi.title}
+                        </span>
+                      </Link>
+                    </NavItem>
+                  ))}
+                </div>
+              )}
+            </React.Fragment>
+          ))}
+          <Button
+            color="primary"
+            tag="a"
+            target="_blank"
+            className="mt-3"
+            href="https://www.ip-label.fr"
           >
-            <i className={navi.icon}></i>
-            <span className="ms-3 d-inline-block">{navi.title}</span>
-          </Link>
-        </NavItem>
-      ))}
-    </React.Fragment>
-  ))}
-  <Button
-    color="primary"
-    tag="a"
-    target="_blank"
-    className="mt-3"
-    href="https://www.ip-label.fr"
-  >
-    Know more
-  </Button>
-</Nav>
-
+            Know more
+          </Button>
+        </Nav>
       </div>
     </div>
   );

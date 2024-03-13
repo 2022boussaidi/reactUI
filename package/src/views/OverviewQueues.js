@@ -6,7 +6,7 @@ export default function OverviewRobots() {
  
   return (
     <div>
-       <h4>Queue management</h4>
+       <h4>Workers </h4>
       {/***Top Cards***/}
      
       <Row>

@@ -18,33 +18,74 @@ import ProjectPerformanceChart from "../../components/dashboard/ProjectPerforman
 const Buttons = () => {
 
 
-  /*const [projects, setProjects] = useState([]);
-  const [teams, setTeams] = useState([]);
-  const [tasks, setTasks] = useState([]);
+  const [sites, setSites] = useState([]);
+  const [robots, setRobots] = useState([]);
+  const [queues, setQueues] = useState([]);
+
   useEffect(() => {
-    loadTasks();
+    loadQueues();
   }, []);
 
-  const loadTasks = async () => {
-    const result = await axios.get("http://localhost:8080/tasks");
-    setTeams(result.data);
+  const loadQueues = async () => {
+    try {
+      const bearerToken = localStorage.getItem('token');
+      const response = await axios.post(
+        "http://localhost:8080/callqueues",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${bearerToken}`
+          }
+        }
+      );
+      setQueues(response.data.queues);
+    } catch (error) {
+      console.error("Error loading queues:", error);
+    }
   };
 
   useEffect(() => {
-    loadTeams();
+    loadRobots();
   }, []);
 
-  const loadTeams = async () => {
-    const result = await axios.get("http://localhost:8080/tasks");
-    setTasks(result.data);
+  const loadRobots = async () => {
+    try {
+      const bearerToken = localStorage.getItem('token');
+      const response = await axios.post(
+        "http://localhost:8080/callrobots",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${bearerToken}`
+          }
+        }
+      );
+      setRobots(response.data.robots);
+    } catch (error) {
+      console.error("Error loading robots:", error);
+    }
   };
+
   useEffect(() => {
-    loadProjects();
+    loadSites();
   }, []);
 
-  const loadProjects = async () => {
-    const result = await axios.get("http://localhost:8080/projects");
-    setProjects(result.data);
+  const loadSites = async () => {
+    try {
+      const bearerToken = localStorage.getItem('token');
+      const response = await axios.post(
+        "http://localhost:8080/callsites",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${bearerToken}`
+          }
+        }
+      );
+      setSites(response.data.sites);
+    } catch (error) {
+      console.error("Error loading sites:", error);
+    }
   };
   const [cSelected, setCSelected] = useState([]);
   const [rSelected, setRSelected] = useState(null);
@@ -61,7 +102,7 @@ const Buttons = () => {
       cSelected.splice(index, 1);
     }
     setCSelected([...cSelected]);
-  };*/
+  };
 
   return (
     <div>
@@ -81,14 +122,14 @@ const Buttons = () => {
      <Row>
        
         
-        {/***<Col sm="4" lg="31">
+        <Col sm="4" lg="31">
            
            <TopCards
              bg="bg-light-warning text-warning"
              title="New Project"
              subtitle="Total sites"
-             earning={projects.length}
-             icon="bi bi-basket3"
+             earning={sites.length}
+             icon="bi bi-database"
            >
             
            </TopCards>
@@ -101,7 +142,7 @@ const Buttons = () => {
             bg="bg-light-info text-info"
             title="Sales"
             subtitle=" Total robots"
-            earning={teams.length}
+            earning={robots.length}
             icon="bi bi-bag"
           >
              
@@ -111,10 +152,10 @@ const Buttons = () => {
       <Col sm="4" lg="31">
            
            <TopCards
-             bg="bg-light-warning text-warning"
+             bg="bg-light-success text-success"
              title="New Project"
-             subtitle="Total queues"
-             earning={tasks.length}
+             subtitle="Total workers"
+             earning={queues.length}
              icon="bi bi-basket3"
            >
             
@@ -126,7 +167,7 @@ const Buttons = () => {
        <Row>
        <Col sm="6" lg="8" xl="7" xxl="12">
  
-  </Col>**/}
+  </Col>
         <Col sm="6" lg="8" xl="7" xxl="12">
           <SalesChart />
         </Col>
