@@ -105,28 +105,7 @@ const Sidebar = () => {
                   </Link>
                 </NavItem>
               ))}
-              {selectedItem === index && dropdownOpen && (
-                <div>
-                  {/* Render dropdown items here */}
-                  {subtitle.items.map((navi, subIndex) => (
-                    <NavItem key={subIndex} className="sidenav-bg">
-                      <Link
-                        to={navi.href}
-                        className={
-                          location.pathname === navi.href
-                            ? "text-primary nav-link py-3"
-                            : "nav-link text-secondary py-3"
-                        }
-                      >
-                        <i className={navi.icon}></i>
-                        <span className="ms-3 d-inline-block">
-                          {navi.title}
-                        </span>
-                      </Link>
-                    </NavItem>
-                  ))}
-                </div>
-              )}
+              
             </React.Fragment>
           ))}
           <Button

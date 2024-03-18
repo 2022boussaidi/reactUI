@@ -168,9 +168,7 @@ const Buttons = () => {
        <Col sm="6" lg="8" xl="7" xxl="12">
  
   </Col>
-        <Col sm="6" lg="8" xl="7" xxl="12">
-          <SalesChart />
-        </Col>
+        
       </Row>
     </div>
   );

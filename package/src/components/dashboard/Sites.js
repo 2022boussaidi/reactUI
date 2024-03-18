@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardSubtitle, Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faEye, faInfo, faQuestionCircle, faTimesCircle, faUndo, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faEye, faGlobe, faInfo, faQuestionCircle, faTimesCircle, faUndo, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from 'react-paginate';
 import "./Sites.css"; // Import custom CSS for pagination styling
 
@@ -20,6 +20,7 @@ export default function Sites() {
     zoneCount: "",
     queueCount: ""
   });
+  const [allSiteNames, setAllSiteNames] = useState([]);
   const pageSize = 10; // Number of items per page
 
   useEffect(() => {
@@ -39,6 +40,7 @@ export default function Sites() {
         }
       );
       setSites(response.data.sites);
+      setAllSiteNames(response.data.sites.map(site => site.name));
     } catch (error) {
       console.error("Error loading sites:", error);
     }
@@ -77,6 +79,11 @@ export default function Sites() {
     setFilter({ ...filter, [name]: value });
   };
 
+  const handleSelectSiteName = (selectedName) => {
+    setFilter({ ...filter, name: selectedName });
+  };
+
+  const offset = currentPage * pageSize;
   const filteredSites = sites.filter(site => {
     return (
       site.name.toLowerCase().includes(filter.name.toLowerCase()) //&&
@@ -85,8 +92,6 @@ export default function Sites() {
      // String(site.queueNb).includes(filter.queueCount)
     );
   });
-
-  const offset = currentPage * pageSize;
   const pageCount = Math.ceil(filteredSites.length / pageSize);
 
   return (
@@ -103,20 +108,23 @@ export default function Sites() {
             Overview of the sites
           </CardSubtitle>
           <div className="py-4">
-            <div className="form-row mb-3">
+            <div className="form-row mb-3 icon bi bi-zoom-in" >
               <div className="col">
-                <input
-                  type="text"
+                <select
                   className="form-control"
                   placeholder="Filter by name"
                   name="name"
+                
                   value={filter.name}
                   onChange={handleFilterChange}
-                />
+                >
+                  <option value="">
+                   Select a site</option>
+                  {allSiteNames.map(name => (
+                    <option key={name} value={name}>{name}</option>
+                  ))}
+                </select>
               </div>
-              
-             
-              
             </div>
             <table className="table border shadow">
               <thead>
@@ -126,35 +134,32 @@ export default function Sites() {
                   <th scope="col">Zone Count</th>
                   <th scope="col">Proxy</th>
                   <th scope="col">Site manager issue</th>
-
                   <th scope="col">Actions</th>
-                  
                 </tr>
               </thead>
               <tbody>
                 {filteredSites.slice(offset, offset + pageSize).map((site, index) => (
                   <tr key={site.siteId}>
-                   <td>{site.name}</td>
-
-                   <td>{site.isPrivate ? <span className="badge bg-primary">Private</span> : <span className="badge bg-secondary">Public</span>}</td>
-                   <td>{site.zoneNb}</td>
-                   <td>
-  {site.proxy ? (
-    <span className="badge bg-secondary">{`${site.proxy.url}:${site.proxy.port} - ${site.proxy.type}`}</span>
-  ) : (
-    <FontAwesomeIcon icon={faQuestionCircle} className="text-danger" />
-  )}
-</td>
-<td>
-  {site.hasSiteManagerIssue ? (
-    <FontAwesomeIcon icon={faCheckCircle} />
-  ) : (
-    <FontAwesomeIcon icon={faTimesCircle} />
-  )}
-</td>
+                    <td>{site.name}</td>
+                    <td>{site.isPrivate ? <span className="badge bg-primary">Private</span> : <span className="badge bg-secondary">Public</span>}</td>
+                    <td>{site.zoneNb}</td>
+                    <td>
+                      {site.proxy ? (
+                        <span className="badge bg-secondary">{`${site.proxy.url}:${site.proxy.port} - ${site.proxy.type}`}</span>
+                      ) : (
+                        <FontAwesomeIcon icon={faQuestionCircle} className="text-danger" />
+                      )}
+                    </td>
+                    <td>
+                      {site.hasSiteManagerIssue ? (
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      ) : (
+                        <FontAwesomeIcon icon={faTimesCircle} />
+                      )}
+                    </td>
                     <td>
                       <Link className="btn btn-primary mx-2" to={`/viewsite/${site.siteId}`}>
-                      <FontAwesomeIcon icon={faEye} /> Details
+                        <FontAwesomeIcon icon={faEye} /> Details
                       </Link>
                       <button className="btn btn-gray mx-2" onClick={() => handleResetConfirmation(site.siteId)}>
                         <FontAwesomeIcon icon={faUndo} /> Reset

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Card, CardBody, CardTitle, CardSubtitle, Modal, ModalHeader, ModalBody, ModalFooter, Button ,Col,Row} from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle, Modal, ModalHeader, ModalBody, ModalFooter, Button, Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faClock, faExclamationCircle, faTimesCircle, faRedo, faPlay, faStop, faRefresh, faEyeDropper, faEye, faSpinner, faPlayCircle, faStopCircle } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from 'react-paginate';
@@ -16,7 +16,8 @@ export default function Overview() {
     siteName: "",
     robotName: "",
     status: "",
-    interactive: ""
+    interactive: "",
+    technologies: ""
   });
   const [runningCount, setRunningCount] = useState(0);
   const [stoppedCount, setStoppedCount] = useState(0);
@@ -134,23 +135,58 @@ export default function Overview() {
     const { name, value } = e.target;
     setFilter({ ...filter, [name]: value });
   };
+  const handleRobotNameFilterChange = (e) => {
+    const { value } = e.target;
+    setFilter({ ...filter, robotName: value });
+  };
+  
 
   const filteredQueues = queues.filter(queue => {
     return (
-      //(queue.siteName?.toLowerCase().includes(filter.siteName.toLowerCase()) || filter.siteName === "") &&
-      (queue.robot?.name?.toLowerCase().includes(filter.robotName.toLowerCase()) || filter.robotName === "") //&&
-      //(String(queue.status)?.includes(filter.status) || filter.status === "") &&
-     // (String(queue.interactive)?.includes(filter.interactive) || filter.interactive === "")
+      (queue.siteName?.toLowerCase().includes(filter.siteName.toLowerCase()) || filter.siteName === "") &&
+      (queue.robot?.name?.toLowerCase().includes(filter.robotName.toLowerCase()) || filter.robotName === "") &&
+      (String(queue.status)?.includes(filter.status) || filter.status === "") &&
+      (String(queue.interactive)?.includes(filter.interactive) || filter.interactive === "") &&
+      (filter.technologies === "" || (queue.technologies || []).includes(filter.technologies))
     );
   });
-
+  
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);
   };
 
   const offset = currentPage * pageSize;
   const pageCount = Math.ceil(filteredQueues.length / pageSize);
+ // Define a state variable to store unique robot names
+const [robotNames, setRobotNames] = useState([]);
+const [queueSiteName, setqueueSiteName] = useState([]);
+const [workerStatus, setworkerStatus] = useState([]);
+const [workerInteractive, setworkerInteractive] = useState([]);
 
+
+// useEffect to extract and set unique robot names
+useEffect(() => {
+  // Extract robot names from the queues data
+  const names = queues.map(queue => queue.robot?.name).filter(Boolean);
+  // Remove duplicate names using Set
+  const uniqueNames = [...new Set(names)];
+  // Update state with unique robot names
+  setRobotNames(uniqueNames);
+  const sites = queues.map(queue => queue.siteName);
+  // Remove duplicate names using Set
+  const uniqueSites = [...new Set(sites)];
+  // Update state with unique robot names
+  setqueueSiteName(uniqueSites);
+
+  const Status = queues.map(queue => queue.status);
+  const uniqueStatus= [...new Set(Status)];
+  setworkerStatus(uniqueStatus);
+  
+  const interactive = queues.map(queue => queue.interactive);
+  const uniqueinteractive= [...new Set(interactive)];
+  setworkerInteractive(uniqueinteractive);
+
+}, [queues]);
   return (
     <div className="container">
       <Card>
@@ -165,34 +201,74 @@ export default function Overview() {
             Overview of the workers
           </CardSubtitle>
           <div className="py-4">
-            <div className="form-row mb-3">
+          <Row className="form-row mb-3 ">
+          <div className="col">
+  <select
+    className="form-control"
+    name="robotName"
+    value={filter.robotName}
+    onChange={handleRobotNameFilterChange}
+  >
+    <option value="">Filter by robot name</option>
+    {robotNames.map((name, index) => (
+      <option key={index} value={name}>{name}</option>
+    ))}
+  </select>
+</div>
               <div className="col">
-                <input
-                  type="text"
+                <select
+                  
                   className="form-control"
-                  placeholder="Filter by robot name"
-                  name="robotName"
-                  value={filter.robotName}
+                 
+                  name="siteName"
+                  value={filter.siteName}
                   onChange={handleFilterChange}
-                />
+                
+                > <option value="">Filter by site name</option>
+                {queueSiteName.map((siteName, index) => (
+                  <option key={index} value={siteName}>{siteName}</option>
+                ))}
+              </select>
               </div>
-            </div>
+              <div className="col">
+                <select
+                  className="form-control"
+                  name="status"
+                  value={filter.status}
+                  onChange={handleFilterChange}
+                >
+                  <option value="">Filter by status</option>
+                  {workerStatus.map((status, index) => (
+                    <option key={index} value={status}>{status}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="col">
+                <select
+                  className="form-control"
+                  name="interactive"
+                  value={filter.interactive}
+                  onChange={handleFilterChange}
+                >
+                  <option value="">Filter by interactive</option>
+                  {workerInteractive.map((interactive, index) => (
+                    <option key={index} value={interactive}>{interactive}</option>
+                  ))}
+                </select>
+              </div>
+              
+            </Row>
             <Row className="form-row mb-3 ">
-            
-        
-            <Col sm="4" lg="31">
-         <FontAwesomeIcon icon={faPlayCircle} size="2x" className="  mr-1 text-success col-1"  /> Running: {runningCount}
-         </Col>
-      
-         <Col sm="4" lg="31">
-         <FontAwesomeIcon icon={faStopCircle}size="2x" className="mr-1 text-danger col-1"/> Stopped: {stoppedCount}
-         </Col>
-         <Col sm="4" lg="31">
-         <FontAwesomeIcon icon={faExclamationCircle} size="2x" className="mr-1 text-warning col-1" /> Interactive: {interactiveCount}
-         </Col>
-       
-     </Row>
-     
+              <Col sm="4" lg="31">
+                <FontAwesomeIcon icon={faPlayCircle} size="2x" className="  mr-1 text-success col-1" /> Running: {runningCount}
+              </Col>
+              <Col sm="4" lg="31">
+                <FontAwesomeIcon icon={faStopCircle} size="2x" className="mr-1 text-danger col-1" /> Stopped: {stoppedCount}
+              </Col>
+              <Col sm="4" lg="31">
+                <FontAwesomeIcon icon={faExclamationCircle} size="2x" className="mr-1 text-warning col-1" /> Interactive: {interactiveCount}
+              </Col>
+            </Row>
             <table className="table border shadow">
               <thead>
                 <tr>
@@ -209,10 +285,10 @@ export default function Overview() {
                     <td>{queue.siteName}</td>
                     <td>{queue.robot.name}</td>
                     <td>
-                      {queue.status ? (
+                      {queue.status === 2 ? (
                         <FontAwesomeIcon icon={faClock} className="text-success" />
                       ) : (
-                        <FontAwesomeIcon icon={faExclamationCircle} className="text-danger" />
+                        <FontAwesomeIcon icon={faClock} className="text-danger" />
                       )}
                     </td>
                     <td>
@@ -226,17 +302,17 @@ export default function Overview() {
                       <Link className="btn btn-primary mx-2" to={`/viewqueue/${queue.queueId}`}>
                         <FontAwesomeIcon icon={faEye} /> Details
                       </Link>
-                      <Link className="btn btn-secondry mx-2"onClick={() => handleActionConfirmation(queue.queueId, 'reset')} >
-                        <FontAwesomeIcon icon={faRedo} /> 
+                      <Link className="btn btn-secondry mx-2" onClick={() => handleActionConfirmation(queue.queueId, 'reset')} >
+                        <FontAwesomeIcon icon={faRedo} />
                       </Link>
                       <Link className="btn btn-secondry mx-2" onClick={() => handleActionConfirmation(queue.queueId, 'start')}>
-                        <FontAwesomeIcon icon={faPlay} /> 
+                        <FontAwesomeIcon icon={faPlay} />
                       </Link>
-                      <Link className="btn btn-secondry mx-2"onClick={() => handleActionConfirmation(queue.queueId, 'stop')}>
-                        <FontAwesomeIcon icon={faStop} /> 
+                      <Link className="btn btn-secondry mx-2" onClick={() => handleActionConfirmation(queue.queueId, 'stop')}>
+                        <FontAwesomeIcon icon={faStop} />
                       </Link>
                       <Link className="btn btn-secondry mx-2" onClick={() => handleActionConfirmation(queue.queueId, 'reserve')}>
-                        <FontAwesomeIcon icon={faRefresh} /> 
+                        <FontAwesomeIcon icon={faRefresh} />
                       </Link>
                     </td>
                   </tr>

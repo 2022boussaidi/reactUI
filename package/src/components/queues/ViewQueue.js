@@ -31,7 +31,7 @@ export default function ViewQueue() {
         },
         computedStatus: 0
     });
-    
+    const [showMore, setShowMore] = useState(false); // State variable to track show more/less
 
     const { id } = useParams();
 
@@ -52,6 +52,10 @@ export default function ViewQueue() {
             console.error("Error loading queue:", error);
         }
     };
+    const toggleShowMore = () => {
+        setShowMore(!showMore);
+    };
+    
 
     return (
        
@@ -77,20 +81,9 @@ export default function ViewQueue() {
                                 <li className="list-group-item">
                                     <b>Site Name:</b> {queue.siteName}
                                 </li>
-                                <li className="list-group-item">
-                                    <b>Planner ID:</b> {queue.plannerId}
-                                </li>
-                                <li className="list-group-item">
-                                    <b>Resources:</b> {queue.resources}
-                                </li>
-                                <li className="list-group-item">
-                                    <b>Plugins:</b>
-                                    <ul>
-                                        {queue.plugins.map((plugin, index) => (
-                                            <li key={index}>{plugin.s_ID} - Version: {plugin.s_version}</li>
-                                        ))}
-                                    </ul>
-                                </li>
+                               
+                               
+                               
                                 <li className="list-group-item">
                                     <b>Reserved State:</b> {queue.reservedState}
                                 </li>
@@ -109,6 +102,19 @@ export default function ViewQueue() {
                                 <li className="list-group-item">
                                     <b>Client Restrictions:</b> {queue.clientRestrictions.join(', ')}
                                 </li>
+                               
+                                <li className="list-group-item">
+                                    <b>Computed Status:</b> {queue.computedStatus}
+                                </li>
+                                 {/* Conditional rendering based on showMore state */}
+                        {showMore && (
+                            <>
+                             <li className="list-group-item">
+                                    <b>Resources:</b> {queue.resources}
+                                </li>
+                                <li className="list-group-item">
+                                    <b>Planner ID:</b> {queue.plannerId}
+                                </li>
                                 <li className="list-group-item">
                                     <b>Robot Details:</b>
                                     <ul>
@@ -118,13 +124,7 @@ export default function ViewQueue() {
                                         <li><b>Heartbeat Max:</b> {queue.robot.hbmax}</li>
                                         <li><b>Heartbeat Status:</b> {queue.robot.hbStatus}</li>
                                         <li><b>Site Manager Address:</b> {queue.robot.siteManagerAddress}</li>
-                                        <li><b>Plugins:</b>
-                                            <ul>
-                                                {queue.robot.plugins.map((plugin, index) => (
-                                                    <li key={index}>{plugin.s_ID} - Version: {plugin.s_version}</li>
-                                                ))}
-                                            </ul>
-                                        </li>
+                                        
                                         <li><b>Public IP:</b> {queue.robot.ips.public}</li>
                                         <li><b>Private IPs:</b>
                                             <ul>
@@ -136,8 +136,24 @@ export default function ViewQueue() {
                                     </ul>
                                 </li>
                                 <li className="list-group-item">
-                                    <b>Computed Status:</b> {queue.computedStatus}
+                                    <b>Plugins:</b>
+                                    <ul>
+                                        {queue.plugins.map((plugin, index) => (
+                                            <li key={index}>{plugin.s_ID} - Version: {plugin.s_version}</li>
+                                        ))}
+                                    </ul>
                                 </li>
+                      
+                                {/* Add more details as needed */}
+                            </>
+                        )}
+                        
+                        {/* Show more/less button */}
+                        <li className="list-group-item">
+                            <button className="btn btn-outline-primary" onClick={toggleShowMore}>
+                                {showMore ? "Show less" : "Show more"}
+                            </button>
+                        </li>
                             </ul>
                         </div>
                     </div>
