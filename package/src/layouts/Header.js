@@ -47,7 +47,7 @@ const Header = () => {
   };
 
   return (
-    <Navbar color="primary" dark expand="md">
+    <Navbar color="primary" dark expand="md" >
       <div className="d-flex align-items-center">
         <NavbarBrand href="/" className="d-lg-none">
           <LogoWhite />
