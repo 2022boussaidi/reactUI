@@ -144,7 +144,7 @@ export default function ViewSite() {
 
       <Modal isOpen={openModal} toggle={toggleModal} size="xl">
         <ModalHeader toggle={toggleModal}>Linked Elements</ModalHeader>
-        <ModalBody>
+        <ModalBody style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
           <div className="space-y-6">
             <Row>
               <Col sm="4" lg="4">

@@ -13,7 +13,11 @@ const navigation = [
         title: "Dashboard",
         href: "/buttons",
         icon: "bi bi-grid-fill",
-      },
+      },]
+    },
+    {
+      title: "Data",
+      items: [
       {
         title: "Sites",
         href: "/sites",
@@ -33,29 +37,39 @@ const navigation = [
   },
   
   {
-    title: "Sites overview",
+   
     items: [
      
       {
-        title: " charts",
+        title: " Analytics",
         href: "/sites",
-        icon: "bi bi-bar-chart",
+        icon: "bi bi-pie-chart-fill",
       },
     ]
   },
   {
-    title: "Robots overview",
+    
     items: [
       
       {
-        title: " charts",
+        title: "Alerts ",
         href: "/sites",
-        icon: "bi bi-bar-chart-line-fill",
+        icon: "bi bi-patch-exclamation-fill",
       },
     ]
   },
     
+  {
+    
+    items: [
       
+      {
+        title: "Log out ",
+        href: "/",
+        icon: "bi bi-box-arrow-in-right",
+      },
+    ]
+  }, 
   
 ];
 

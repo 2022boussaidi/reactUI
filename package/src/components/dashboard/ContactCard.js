@@ -3,7 +3,7 @@ import React from "react";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 
 const ContactCard = () => {
-  const contactEmail = "contact@esprit.tn";
+  const contactEmail = "contact@xxxxxxxx";
 
   return (
     <Card>
