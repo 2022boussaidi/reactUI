@@ -50,7 +50,7 @@ const FullLayout = () => {
       <div className="p-5 bg-image" style={{backgroundImage: `url(${logo})`, height: '400px' }}></div>
       <MDBCard className='mx-5 mb-5 p-5 shadow-5' style={{marginTop: '-100px', background: 'hsla(0, 0%, 100%, 0.8)', backdropFilter: 'blur(30px)'}}>
         <MDBCardBody className='p-5 text-center'>
-          <h2 className="fw-bold mb-5">Welcome to Ekara</h2>
+          <h2 className="fw-bold mb-5">Welcome to Ekara Robots</h2>
           <MDBInput wrapperClass='mb-4' label='Email' id='form1' type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
           <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
           <MDBBtn className='w-100 mb-4' size='md' onClick={handleLogin}  color="success">Start Now</MDBBtn>

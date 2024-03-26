@@ -7,7 +7,7 @@ const Logo = () => {
   return (
     <Link to="/">
      <div>
-    <img src={logo} alt="Logo" style={{ width: '130px', height: 'auto' }} />
+    <img src={logo} alt="Logo" style={{ width: '120px', height: 'auto' }} />
   </div>
     </Link>
   );

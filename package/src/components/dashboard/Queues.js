@@ -292,7 +292,7 @@ useEffect(() => {
                       )}
                     </td>
                     <td>
-                      {queue.interactive ? (
+                      {queue.interactive  ? (
                         <FontAwesomeIcon icon={faCheckCircle} className="text-success" />
                       ) : (
                         <FontAwesomeIcon icon={faTimesCircle} className="text-danger" />

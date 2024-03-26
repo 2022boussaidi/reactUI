@@ -11,7 +11,7 @@ $info: #459285;
 $danger: #8d3737;
 $success: #63ac87;
 $warning: #ee9d01;
-$dark: #f5f6f8;
+$dark: #cdd1d8;
 $light: #eaf2fb;
 $secondary: #6f7075;
 $gray-900: #35363b;
@@ -64,7 +64,7 @@ $body-color: $gray-900 !default;
 /*******************/
 // Theme common variable
 /********************/
-$border-radius: 0.3rem !default;
+$border-radius: 0.8rem !default;
 $box-shadow: 0 0.5rem 1rem rgba($black, 0.05);
 $headings-font-weight: 600 !default;
 
@@ -87,4 +87,4 @@ $btn-focus-width: 0px;
 // Theme sidebar width
 /********************/
 $sidebarWidth: 175px;
-$sidebarColor: $white;
+$sidebarColor: $primary;

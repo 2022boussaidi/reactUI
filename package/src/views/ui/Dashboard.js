@@ -14,6 +14,7 @@ import {
 } from "reactstrap";
 import SalesChart from "./SalesChart";
 import ProjectPerformanceChart from "../../components/dashboard/ProjectPerformanceChart";
+import Inventory from "../../components/dashboard/Inventory";
 
 const Buttons = () => {
 
@@ -129,7 +130,7 @@ const Buttons = () => {
              title="New Project"
              subtitle="Total sites"
              earning={sites.length}
-             icon="bi bi-database"
+             icon="bi bi-robot"
            >
             
            </TopCards>
@@ -143,7 +144,7 @@ const Buttons = () => {
             title="Sales"
             subtitle=" Total robots"
             earning={robots.length}
-            icon="bi bi-bag"
+            icon="bi bi-robot"
           >
              
        
@@ -156,7 +157,7 @@ const Buttons = () => {
              title="New Project"
              subtitle="Total workers"
              earning={queues.length}
-             icon="bi bi-basket3"
+             icon="bi bi-robot"
            >
             
            </TopCards>
@@ -165,10 +166,11 @@ const Buttons = () => {
        </Col>
        </Row>
        <Row>
-       <Col sm="6" lg="8" xl="7" xxl="12">
- 
-  </Col>
+       <Col sm="6" lg="6" xl="6" xxl="12">
+          <Inventory/>
+        </Col>
         
+  
       </Row>
     </div>
   );

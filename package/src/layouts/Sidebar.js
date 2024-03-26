@@ -7,18 +7,17 @@ import { Link, useLocation } from "react-router-dom";
 
 const navigation = [
   {
-    title: "Home",
-    items: [
-      {
+    
+      
         title: "Dashboard",
         href: "/buttons",
         icon: "bi bi-grid-fill",
-      },]
-    },
+       
+      },
+    
     {
-      title: "Data",
-      items: [
-      {
+      
+     
         title: "Sites",
         href: "/sites",
         icon: "bi bi-newspaper",
@@ -26,101 +25,77 @@ const navigation = [
       {
         title: "Robots  ",
         href: "/robots",
-        icon: "bi bi-list-columns",
+        icon: "bi bi-robot",
       },
       {
         title: "Workers  ",
         href: "/queues",
         icon: "bi bi-layout-text-sidebar-reverse",
       },
-    ]
-  },
-  
-  {
    
-    items: [
+   
      
       {
         title: " Analytics",
-        href: "/sites",
+        href: "/",
         icon: "bi bi-pie-chart-fill",
       },
-    ]
-  },
+  
+
   {
     
-    items: [
-      
-      {
+  
         title: "Alerts ",
-        href: "/sites",
+        href: "/",
         icon: "bi bi-patch-exclamation-fill",
       },
-    ]
-  },
+  
     
-  {
-    
-    items: [
+
       
       {
         title: "Log out ",
         href: "/",
         icon: "bi bi-box-arrow-in-right",
       },
-    ]
-  }, 
+  
   
 ];
-
 const Sidebar = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const location = useLocation();
-
-  const toggleDropdown = (index) => {
-    setSelectedItem(index);
-    setDropdownOpen(!dropdownOpen);
+  const showMobilemenu = () => {
+    document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
+  let location = useLocation();
 
   return (
     <div className="p-3">
       <div className="d-flex align-items-center">
         <Logo />
         <span className="ms-auto d-lg-none">
-          <Button
-            close
-            size="sm"
-            className="ms-auto d-lg-none"
-            onClick={() => toggleDropdown(null)}
-          ></Button>
+        <Button
+          close
+          size="sm"
+          className="ms-auto d-lg-none"
+          onClick={() => showMobilemenu()}
+        ></Button>
         </span>
       </div>
       <div className="pt-4 mt-2">
         <Nav vertical className="sidebarNav">
-          {navigation.map((subtitle, index) => (
-            <React.Fragment key={index}>
-              <NavItem className="sidenav-bg">
-                <span className="subtitle">{subtitle.title}</span>
-              </NavItem>
-              {subtitle.items.map((navi, subIndex) => (
-                <NavItem key={subIndex} className="sidenav-bg">
-                  <Link
-                    to={navi.href}
-                    className={
-                      location.pathname === navi.href
-                        ? "text-primary nav-link py-3"
-                        : "nav-link text-secondary py-3"
-                    }
-                    onClick={() => toggleDropdown(subIndex)}
-                  >
-                    <i className={navi.icon}></i>
-                    <span className="ms-3 d-inline-block">{navi.title}</span>
-                  </Link>
-                </NavItem>
-              ))}
-              
-            </React.Fragment>
+          {navigation.map((navi, index) => (
+            <NavItem key={index} className="sidenav-bg">
+              <Link
+                to={navi.href}
+                className={
+                  location.pathname === navi.href
+                    ? "text-gray-900 nav-link py-3"
+                    : "nav-link text-white py-3"
+                }
+              >
+                <i className={navi.icon}></i>
+                <span className="ms-3 d-inline-block">{navi.title}</span>
+              </Link>
+            </NavItem>
           ))}
           <Button
             color="primary"

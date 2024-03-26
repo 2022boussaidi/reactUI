@@ -27,6 +27,7 @@ import { ReactComponent as LogoWhite } from "../assets/images/logos/xtremelogowh
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faInfoCircle, faQuestionCircle, faSignOutAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 import "../assets/scss/NavStyle.css";
+import Logo from "./Logo";
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -51,17 +52,18 @@ const Header = () => {
   return (
     <Navbar color="primary" dark expand="md" >
       <div className="d-flex align-items-center">
-        <NavbarBrand href="/" className="d-lg-none">
-          <LogoWhite />
-        </NavbarBrand>
+       
         <Button
-          color="gray"
-          className="d-lg-none"
+          color="primary"
+          
           onClick={() => showMobilemenu()}
         >
           <i className="bi bi-list"></i>
         </Button>
       </div>
+      <NavbarBrand href="/" className="d-lg">
+          
+        </NavbarBrand>
       <div className="hstack gap-2">
         <Button
           color="primary"
@@ -116,7 +118,7 @@ const Header = () => {
           <DropdownMenu>
             <DropdownItem header>Info</DropdownItem>
             <DropdownItem>My Account</DropdownItem>
-            <DropdownItem>Tasks</DropdownItem>
+           
             <DropdownItem>Notifications</DropdownItem>
             <DropdownItem onClick={handleLogout}>Logout <FontAwesomeIcon icon={faSignOutAlt} /></DropdownItem>
             <DropdownItem divider />
