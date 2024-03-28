@@ -283,7 +283,7 @@ export default function Overview() {
 
       <Modal isOpen={successModalOpen} toggle={() => setSuccessModalOpen(!successModalOpen)}>
         <ModalHeader toggle={() => setSuccessModalOpen(!successModalOpen)}>Success</ModalHeader>
-        <ModalBody>Robot reboot successful!</ModalBody>
+        <ModalBody>Reboot request sent ! this may take few moments....</ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={() => setSuccessModalOpen(!successModalOpen)}>Close</Button>
         </ModalFooter>

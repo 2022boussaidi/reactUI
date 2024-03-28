@@ -18,10 +18,11 @@ import Inventory from "../../components/dashboard/Inventory";
 
 const Buttons = () => {
 
-
+ 
   const [sites, setSites] = useState([]);
   const [robots, setRobots] = useState([]);
   const [queues, setQueues] = useState([]);
+  const [inventory, setInventory] = useState([]);
 
   useEffect(() => {
     loadQueues();
@@ -88,6 +89,44 @@ const Buttons = () => {
       console.error("Error loading sites:", error);
     }
   };
+  useEffect(() => {
+    loadInventory();
+  }, []); // Reload sites when current page changes
+
+  const loadInventory = async () => {
+    try {
+      const bearerToken = localStorage.getItem('token');
+      const response = await axios.post(
+        "http://localhost:8080/inventory",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${bearerToken}`
+          }
+        }
+      );
+      // Extraction des données de l'inventaire
+      const inventoryData = response.data.inventories;
+
+      // Mise en forme des données pour les adapter à l'affichage dans votre tableau
+      const formattedInventory = inventoryData.map(item => ({
+        Scenarios : item.kpi.site.detail.scenarios,
+        Deployment_Areas: item.kpi.site.detail.deployment_areas,
+        Running: item.kpi.robot.detail.running,
+        Delayed:item.kpi.robot.detail.delayed,
+        Stopped: item.kpi.robot.detail.stopped,
+        Runningwo: item.kpi.worker.detail.running,
+       Delayedwo: item.kpi.worker.detail.delayed,
+      Stoppedwo: item.kpi.worker.detail.stopped
+
+      }));
+
+      // Définition des données formatées dans l'état
+      setInventory(formattedInventory);
+    }catch (error) {
+        console.error("Error loading inventory:", error);
+      }
+    };
   const [cSelected, setCSelected] = useState([]);
   const [rSelected, setRSelected] = useState(null);
 
@@ -131,6 +170,7 @@ const Buttons = () => {
              subtitle="Total sites"
              earning={sites.length}
              icon="bi bi-robot"
+             details={["scenarios :" , "deployment_area :"]} // Array of details
            >
             
            </TopCards>
@@ -145,6 +185,7 @@ const Buttons = () => {
             subtitle=" Total robots"
             earning={robots.length}
             icon="bi bi-robot"
+            details={["running :" , "deplayed :" , "stopped :" ]} 
           >
              
        
@@ -158,6 +199,7 @@ const Buttons = () => {
              subtitle="Total workers"
              earning={queues.length}
              icon="bi bi-robot"
+             details={["running :" , "deplayed :"," stopped :" ]} 
            >
             
            </TopCards>

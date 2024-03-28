@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Card, CardBody, CardTitle, CardSubtitle } from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle,Row, Col  } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faEye, faQuestionCircle, faTimesCircle, faUndo } from "@fortawesome/free-solid-svg-icons";
-import ReactPaginate from 'react-paginate';
+import { faCheckCircle, faClock, faExclamationCircle, faEye, faPlayCircle, faSpinner, faStopCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";import ReactPaginate from 'react-paginate';
 import "./Sites.css"; // Import custom CSS for pagination styling
 
 export default function Inventory() {
@@ -87,7 +86,7 @@ export default function Inventory() {
           </div>
           
           <div className="py-4">
-            <div className="form-row mb-3">
+            <Row className="form-row mb-3">
               <div className="col">
                 <select
                   className="form-control"
@@ -102,7 +101,23 @@ export default function Inventory() {
                   ))}
                 </select>
               </div>
-            </div>
+            </Row>
+            <Row className="form-row mb-3 ">
+              <Col sm="3" lg="30">
+                <FontAwesomeIcon icon={faPlayCircle} size="2x" className="mr-1 text-success" /> Running
+              </Col>
+              <Col sm="3" lg="30">
+                <FontAwesomeIcon icon={faStopCircle} size="2x" className="mr-1 text-danger" /> Stopped
+              </Col>
+              <Col sm="3" lg="30">
+                <FontAwesomeIcon icon={faClock} size="2x" className="mr-1 text-warning" /> Delayed
+
+              </Col>
+              <Col sm="3" lg="30">
+                <FontAwesomeIcon icon={faExclamationCircle} size="2x" className="mr-1 text-primary" /> Unknown
+                
+              </Col>
+            </Row>
             <table className="table border shadow">
               <thead>
                 <tr>
@@ -121,7 +136,22 @@ export default function Inventory() {
                     <td>{item.robotName}</td>
                     <td>{item.version}</td>
                     <td>{item.workerName}</td>
-                    <td>{item.workerStatus}</td>
+                    <td><td>
+  {(() => {
+    switch (item.workerStatus) {
+      case "RUNNING":
+        return <FontAwesomeIcon icon={faPlayCircle} className="text-success" />;
+      case "STOPPED":
+        return <FontAwesomeIcon icon={faStopCircle} className="text-danger" />;
+        case "DELAYED":
+        return <FontAwesomeIcon icon={faClock} className="text-warning" />;
+        case "UNKNOWN":
+        return <FontAwesomeIcon icon={faExclamationCircle} className="text-primary" />;
+      default:
+        return null; // Handle any other cases
+    }
+  })()}
+</td></td>
                     <td>{item.robotDiag}</td>
                   </tr>
                 ))}

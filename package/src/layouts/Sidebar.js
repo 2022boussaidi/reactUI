@@ -88,7 +88,7 @@ const Sidebar = () => {
                 to={navi.href}
                 className={
                   location.pathname === navi.href
-                    ? "text-gray-900 nav-link py-3"
+                    ? "text-warning nav-link py-3"
                     : "nav-link text-white py-3"
                 }
               >
@@ -98,7 +98,7 @@ const Sidebar = () => {
             </NavItem>
           ))}
           <Button
-            color="primary"
+            color="warning"
             tag="a"
             target="_blank"
             className="mt-3"

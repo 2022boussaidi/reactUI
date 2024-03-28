@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
@@ -13,119 +13,148 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   Form,
-  FormGroup,
-  InputGroupText,
   Input,
   InputGroup,
   Container,
-  Media,
-  InputGroupAddon,
-  Row,Col // Import InputGroupAddon from reactstrap
+  Row,
+  Col,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from "reactstrap";
 
-import { ReactComponent as LogoWhite } from "../assets/images/logos/xtremelogowhite.svg";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faInfoCircle, faQuestionCircle, faSignOutAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faInfoCircle, faQuestionCircle, faSignOutAlt, faSearch } from "@fortawesome/free-solid-svg-icons";
 import "../assets/scss/NavStyle.css";
-import Logo from "./Logo";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [dropdownOpen, setDropdownOpen] = React.useState(false);
-  const navigate = useNavigate(); // Access to the navigate function
+  const [isOpen, setIsOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
+  const [modal, setModal] = useState(false);
+  const navigate = useNavigate();
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   const Handletoggle = () => {
     setIsOpen(!isOpen);
   };
+
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
 
   const handleLogout = () => {
-    // Perform logout actions here, such as clearing token from local storage
-    localStorage.removeItem('token');
-    // Redirect to login page after logout
-    navigate('/');
+    localStorage.removeItem("token");
+    navigate("/");
   };
 
+  const handleMyAccount = () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found. User not authenticated.');
+      return;
+    }
+
+    fetch("http://localhost:8080/current", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch user information');
+      }
+      return response.json();
+    })
+    .then(data => {
+      setUserInfo(data);
+      toggleModal(); // Open the modal after fetching user information
+    })
+    .catch(error => {
+      console.error('Error fetching user information:', error);
+    });
+  };
+
+  const toggleModal = () => setModal(!modal);
+
   return (
-    <Navbar color="primary" dark expand="md" >
-      <div className="d-flex align-items-center">
-       
-        <Button
-          color="primary"
-          
-          onClick={() => showMobilemenu()}
-        >
-          <i className="bi bi-list"></i>
-        </Button>
-      </div>
-      <NavbarBrand href="/" className="d-lg">
-          
-        </NavbarBrand>
-      <div className="hstack gap-2">
-        <Button
-          color="primary"
-          size="sm"
-          className="d-sm-block d-md-none"
-          onClick={Handletoggle}
-        >
-          {isOpen ? (
-            <i className="bi bi-x"></i>
-          ) : (
-            <i className="bi bi-three-dots-vertical"></i>
+    <>
+      <Navbar color="primary" dark expand="md">
+        <div className="d-flex align-items-center">
+          <Button color="primary" onClick={showMobilemenu}>
+            <i className="bi bi-list"></i>
+          </Button>
+        </div>
+        <NavbarBrand href="/" className="d-lg"></NavbarBrand>
+        <div className="hstack gap-2">
+          <Button
+            color="primary"
+            size="sm"
+            className="d-sm-block d-md-none"
+            onClick={Handletoggle}
+          >
+            {isOpen ? <i className="bi bi-x"></i> : <i className="bi bi-three-dots-vertical"></i>}
+          </Button>
+        </div>
+
+        <Collapse navbar isOpen={isOpen}>
+          <Nav className="me-auto" navbar>
+            <NavItem color="dark">
+              <Link to="https://www.ip-label.fr" className="nav-link">
+                <FontAwesomeIcon icon={faInfoCircle} /> About Ekara
+              </Link>
+            </NavItem>
+            <NavItem>
+              <Link to="/contact" className="nav-link">
+                <FontAwesomeIcon icon={faQuestionCircle} /> Help
+              </Link>
+            </NavItem>
+            <Form inline>
+              <Row>
+                <Col xs="auto">
+                  <InputGroup>
+                    <Input type="text" placeholder="Search" className="mr-sm-2" />
+                    <Button color="info">
+                      <FontAwesomeIcon icon={faSearch} />
+                    </Button>
+                  </InputGroup>
+                </Col>
+              </Row>
+            </Form>
+          </Nav>
+
+          <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+            <DropdownToggle color="primary">
+              <FontAwesomeIcon icon={faUser} />
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem onClick={handleMyAccount}>My Account</DropdownItem>
+              <DropdownItem>Notifications</DropdownItem>
+              <DropdownItem onClick={handleLogout}>Logout <FontAwesomeIcon icon={faSignOutAlt} /></DropdownItem>
+              <DropdownItem divider />
+            </DropdownMenu>
+          </Dropdown>
+        </Collapse>
+      </Navbar>
+
+      <Modal isOpen={modal} toggle={toggleModal}>
+        <ModalHeader toggle={toggleModal}>User Information</ModalHeader>
+        <ModalBody>
+          {userInfo && (
+            <>
+              <p>Email: {userInfo.email}</p>
+              <p>First Name: {userInfo.firstname}</p>
+              <p>Last Name: {userInfo.lastname}</p>
+              <p>Role Name: {userInfo.roleName}</p>
+            </>
           )}
-        </Button>
-      </div>
-
-      <Collapse navbar isOpen={isOpen}>
-        <Nav className="me-auto" navbar>
-          <NavItem color="dark">
-            <Link to="https://www.ip-label.fr" className="nav-link">
-              <FontAwesomeIcon icon={faInfoCircle} /> {/* Icon for "About Ekara" */}
-              About Ekara
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/contact" className="nav-link">
-              <FontAwesomeIcon icon={faQuestionCircle} /> {/* Icon for "Contact" */}
-              Help
-            </Link>
-          </NavItem>
-          <Form inline>
-  <Row>
-    <Col xs="auto">
-      <InputGroup>
-        <Input type="text" placeholder="Search" className="mr-sm-2" />
-        
-          <Button color="info">
-          <FontAwesomeIcon icon={faSearch}  />
-            </Button>
-       
-      </InputGroup>
-    </Col>
-  </Row>
-</Form>
-
-        </Nav> 
-        
-       
-        <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-          <DropdownToggle color="primary">
-            <FontAwesomeIcon icon={faUser} />
-          </DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem header>Info</DropdownItem>
-            <DropdownItem>My Account</DropdownItem>
-           
-            <DropdownItem>Notifications</DropdownItem>
-            <DropdownItem onClick={handleLogout}>Logout <FontAwesomeIcon icon={faSignOutAlt} /></DropdownItem>
-            <DropdownItem divider />
-          </DropdownMenu>
-        </Dropdown>
-      </Collapse>
-    </Navbar>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="secondary" onClick={toggleModal}>Close</Button>
+        </ModalFooter>
+      </Modal>
+    </>
   );
 };
 
