@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col, Card, CardBody, CardTitle, Table } from 'reactstrap';
 
-export default function ViewRobot() {
+const ViewRobot = () => {
     const [robot, setRobot] = useState({
         robotId: "",
         name: "",
@@ -46,6 +47,7 @@ export default function ViewRobot() {
         isPrivate: false
     });
     const [showMore, setShowMore] = useState(false); // State variable to track show more/less
+    const [openModal, setOpenModal] = useState(false);
     
     const { id } = useParams();
     
@@ -71,93 +73,98 @@ export default function ViewRobot() {
     const toggleShowMore = () => {
         setShowMore(!showMore);
     };
-    
+    const toggleModal = () => {
+        setOpenModal(!openModal);
+        if (!openModal) {
+         loadRobot();
+        }
+    };
+
     return (
         <div className="row">
-            <h2 className="text-center m-4">Robot Details</h2>
-            <div className="card">
-                <div className="card-header">
-                    Details of Robot with ID: {robot.robotId}
-                    <ul className="list-group list-group-flush">
-                        <li className="list-group-item">
-                            <b>Name:</b> {robot.name}
-                        </li>
-                        <li className="list-group-item">
-                            <b>Heartbeat:</b> {robot.heartBeat}
-                        </li>
-                        <li className="list-group-item">
-                            <b>Version:</b> {robot.version}
-                        </li>
-                        <li className="list-group-item">
-                            <b>Site Manager Address:</b> {robot.siteManagerAddress}
-                        </li>
-                        <li className="list-group-item">
-                            <b>Has Site Manager Issue:</b> {robot.hasSiteManagerIssue ? "Yes" : "No"}
-                        </li>
-                       
-                        {robot.certificates && Object.values(robot.certificates).length > 0 && (
+            <Button color="primary" onClick={toggleModal}>
+                View Robot Details
+            </Button>
+            <Modal isOpen={openModal} toggle={toggleModal} size="xl">
+                <ModalHeader toggle={toggleModal}>Robot Details</ModalHeader>
+                <ModalBody style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
+                    <div className="card-header">
+                        Details of Robot with ID: {robot.robotId}
+                        <ul className="list-group list-group-flush">
                             <li className="list-group-item">
-                                <b>Certificates:</b>
-                                <ul>
-                                    {Object.values(robot.certificates).map((certificate, index) => (
-                                        <li key={index}>{certificate.s_pattern} - Expiration Date: {certificate.td_expirationDate}</li>
-                                    ))}
-                                </ul>
+                                <b>Name:</b> {robot.name}
                             </li>
-                        )}
-                        <li className="list-group-item">
-                            <b>Public IP:</b> {robot.ips.public}
-                        </li>
-                        
-                        <li className="list-group-item">
-                            <b>Last Status:</b> {robot.lastStatus.s_src}
-                        </li>
-                        {/* Conditional rendering based on showMore state */}
-                        {showMore && (
-                            <>
+                            <li className="list-group-item">
+                                <b>Heartbeat:</b> {robot.heartBeat}
+                            </li>
+                            <li className="list-group-item">
+                                <b>Version:</b> {robot.version}
+                            </li>
+                            <li className="list-group-item">
+                                <b>Site Manager Address:</b> {robot.siteManagerAddress}
+                            </li>
+                            <li className="list-group-item">
+                                <b>Has Site Manager Issue:</b> {robot.hasSiteManagerIssue ? "Yes" : "No"}
+                            </li>
+                            {robot.certificates && Object.values(robot.certificates).length > 0 && (
                                 <li className="list-group-item">
-                                    <b>Endpoint:</b> {robot.endpoint}
+                                    <b>Certificates:</b>
+                                    <ul>
+                                        {Object.values(robot.certificates).map((certificate, index) => (
+                                            <li key={index}>{certificate.s_pattern} - Expiration Date: {certificate.td_expirationDate}</li>
+                                        ))}
+                                    </ul>
                                 </li>
-                                <li className="list-group-item">
-                                    <b>Host:</b> {robot.host}
-                                </li>
-                                <li className="list-group-item">
-                                    <b>Storage Name:</b> {robot.storageName}
-                                </li>
-                                <li className="list-group-item">
-                            <b>Plugins:</b>
-                            <ul>
-                                {robot.plugins.map((plugin, index) => (
-                                    <li key={index}>{plugin.s_ID} - Version: {plugin.s_version}</li>
-                                ))}
-                            </ul>
-                        </li>
-                        <li className="list-group-item">
-                            <b>Components:</b>
-                            <ul>
-                                {robot.components.map((component, index) => (
-                                    <li key={index}>{component.s_name} - Version: {component.s_version}</li>
-                                ))}
-                            </ul>
-                        </li>
-                                {/* Add more details as needed */}
-                            </>
-                        )}
-                        
-                        {/* Show more/less button */}
-                        <li className="list-group-item">
-                            <button className="btn btn-outline-primary" onClick={toggleShowMore}>
-                                {showMore ? "Show less" : "Show more"}
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div className="col-md-6 ">
-                <Link className="btn btn-primary my-2" to={"/robots"}>
-                    Back to Robots
-                </Link>
-            </div>
+                            )}
+                            <li className="list-group-item">
+                                <b>Public IP:</b> {robot.ips.public}
+                            </li>
+                            <li className="list-group-item">
+                                <b>Last Status:</b> {robot.lastStatus.s_src}
+                            </li>
+                            {showMore && (
+                                <>
+                                    <li className="list-group-item">
+                                        <b>Endpoint:</b> {robot.endpoint}
+                                    </li>
+                                    <li className="list-group-item">
+                                        <b>Host:</b> {robot.host}
+                                    </li>
+                                    <li className="list-group-item">
+                                        <b>Storage Name:</b> {robot.storageName}
+                                    </li>
+                                    <li className="list-group-item">
+                                        <b>Plugins:</b>
+                                        <ul>
+                                            {robot.plugins.map((plugin, index) => (
+                                                <li key={index}>{plugin.s_ID} - Version: {plugin.s_version}</li>
+                                            ))}
+                                        </ul>
+                                    </li>
+                                    <li className="list-group-item">
+                                        <b>Components:</b>
+                                        <ul>
+                                            {robot.components.map((component, index) => (
+                                                <li key={index}>{component.s_name} - Version: {component.s_version}</li>
+                                            ))}
+                                        </ul>
+                                    </li>
+                                </>
+                            )}
+                            <li className="list-group-item">
+                                <button className="btn btn-outline-primary" onClick={toggleShowMore}>
+                                    {showMore ? "Show less" : "Show more"}
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={toggleModal}>OK</Button>
+                </ModalFooter>
+            </Modal>
         </div>
     );
 }
+
+export default ViewRobot;

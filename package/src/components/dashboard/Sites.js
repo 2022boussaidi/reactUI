@@ -108,7 +108,7 @@ export default function Sites() {
             Overview of the sites
           </CardSubtitle>
           <div className="py-4">
-            <div className="form-row mb-3 icon bi bi-zoom-in" >
+            <div className="form-row mb-3" >
               <div className="col">
                 <select
                   className="form-control"

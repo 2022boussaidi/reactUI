@@ -185,7 +185,7 @@ const Buttons = () => {
             subtitle=" Total robots"
             earning={robots.length}
             icon="bi bi-robot"
-            details={["running :" , "deplayed :" , "stopped :" ]} 
+            details={["running :" , "delayed :" , "stopped :" ]} 
           >
              
        
@@ -199,7 +199,7 @@ const Buttons = () => {
              subtitle="Total workers"
              earning={queues.length}
              icon="bi bi-robot"
-             details={["running :" , "deplayed :"," stopped :" ]} 
+             details={["running :" , "delayed :"," stopped :" ]} 
            >
             
            </TopCards>
