@@ -148,7 +148,7 @@ const Buttons = () => {
     <div>
       <div className="text-right mt-2" style={{display:"flex", justifyContent:"space-between"}}>
    
-    <h2>dashboard</h2>
+    <h2>Home</h2>
   
  </div>
       
