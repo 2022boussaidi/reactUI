@@ -50,7 +50,10 @@ const ViewRobot = lazy(() => import ("../components/robots/ViewRobot.js"))
 const OverviewQueues = lazy(() => import("../views/OverviewQueues.js"));
 const ViewQueue = lazy(() => import ("../components/queues/ViewQueue.js"))
 /******************************///*******queueus */ */
+/*******************************scenarios***//////////////// */
+const Scenarios = lazy(() => import("../components/dashboard/Scenarios.js"));
 
+/******************************///*******scenzrios */ */
 
 
 
@@ -105,7 +108,8 @@ const ThemeRoutes = [
        { path: "/viewqueue/:id", exact: true, element: <ViewQueue/> },
 
        /***************************queussssss ****************************************/
-
+/***********************************SCENARIOS//////////////////////////// */
+{ path: "/scenarios", exact: true, element: <Scenarios/> },
     
       { path: "/addteam", exact: true, element: <AddTeam /> },
       { path: "/viewteam/:id", exact: true, element: <ViewTeam /> },

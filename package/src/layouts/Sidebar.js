@@ -35,7 +35,7 @@ const navigation = [
         href: "/queues",
         icon: "bi bi-layout-text-sidebar-reverse",
         items: [
-          { title: "Scenarios", href: "/buttons/subitem1" , icon: "bi bi-stack ms-2"},
+          { title: "Scenarios", href: "/scenarios" , icon: "bi bi-stack ms-2"},
           { title: "Zones", href: "/buttons/subitem2" , icon: "bi bi-pin-map ms-2"},
         ],
       },
