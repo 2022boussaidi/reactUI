@@ -51,11 +51,13 @@ const OverviewQueues = lazy(() => import("../views/OverviewQueues.js"));
 const ViewQueue = lazy(() => import ("../components/queues/ViewQueue.js"))
 /******************************///*******queueus */ */
 /*******************************scenarios***//////////////// */
-const Scenarios = lazy(() => import("../components/dashboard/Scenarios.js"));
+const Scenarios = lazy(() => import("../views/OverviewScenarios.js"));
 
 /******************************///*******scenzrios */ */
 
-
+const Zones = lazy(() => import("../components/dashboard/Zones.js"));
+/***********************woks////////////////////////////// */
+const Workspaces = lazy(() => import("../components/dashboard/Workspaces.js"));
 
     
 
@@ -110,6 +112,11 @@ const ThemeRoutes = [
        /***************************queussssss ****************************************/
 /***********************************SCENARIOS//////////////////////////// */
 { path: "/scenarios", exact: true, element: <Scenarios/> },
+/********************zones///////////************************** */ 
+{ path: "/zones", exact: true, element: <Zones/> },
+{ path: "/workspaces", exact: true, element: <Workspaces/> },
+
+
     
       { path: "/addteam", exact: true, element: <AddTeam /> },
       { path: "/viewteam/:id", exact: true, element: <ViewTeam /> },

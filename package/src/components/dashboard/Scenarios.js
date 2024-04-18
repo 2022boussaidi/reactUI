@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Card, CardBody, CardTitle, CardSubtitle, Row } from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle, Row, Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { faCircleDot, faClock, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from 'react-paginate';
+import { Link } from "react-router-dom";
+
 
 export default function Scenarios() {
   const [scenarios, setScenarios] = useState([]);
@@ -14,12 +16,13 @@ export default function Scenarios() {
     applicationName: ""
   });
   const [currentPage, setCurrentPage] = useState(0);
-  const pageSize = 10; // Number of items per page
+  const pageSize = 5; // Number of items per page
 
   // Define a state variable to store unique zone, script, app names
   const [zoneNames, setZoneNames] = useState([]);
   const [scriptNames, setScriptNames] = useState([]);
   const [applicationNames, setApplicationNames] = useState([]);
+  const [dropdownOpen, setDropdownOpen] = useState({}); // State for managing dropdowns per row
 
   useEffect(() => {
     loadScenarios();
@@ -78,6 +81,13 @@ export default function Scenarios() {
     const uniqueApplicationNames = [...new Set(applications)];
     setApplicationNames(uniqueApplicationNames);
   }, [scenarios]);
+
+  const toggleDropdown = (index) => {
+    setDropdownOpen(prevState => ({
+      ...prevState,
+      [index]: !prevState[index] // Toggle the dropdown state for the specific row index
+    }));
+  };
 
   return (
     <div className="container">
@@ -141,8 +151,11 @@ export default function Scenarios() {
                   <th scope="col">NAME</th>
                   <th scope="col">ZONE NAME</th>
                   <th scope="col">ACTIVE</th>
+                  <th scope="col">TECHNOLOGY</th>
                   <th scope="col">START DATE</th>
                   <th scope="col">END DATE</th>
+                  
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
@@ -157,8 +170,24 @@ export default function Scenarios() {
                         <FontAwesomeIcon icon={faClock} className="text-success" />
                       )}
                     </td>
+                    <td>{scenario.plugins.Name}</td>
                     <td>{scenario.startDate}</td>
                     <td>{scenario.endDate}</td>
+                    <td>
+                      <Dropdown isOpen={dropdownOpen[index]} toggle={() => toggleDropdown(index)}>
+                        <DropdownToggle color="white">
+                          <FontAwesomeIcon icon={faEllipsisV} />
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                        <DropdownItem header>Linked elements</DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem>Sites</DropdownItem>
+                          <DropdownItem>Efficiency</DropdownItem>
+                          <DropdownItem>see more</DropdownItem>
+                          
+                        </DropdownMenu>
+                      </Dropdown>
+                    </td>
                   </tr>
                 ))}
               </tbody>

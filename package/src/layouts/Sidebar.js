@@ -36,14 +36,14 @@ const navigation = [
         icon: "bi bi-layout-text-sidebar-reverse",
         items: [
           { title: "Scenarios", href: "/scenarios" , icon: "bi bi-stack ms-2"},
-          { title: "Zones", href: "/buttons/subitem2" , icon: "bi bi-pin-map ms-2"},
+          { title: "Zones", href: "/zones" , icon: "bi bi-pin-map ms-2"},
         ],
       },
       {
         title: "Dive deep",
         icon: "bi bi-zoom-in",
         items: [
-          { title: "worspaces", href: "management/workspaces", icon: "bi bi-building-fill ms-2" },
+          { title: "worspaces", href: "/workspaces", icon: "bi bi-building-fill ms-2" },
           { title: "users", href: "management/users" , icon: "bi bi-person-lines-fill ms-2"},
           { title: "clients", href: "management/clients", icon: "bi bi-people-fill ms-2" },
           { title: "user journey", href: "management/user journey", icon: "bi bi-person-vcard ms-2" },
