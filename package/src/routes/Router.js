@@ -58,6 +58,9 @@ const Scenarios = lazy(() => import("../views/OverviewScenarios.js"));
 const Zones = lazy(() => import("../components/dashboard/Zones.js"));
 /***********************woks////////////////////////////// */
 const Workspaces = lazy(() => import("../components/dashboard/Workspaces.js"));
+/*********************************////****users */ */
+const Users = lazy(() => import("../components/dashboard/Users.js"));
+
 
     
 
@@ -115,6 +118,10 @@ const ThemeRoutes = [
 /********************zones///////////************************** */ 
 { path: "/zones", exact: true, element: <Zones/> },
 { path: "/workspaces", exact: true, element: <Workspaces/> },
+/****************users//////////////////////////// */
+{ path: "/users", exact: true, element: <Users/> },
+
+
 
 
     
