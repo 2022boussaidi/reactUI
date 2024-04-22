@@ -124,7 +124,7 @@ export default function Workspaces() {
               </div>
             </Row>
 
-            <table className="table border shadow" bordered striped>
+            <table className="table border shadow" bordered >
               <thead>
                 <tr>
                   <th scope="col">Workspace name</th>

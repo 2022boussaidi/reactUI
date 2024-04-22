@@ -111,27 +111,12 @@ export default function AddUser() {
               />
             </div>
             <div className="mb-3">
-            <label htmlFor="project" className="form-label">
-          Project
-        </label>
-        <select
-          className="form-select"
-          name="team"
-          value={team}
-          onChange={(e) => onInputChange(e)}
-        >
-          <option value="">Select a team</option>
-          {teams.map((team) => (
-            <option key={team.id} value={team.id}>
-              {team.name}
-            </option>
-          ))}
-        </select>
+            
             </div>
             <button type="submit" className="btn btn-outline-primary">
               Submit
             </button>
-            <Link className="btn btn-outline-danger mx-2" to="/">
+            <Link className="btn btn-outline-danger mx-2" to="/users">
               Cancel
             </Link>
           </form>

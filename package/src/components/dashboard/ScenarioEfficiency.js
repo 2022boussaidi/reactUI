@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Bar from "react-apexcharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
+import { Card, CardBody } from "reactstrap";
 
 export default function ScenarioEfficinecy() {
- const [scenarios, setScenarios] = useState([]);
+  const [scenarios, setScenarios] = useState([]);
 
-  
   useEffect(() => {
     loadScenarios();
   }, []);
@@ -28,10 +28,9 @@ export default function ScenarioEfficinecy() {
     }
   };
 
-  let data = null;
+  let data = [];
 
   if (scenarios.length > 0) {
-    // Calculate global performance and availability
     const totalScenarios = scenarios.length;
     let totalMinPerformance = 0;
     let totalMaxPerformance = 0;
@@ -39,9 +38,9 @@ export default function ScenarioEfficinecy() {
     let totalMaxAvailability = 0;
 
     scenarios.forEach((scenario) => {
-      totalMinPerformance += scenarios.map((scenario) => scenario.slaThreshold.performance.min);
-      totalMaxPerformance += scenarios.map((scenario) => scenario.slaThreshold.performance.max);
-      totalMinAvailability += scenarios.map((scenario) => scenario.slaThreshold.availability.min);
+      totalMinPerformance += scenario.slaThreshold.performance.min;
+      totalMaxPerformance += scenario.slaThreshold.performance.max;
+      totalMinAvailability += scenario.slaThreshold.availability.min;
       totalMaxAvailability += scenario.slaThreshold.availability.max;
     });
 
@@ -50,42 +49,33 @@ export default function ScenarioEfficinecy() {
     const globalMinAvailability = totalMinAvailability / totalScenarios;
     const globalMaxAvailability = totalMaxAvailability / totalScenarios;
 
-    // Now you have globalMinPerformance, globalMaxPerformance, globalMinAvailability, and globalMaxAvailability
-    // You can display them as a chart with range bars or error bars
-
-    data = {
-      labels: ['Performance', 'Availability'],
-      datasets: [
-        {
-          label: 'Global Metrics',
-          data: [
-            { x: 'Performance', y: globalMinPerformance, yMax: globalMaxPerformance },
-            { x: 'Availability', y: globalMinAvailability, yMax: globalMaxAvailability },
-          ],
-          backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
-          borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
-          borderWidth: 1,
-        },
-      ],
-    };
+    data = [
+      { name: 'Performance', min: globalMinPerformance, max: globalMaxPerformance },
+      { name: 'Availability', min: globalMinAvailability, max: globalMaxAvailability },
+    ];
   }
 
   return (
     <div>
-      <h2>Global Performance and Availability</h2>
-      {data && (
-        <Bar
-          data={data}
-          options={{
-            scales: {
-              y: {
-                type: 'linear',
-                beginAtZero: true,
-              },
-            },
-          }}
-        />
-      )}
+      <Card>
+        <CardBody>
+      <h5>Global Performance and Availability</h5>
+      <BarChart
+        width={1250}
+        height={400}
+        data={data}
+        margin={{ top: 10, right: 20, left: 20, bottom: 10 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="min" fill="rgba(255, 162, 200, 0.7)" />
+        <Bar dataKey="max" fill="rgba(54, 162, 150, 0.7)" />
+      </BarChart>
+      </CardBody>
+      </Card>
     </div>
   );
 }

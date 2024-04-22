@@ -20,7 +20,7 @@ export default function OverviewSceanrios() {
           <Scenarios/>
         </Col>
       
-        <Col sm="6" lg="6" xl="6" xxl="12">
+        <Col sm="4" lg="6" xl="2" xxl="12">
           <ScenarioEfficinecy />
         </Col>
         </Row>

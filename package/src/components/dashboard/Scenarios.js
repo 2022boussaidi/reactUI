@@ -4,7 +4,7 @@ import { Card, CardBody, CardTitle, CardSubtitle, Row, Dropdown, DropdownMenu, D
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleDot, faClock, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from 'react-paginate';
-import { Link } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 
 export default function Scenarios() {
@@ -16,7 +16,8 @@ export default function Scenarios() {
     applicationName: ""
   });
   const [currentPage, setCurrentPage] = useState(0);
-  const pageSize = 5; // Number of items per page
+  const pageSize = 4; // Number of items per page
+  const navigate = useNavigate();
 
   // Define a state variable to store unique zone, script, app names
   const [zoneNames, setZoneNames] = useState([]);
@@ -88,7 +89,10 @@ export default function Scenarios() {
       [index]: !prevState[index] // Toggle the dropdown state for the specific row index
     }));
   };
-
+  const handlSites = () => {
+   
+    navigate("/sites");
+  };
   return (
     <div className="container">
       <Card>
@@ -181,7 +185,7 @@ export default function Scenarios() {
                         <DropdownMenu right>
                         <DropdownItem header>Linked elements</DropdownItem>
                           <DropdownItem divider />
-                          <DropdownItem>Sites</DropdownItem>
+                          <DropdownItem onClick={handlSites}>Sites</DropdownItem>
                           <DropdownItem>Efficiency</DropdownItem>
                           <DropdownItem>see more</DropdownItem>
                           

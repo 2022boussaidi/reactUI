@@ -60,6 +60,8 @@ const Zones = lazy(() => import("../components/dashboard/Zones.js"));
 const Workspaces = lazy(() => import("../components/dashboard/Workspaces.js"));
 /*********************************////****users */ */
 const Users = lazy(() => import("../components/dashboard/Users.js"));
+const Clients = lazy(() => import("../components/dashboard/Client.js"));
+
 
 
     
@@ -120,6 +122,9 @@ const ThemeRoutes = [
 { path: "/workspaces", exact: true, element: <Workspaces/> },
 /****************users//////////////////////////// */
 { path: "/users", exact: true, element: <Users/> },
+/**********************clients//***************** */ 
+{ path: "/clients", exact: true, element: <Clients/> },
+
 
 
 
