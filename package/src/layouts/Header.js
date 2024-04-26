@@ -25,20 +25,20 @@ import {
 } from "reactstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faInfoCircle, faQuestionCircle, faSignOutAlt, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faInfoCircle, faQuestionCircle, faSignOutAlt, faSearch, faHome, faRobot, faChartArea, faChartColumn } from "@fortawesome/free-solid-svg-icons";
 import "../assets/scss/NavStyle.css";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen1, setDropdownOpen1] = useState(false); // State for the first dropdown
+  const [dropdownOpen2, setDropdownOpen2] = useState(false); // State for the second dropdown
   const [userInfo, setUserInfo] = useState(null);
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
 
-  const toggle = () => setDropdownOpen((prevState) => !prevState);
-  const Handletoggle = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggle = () => setIsOpen(!isOpen);
+  const toggleDropdown1 = () => setDropdownOpen1((prevState) => !prevState); // Toggle function for the first dropdown
+  const toggleDropdown2 = () => setDropdownOpen2((prevState) => !prevState); // Toggle function for the second dropdown
 
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
@@ -92,7 +92,7 @@ const Header = () => {
             color="primary"
             size="sm"
             className="d-sm-block d-md-none"
-            onClick={Handletoggle}
+            onClick={toggle}
           >
             {isOpen ? <i className="bi bi-x"></i> : <i className="bi bi-three-dots-vertical"></i>}
           </Button>
@@ -123,8 +123,7 @@ const Header = () => {
               </Row>
             </Form>
           </Nav>
-
-          <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+          <Dropdown isOpen={dropdownOpen1} toggle={toggleDropdown1}>
             <DropdownToggle color="primary">
               <FontAwesomeIcon icon={faUser} />
             </DropdownToggle>
@@ -132,6 +131,17 @@ const Header = () => {
               <DropdownItem onClick={handleMyAccount}>My Account</DropdownItem>
               <DropdownItem>Notifications</DropdownItem>
               <DropdownItem onClick={handleLogout}>Logout <FontAwesomeIcon icon={faSignOutAlt} /></DropdownItem>
+              <DropdownItem divider />
+            </DropdownMenu>
+          </Dropdown>
+          <Dropdown isOpen={dropdownOpen2} toggle={toggleDropdown2}>
+            <DropdownToggle color="primary">
+              <FontAwesomeIcon icon={faHome} />
+            </DropdownToggle>
+            <DropdownMenu>
+             
+              <DropdownItem>Robots Dash     <FontAwesomeIcon icon={faRobot} /></DropdownItem>
+              <DropdownItem >Measurements <FontAwesomeIcon icon={faChartColumn} /></DropdownItem>
               <DropdownItem divider />
             </DropdownMenu>
           </Dropdown>

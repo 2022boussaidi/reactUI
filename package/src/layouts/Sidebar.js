@@ -8,7 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 const navigation = [
   {
     title: "Home",
-    href: "/buttons",
+    href: "/inventory",
     icon: "bi bi-grid-fill",
    
   },
