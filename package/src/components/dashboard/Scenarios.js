@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Card, CardBody, CardTitle, CardSubtitle, Row, Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle, Row, Dropdown, DropdownMenu, DropdownItem, DropdownToggle,Modal, ModalHeader, ModalBody, ModalFooter,Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleDot, faClock, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faCheckCircle, faCircleDot, faClock, faDisplay, faEllipsisV, faPlayCircle, faStopCircle, faTools } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from 'react-paginate';
 import {  useNavigate } from "react-router-dom";
 
@@ -10,6 +10,11 @@ import {  useNavigate } from "react-router-dom";
 export default function Scenarios() {
   const [scenarios, setScenarios] = useState([]);
   const [showAll, setShowAll] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [actionScenarioId, setActionScenarioId] = useState(null);
+  const [actionType, setActionType] = useState(null);
+
   const [filter, setFilter] = useState({
     zoneName: "",
     scriptName: "",
@@ -89,10 +94,52 @@ export default function Scenarios() {
       [index]: !prevState[index] // Toggle the dropdown state for the specific row index
     }));
   };
-  const handlSites = () => {
-   
+  const handleActionConfirmation = (id, type) => {
+    setActionScenarioId(id);
+    setActionType(type);
+    setModalOpen(true);
+  };
+  
+
+  const handleAction = async () => {
+    try {
+      const bearerToken = localStorage.getItem('token');
+      switch (actionType) {
+        case 'start':
+          await axios.get(
+            `http://localhost:8080/scenario/${actionScenarioId}/start`,
+            {
+              headers: {
+                Authorization: `Bearer ${bearerToken}`
+              }
+            }
+          );
+          break;
+        case 'stop':
+          await axios.get(
+            `http://localhost:8080/scenario/${actionScenarioId}/stop`,
+            {
+              headers: {
+                Authorization: `Bearer ${bearerToken}`
+              }
+            }
+          );
+          break;
+        default:
+          break;
+      }
+      setSuccessModalOpen(true);
+      setModalOpen(false);
+    } catch (error) {
+      console.error(`Error ${actionType} scenario:`, error);
+    }
+  };
+  
+
+  const handlSites = () => {   
     navigate("/sites");
   };
+
   return (
     <div className="container">
       <Card>
@@ -128,7 +175,7 @@ export default function Scenarios() {
                   value={filter.scriptName}
                   onChange={handleFilterChange}
                 >
-                  <option value="">Filter by script name</option>
+                  <option value="">Filter by user journey</option>
                   {scriptNames.map((scriptName, index) => (
                     <option key={index} value={scriptName}>{scriptName}</option>
                   ))}
@@ -183,12 +230,18 @@ export default function Scenarios() {
                           <FontAwesomeIcon icon={faEllipsisV} />
                         </DropdownToggle>
                         <DropdownMenu right>
-                        <DropdownItem header>Linked elements</DropdownItem>
+                          <DropdownItem header>Actions</DropdownItem>
+                          <DropdownItem onClick={() => handleActionConfirmation(scenario.id, 'start')}>
+                            <FontAwesomeIcon icon={faPlayCircle} /> Start
+                          </DropdownItem>
+                          <DropdownItem onClick={() => handleActionConfirmation(scenario.id, 'stop')}>
+                            <FontAwesomeIcon icon={faStopCircle} /> Stop
+                          </DropdownItem>
+                          <DropdownItem> <FontAwesomeIcon icon={faCheckCircle} /> Enable</DropdownItem>
+                          <DropdownItem> <FontAwesomeIcon icon={faBan} /> Disable</DropdownItem>
                           <DropdownItem divider />
                           <DropdownItem onClick={handlSites}>Sites</DropdownItem>
                           <DropdownItem>Efficiency</DropdownItem>
-                          <DropdownItem>see more</DropdownItem>
-                          
                         </DropdownMenu>
                       </Dropdown>
                     </td>
@@ -209,6 +262,22 @@ export default function Scenarios() {
           </div>
         </CardBody>
       </Card>
+      <Modal isOpen={modalOpen} toggle={() => setModalOpen(!modalOpen)}>
+        <ModalHeader toggle={() => setModalOpen(!modalOpen)}>Confirmation</ModalHeader>
+        <ModalBody>Are you sure you want to {actionType} this scenario?</ModalBody>
+        <ModalFooter>
+          <Button color="danger" onClick={handleAction}>Yes</Button>{' '}
+          <Button color="secondary" onClick={() => setModalOpen(!modalOpen)}>Cancel</Button>
+        </ModalFooter>
+      </Modal>
+
+      <Modal isOpen={successModalOpen} toggle={() => setSuccessModalOpen(!successModalOpen)}>
+        <ModalHeader toggle={() => setSuccessModalOpen(!successModalOpen)}>Success</ModalHeader>
+        <ModalBody>scenario {actionType}ed successfully!</ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={() => setSuccessModalOpen(!successModalOpen)}>Close</Button>
+        </ModalFooter>
+      </Modal>
     </div>
   );
 }

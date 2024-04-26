@@ -9,7 +9,6 @@ import ReactPaginate from 'react-paginate';
 export default function Overview() {
   const [queues, setQueues] = useState([]);
   const [showAll, setShowAll] = useState(false);
-  const [resetQueueId, setResetQueueId] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [filter, setFilter] = useState({

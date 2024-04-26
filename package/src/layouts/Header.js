@@ -140,8 +140,8 @@ const Header = () => {
             </DropdownToggle>
             <DropdownMenu>
              
-              <DropdownItem>Robots Dash     <FontAwesomeIcon icon={faRobot} /></DropdownItem>
-              <DropdownItem >Measurements <FontAwesomeIcon icon={faChartColumn} /></DropdownItem>
+              <DropdownItem>  <FontAwesomeIcon icon={faRobot} /> Robots Dash    </DropdownItem>
+              <DropdownItem > <FontAwesomeIcon icon={faChartColumn} /> Measurements </DropdownItem>
               <DropdownItem divider />
             </DropdownMenu>
           </Dropdown>

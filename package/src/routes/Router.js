@@ -23,7 +23,6 @@ const EditUser = lazy(() => import ("../components/users/EditUser.js"))
 
 const AddTeam = lazy(() => import ("../components/teams/AddTeam.js"))
 const ViewTeam= lazy(() => import ("../components/teams/ViewTeam.js"))
-const Rdd = lazy(() => import("../components/pages/Rdd.js"));
 const AddProject = lazy(() => import ("../components/projects/AddProject.js"))
 const Projects= lazy(() => import ("../components/dashboard/Projects.js"))
 const ViewProject = lazy(() => import ("../components/projects/ViewProject.js"))
@@ -132,7 +131,6 @@ const ThemeRoutes = [
     
       { path: "/addteam", exact: true, element: <AddTeam /> },
       { path: "/viewteam/:id", exact: true, element: <ViewTeam /> },
-      { path: "/Rdd", exact: true, element: <Rdd /> },
       { path: "/addproject", exact: true, element: <AddProject /> },
       { path: "/projects", exact: true, element: <Projects /> },
       { path: "/viewproject/:id", exact: true, element: <ViewProject /> },
