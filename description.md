@@ -1,1 +1,2 @@
-a user-friendly template for ip label
+UI to CALL external APIs****************************
+
