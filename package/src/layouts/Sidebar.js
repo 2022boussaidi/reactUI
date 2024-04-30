@@ -40,7 +40,7 @@ const navigation = [
         ],
       },
       {
-        title: "Dive deep",
+        title: "Dive deeper",
         icon: "bi bi-zoom-in",
         items: [
           { title: "worspaces", href: "/workspaces", icon: "bi bi-building-fill ms-2" },
@@ -55,6 +55,12 @@ const navigation = [
      
       {
         title: " Analytics",
+        href: "/",
+        icon: "bi bi-pie-chart-fill",
+      },
+
+      {
+        title: " Forecasting Hub",
         href: "/",
         icon: "bi bi-pie-chart-fill",
       },

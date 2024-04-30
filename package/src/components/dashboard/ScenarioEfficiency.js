@@ -61,7 +61,7 @@ export default function ScenarioEfficinecy() {
         <CardBody>
       <h5>Global Performance and Availability</h5>
       <BarChart
-        width={1250}
+        width={500}
         height={400}
         data={data}
         margin={{ top: 10, right: 20, left: 20, bottom: 10 }}

@@ -4,6 +4,7 @@ import Robots from "../components/dashboard/Robots";
 import Tables from "./ui/Tables";
 import Scenarios from "../components/dashboard/Scenarios";
 import ScenarioEfficinecy from "../components/dashboard/ScenarioEfficiency";
+import StatusScenario from "../components/dashboard/StatusScenario";
 
 export default function OverviewSceanrios() {
     
@@ -20,8 +21,11 @@ export default function OverviewSceanrios() {
           <Scenarios/>
         </Col>
       
-        <Col sm="4" lg="6" xl="2" xxl="12">
+        <Col sm="6" lg="6" xl="2" xxl="6">
           <ScenarioEfficinecy />
+        </Col>
+        <Col sm="6" lg="6" xl="2" xxl="6">
+          <StatusScenario />
         </Col>
         </Row>
        
