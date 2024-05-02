@@ -60,6 +60,7 @@ const Workspaces = lazy(() => import("../components/dashboard/Workspaces.js"));
 /*********************************////****users */ */
 const Users = lazy(() => import("../components/dashboard/Users.js"));
 const Clients = lazy(() => import("../components/dashboard/Client.js"));
+const OverviewAnalytics= lazy(() => import("../views/OverviewAnalytics.js"));
 
 
 
@@ -123,6 +124,10 @@ const ThemeRoutes = [
 { path: "/users", exact: true, element: <Users/> },
 /**********************clients//***************** */ 
 { path: "/clients", exact: true, element: <Clients/> },
+
+/****************************ANlytics*///////////////////////////////// */
+{ path: "/analytics", exact: true, element: <OverviewAnalytics/> },
+
 
 
 

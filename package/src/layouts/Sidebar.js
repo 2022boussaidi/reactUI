@@ -55,8 +55,12 @@ const navigation = [
      
       {
         title: " Analytics",
-        href: "/",
+      
         icon: "bi bi-pie-chart-fill",
+        items: [
+          { title: "Instance metrics",   href: "/analytics", icon: "bi bi-building-fill ms-2" },
+        
+        ]
       },
 
       {
