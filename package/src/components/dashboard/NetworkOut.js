@@ -7,7 +7,7 @@ function NetworkOut() {
   const [metrics, setMetrics] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4004/networkOut')
+    axios.get('http://localhost:4003/networkOut')
       .then(response => {
         setMetrics(response.data);
       })

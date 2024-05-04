@@ -285,16 +285,16 @@ useEffect(() => {
                     <td>{queue.robot.name}</td>
                     <td>
                       {queue.status === 2 ? (
-                        <FontAwesomeIcon icon={faClock} className="text-success" />
+                        <FontAwesomeIcon icon={faPlayCircle} className="text-success" />
                       ) : (
-                        <FontAwesomeIcon icon={faClock} className="text-danger" />
+                        <FontAwesomeIcon icon={faStopCircle} className="text-danger" />
                       )}
                     </td>
                     <td>
                       {queue.interactive  ? (
                         <FontAwesomeIcon icon={faCheckCircle} className="text-success" />
                       ) : (
-                        <FontAwesomeIcon icon={faTimesCircle} className="text-danger" />
+                        <FontAwesomeIcon icon={faExclamationCircle} className="text-warning" />
                       )}
                     </td>
                     <td>

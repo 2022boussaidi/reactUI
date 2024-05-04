@@ -8,6 +8,7 @@ import StatusScenario from "../components/dashboard/StatusScenario";
 import CPUutilization from "../components/dashboard/CPUutilization";
 import NetworkIn from "../components/dashboard/NetworkIn";
 import NetworkOut from "../components/dashboard/NetworkOut";
+import DataConsumption from "../components/consumption/ApiConsumption";
 
 export default function OverviewAnalytics() {
     
@@ -29,7 +30,9 @@ export default function OverviewAnalytics() {
         </Col>
         <Col sm="6" lg="6" xl="2" xxl="6">
           <NetworkOut />
+         
         </Col>
+       
         </Row>
        
      

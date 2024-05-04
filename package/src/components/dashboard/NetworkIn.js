@@ -7,7 +7,7 @@ function NetworkIn() {
   const [metrics, setMetrics] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4003/NetworkIn')
+    axios.get('http://localhost:4002/NetworkIn')
       .then(response => {
         setMetrics(response.data);
       })

@@ -25,7 +25,7 @@ const navigation = [
         href: "/robots",
         icon: "bi bi-robot",
         items: [
-          { title: "Performance", href: "robots/performnace" , icon: "bi bi-bar-chart-line-fill ms-2" },
+          { title: "Performance", href: "robots/performance" , icon: "bi bi-bar-chart-line-fill ms-2" },
          
           
         ],
@@ -49,6 +49,8 @@ const navigation = [
         icon: "bi bi-pie-chart-fill",
         items: [
           { title: "Instance metrics",   href: "/analytics", icon: "bi bi-building-fill ms-2" },
+          { title: "Consumption ",   href: "/consumption", icon: "bi bi-building-fill ms-2" },
+
         
         ]
       },
