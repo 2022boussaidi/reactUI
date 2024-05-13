@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Card, CardBody, CardTitle, CardSubtitle, Row, Dropdown, DropdownMenu, DropdownItem, DropdownToggle,Modal, ModalHeader, ModalBody, ModalFooter,Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBan, faCheckCircle, faCircleDot, faClock, faDisplay, faEllipsisV, faPlayCircle, faStopCircle, faTools } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faCheckCircle,  faClock,  faEllipsisV, faPlayCircle, faStopCircle, } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from 'react-paginate';
 import {  useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { useParams } from "react-router-dom";
+
 
 
 export default function Scenarios() {
@@ -31,6 +33,7 @@ export default function Scenarios() {
   const [scriptNames, setScriptNames] = useState([]);
   const [applicationNames, setApplicationNames] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState({}); // State for managing dropdowns per row
+  
   /************************************************* */
    // State variables for the date range modal
    const [dateRange, setDateRange] = useState({
@@ -39,6 +42,9 @@ export default function Scenarios() {
   });
   const [dateModalOpen, setDateModalOpen] = useState(false);
   const [selectedScenarioId, setSelectedScenarioId] = useState(null); // State for storing selected scenario ID
+  const [Sites, setSites] = useState([]);
+  const { id } = useParams();
+
 
 
   useEffect(() => {
@@ -180,11 +186,62 @@ export default function Scenarios() {
       console.error("Error getting rate:", error);
       toast.error("Error getting rate");
     }
+  }; 
+  const handleSitesClick = (scenarioId) => {
+    setSelectedScenarioId(scenarioId); // Set the selected scenario ID
+    setDateModalOpen(true); // Open the date range modal
+  };
+  const CustomToast = ({ message, type }) => {
+    return (
+      <div className={`toast show text-white bg-${type}`} role="alert" aria-live="assertive" aria-atomic="true">
+        <div className="toast-body">
+          {message}
+        </div>
+      </div>
+    );
   };
   
-  const handlSites = () => {   
-    navigate("/sites");
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("");
+
+  const showToast = (message, type) => {
+    setToastMessage(message);
+    setToastType(type);
+    setTimeout(() => {
+      setToastMessage("");
+    }, 10000); // Hide toast after 5 seconds
   };
+
+  const handleSitesName = async () => {
+    try {
+      const bearerToken = localStorage.getItem('token');
+      
+      // Format the dates
+      const fromDate = dateRange.from.replace('T', ' ') + ':00'; // Add seconds
+      const toDate = dateRange.to.replace('T', ' ') + ':00'; // Add seconds
+      
+      const response = await axios.post(
+        `http://localhost:8080/scenario/name_site/${selectedScenarioId}`,
+        {
+          dates: {
+            from: fromDate,
+            to: toDate
+          }
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${bearerToken}`
+          }
+        }
+      );
+      const siteNames = response.data.siteNames.join(", ");
+      showToast(`Sites: ${siteNames}`, "success");
+    } catch (error) {
+      console.error("Error getting rate:", error);
+      showToast("Error getting rate", "error");
+    }
+  };
+
 
   return (
     <div className="container">
@@ -286,7 +343,7 @@ export default function Scenarios() {
                           <DropdownItem> <FontAwesomeIcon icon={faCheckCircle} /> Enable</DropdownItem>
                           <DropdownItem> <FontAwesomeIcon icon={faBan} /> Disable</DropdownItem>
                           <DropdownItem divider />
-                          <DropdownItem onClick={handlSites}>Sites</DropdownItem>
+                          <DropdownItem onClick={() => handleSitesClick(scenario.id)}>Sites</DropdownItem>
                           <DropdownItem onClick={() => handleEfficiencyClick(scenario.id)}>Efficiency</DropdownItem>
                         </DropdownMenu>
                       </Dropdown>
@@ -295,6 +352,7 @@ export default function Scenarios() {
                 ))}
               </tbody>
             </table>
+            {toastMessage && <CustomToast message={toastMessage} type={toastType} />}
             <ReactPaginate
               pageCount={pageCount}
               marginPagesDisplayed={2}
@@ -316,14 +374,15 @@ export default function Scenarios() {
           <Button color="secondary" onClick={() => setModalOpen(!modalOpen)}>Cancel</Button>
         </ModalFooter>
       </Modal>
-
-      <Modal isOpen={successModalOpen} toggle={() => setSuccessModalOpen(!successModalOpen)}>
+     
+<Modal isOpen={successModalOpen} toggle={() => setSuccessModalOpen(!successModalOpen)}>
         <ModalHeader toggle={() => setSuccessModalOpen(!successModalOpen)}>Success</ModalHeader>
         <ModalBody>scenario {actionType}ed successfully!</ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={() => setSuccessModalOpen(!successModalOpen)}>Close</Button>
         </ModalFooter>
       </Modal>
+      {/* Modellllllllllllllllllllllllllllllllllll2222222222222222222222*/} 
          {/* Main content */}
          <Modal isOpen={dateModalOpen} toggle={() => setDateModalOpen(!dateModalOpen)}>
         <ModalHeader toggle={() => setDateModalOpen(!dateModalOpen)}>Enter Date Range</ModalHeader>
@@ -343,6 +402,26 @@ export default function Scenarios() {
 
         </ModalFooter>
       </Modal>
+   
+      <Modal isOpen={dateModalOpen} toggle={() => setDateModalOpen(!dateModalOpen)}>
+        <ModalHeader toggle={() => setDateModalOpen(!dateModalOpen)}>Enter Date Range</ModalHeader>
+        <ModalBody>
+          <div className="form-group">
+            <label htmlFor="from">From</label>
+            <input type="datetime-local" className="form-control" id="from" value={dateRange.from} onChange={(e) => setDateRange({ ...dateRange, from: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="to">To</label>
+            <input type="datetime-local" className="form-control" id="to" value={dateRange.to} onChange={(e) => setDateRange({ ...dateRange, to: e.target.value })} />
+          </div>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={handleSitesName}>Submit</Button>
+          <Button color="warning" onClick={() => setDateModalOpen(!dateModalOpen)}>OK</Button>
+
+        </ModalFooter>
+        </Modal>
+      
       <ToastContainer />
     </div>
   );
