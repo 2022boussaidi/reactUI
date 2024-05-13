@@ -7,7 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const navigation = [
   {
-    title: "Home",
+    title: "Inventory",
     href: "/inventory",
     icon: "bi bi-grid-fill",
    

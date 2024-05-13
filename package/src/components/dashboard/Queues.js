@@ -22,7 +22,7 @@ export default function Overview() {
   const [stoppedCount, setStoppedCount] = useState(0);
   const [interactiveCount, setInteractiveCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const pageSize = 10; // Number of items per page
+  const pageSize = 7; // Number of items per page
 
   useEffect(() => {
     loadQueues();
@@ -318,6 +318,20 @@ useEffect(() => {
                 ))}
               </tbody>
             </table>
+            <Row className="form-row mb-3 ">
+              <Col sm="3" lg="31">
+                <FontAwesomeIcon icon={faRedo} size="1x"  /> Reset
+              </Col>
+              <Col sm="3" lg="31">
+                <FontAwesomeIcon icon={faPlay} size="1x"  /> Start
+              </Col>
+              <Col sm="3" lg="31">
+                <FontAwesomeIcon icon={faStop} size="1x"  /> Stop
+              </Col>
+              <Col sm="3" lg="31">
+                <FontAwesomeIcon icon={faRefresh} size="1x"  /> Reserve
+              </Col>
+            </Row>
             <ReactPaginate
               pageCount={pageCount}
               marginPagesDisplayed={2}
@@ -329,6 +343,7 @@ useEffect(() => {
               pageLinkClassName={"page-link"}
             />
           </div>
+          
         </CardBody>
       </Card>
       <Modal isOpen={modalOpen} toggle={() => setModalOpen(!modalOpen)}>

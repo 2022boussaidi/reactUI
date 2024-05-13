@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
+import { PieChart, Pie, Tooltip, Legend, Cell } from "recharts";
 import { Card, CardBody } from "reactstrap";
 
-export default function ScenarioEfficinecy() {
+export default function PScenarioEfficiency() {
   const [scenarios, setScenarios] = useState([]);
 
   useEffect(() => {
@@ -49,32 +49,52 @@ export default function ScenarioEfficinecy() {
     const globalMinAvailability = totalMinAvailability / totalScenarios;
     const globalMaxAvailability = totalMaxAvailability / totalScenarios;
 
+    // Divide the chart into 4 segments
     data = [
-      { name: 'Performance', min: globalMinPerformance, max: globalMaxPerformance },
-      { name: 'Availability', min: globalMinAvailability, max: globalMaxAvailability },
+      { name: 'globalMinPerformance', value: globalMinPerformance},
+      { name: 'globalMaxPerformance', value: globalMaxPerformance},
+      { name: 'globalMinAvailability', value:  globalMinAvailability},
+      { name: 'globalMaxAvailability ', value:  globalMaxAvailability },
     ];
   }
+
+  const COLORS = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'];
 
   return (
     <div>
       <Card>
         <CardBody>
-      <h5>Global Performance and Availability</h5>
-      <BarChart
-        width={500}
-        height={400}
-        data={data}
-        margin={{ top: 10, right: 20, left: 20, bottom: 10 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="min" fill="rgba(255, 162, 200, 0.7)" />
-        <Bar dataKey="max" fill="rgba(54, 162, 150, 0.7)" />
-      </BarChart>
-      </CardBody>
+          <h5>Global Performance and Availability</h5>
+          <PieChart width={450} height={400}>
+            <Pie
+              data={data}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={130}
+              fill="#8884d8"
+              label={({ cx, cy, midAngle, innerRadius, outerRadius, index }) => {
+                const RADIAN = Math.PI / 180;
+                const radius = 25 + innerRadius + (outerRadius - innerRadius);
+                const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+                return (
+                  <text x={x} y={y} fill={COLORS[index]} textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+                    {data[index].name}
+                  </text>
+                );
+              }}
+            >
+              {
+                data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+              }
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </CardBody>
       </Card>
     </div>
   );

@@ -35,7 +35,7 @@ const Buttons = () => {
         className="text-right mt-2"
         style={{ display: "flex", justifyContent: "space-between" }}
       >
-        <h2>Home</h2>
+        <h2>Inventory</h2>
       </div>
 
       {kpi && (

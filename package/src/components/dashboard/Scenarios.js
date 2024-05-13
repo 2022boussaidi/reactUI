@@ -339,7 +339,8 @@ export default function Scenarios() {
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={handleDateRangeSubmit}>Submit</Button>
-          <Button color="secondary" onClick={() => setDateModalOpen(!dateModalOpen)}>Cancel</Button>
+          <Button color="warning" onClick={() => setDateModalOpen(!dateModalOpen)}>Check robots</Button>
+
         </ModalFooter>
       </Modal>
       <ToastContainer />

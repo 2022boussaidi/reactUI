@@ -25,7 +25,7 @@ import {
 } from "reactstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faInfoCircle, faQuestionCircle, faSignOutAlt, faSearch, faHome, faRobot, faChartArea, faChartColumn } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faInfoCircle, faQuestionCircle, faSignOutAlt, faSearch, faHome, faRobot, faChartArea, faChartColumn, faBell } from "@fortawesome/free-solid-svg-icons";
 import "../assets/scss/NavStyle.css";
 
 const Header = () => {
@@ -80,16 +80,16 @@ const Header = () => {
 
   return (
     <>
-      <Navbar color="primary" dark expand="md">
+      <Navbar color="gray-800" dark expand="md">
         <div className="d-flex align-items-center">
-          <Button color="primary" onClick={showMobilemenu}>
+          <Button color="gray-800" onClick={showMobilemenu}>
             <i className="bi bi-list"></i>
           </Button>
         </div>
         <NavbarBrand href="/" className="d-lg"></NavbarBrand>
         <div className="hstack gap-2">
           <Button
-            color="primary"
+            color="gray-800"
             size="sm"
             className="d-sm-block d-md-none"
             onClick={toggle}
@@ -110,21 +110,16 @@ const Header = () => {
                 <FontAwesomeIcon icon={faQuestionCircle} /> Help
               </Link>
             </NavItem>
-            <Form inline>
-              <Row>
-                <Col xs="auto">
-                  <InputGroup>
-                    <Input type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button color="info">
-                      <FontAwesomeIcon icon={faSearch} />
-                    </Button>
-                  </InputGroup>
-                </Col>
-              </Row>
-            </Form>
+            
           </Nav>
           <Dropdown isOpen={dropdownOpen1} toggle={toggleDropdown1}>
-            <DropdownToggle color="primary">
+            <DropdownToggle color="gray-800">
+              <FontAwesomeIcon icon={faBell} />
+            </DropdownToggle>
+            
+          </Dropdown>
+          <Dropdown isOpen={dropdownOpen1} toggle={toggleDropdown1}>
+            <DropdownToggle color="gray-800">
               <FontAwesomeIcon icon={faUser} />
             </DropdownToggle>
             <DropdownMenu>
@@ -135,7 +130,7 @@ const Header = () => {
             </DropdownMenu>
           </Dropdown>
           <Dropdown isOpen={dropdownOpen2} toggle={toggleDropdown2}>
-            <DropdownToggle color="primary">
+            <DropdownToggle color="gray-800">
               <FontAwesomeIcon icon={faHome} />
             </DropdownToggle>
             <DropdownMenu>
