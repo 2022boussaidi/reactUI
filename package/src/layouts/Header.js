@@ -112,7 +112,7 @@ const Header = () => {
             </NavItem>
             
           </Nav>
-          <Dropdown isOpen={dropdownOpen1} toggle={toggleDropdown1}>
+          <Dropdown isOpen={dropdownOpen2} toggle={toggleDropdown2}>
             <DropdownToggle color="gray-800">
               <FontAwesomeIcon icon={faBell} />
             </DropdownToggle>
