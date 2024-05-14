@@ -41,6 +41,11 @@ export default function Scenarios() {
     to: ""
   });
   const [dateModalOpen, setDateModalOpen] = useState(false);
+  const [efficiencyModalOpen, setEfficiencyModalOpen] = useState(false);
+  const [sitesModalOpen, setSitesModalOpen] = useState(false);
+  const [robotsModalOpen, setRobotsModalOpen] = useState(false);
+
+
   const [selectedScenarioId, setSelectedScenarioId] = useState(null); // State for storing selected scenario ID
   const [Sites, setSites] = useState([]);
   const { id } = useParams();
@@ -152,11 +157,11 @@ export default function Scenarios() {
     }
   };
   const handleEfficiencyClick = (scenarioId) => {
-    setSelectedScenarioId(scenarioId); // Set the selected scenario ID
-    setDateModalOpen(true); // Open the date range modal
+    setSelectedScenarioId(scenarioId);
+    setEfficiencyModalOpen(true);
   };
 
-  const handleDateRangeSubmit = async () => {
+  const handleEfficiencySubmit= async () => {
     try {
       const bearerToken = localStorage.getItem('token');
       
@@ -180,7 +185,7 @@ export default function Scenarios() {
       );
   
       // Display response as a notification
-      toast.success(JSON.stringify(response.data)
+      toast.success(JSON.stringify(response.data.message)
       );
     } catch (error) {
       console.error("Error getting rate:", error);
@@ -188,8 +193,8 @@ export default function Scenarios() {
     }
   }; 
   const handleSitesClick = (scenarioId) => {
-    setSelectedScenarioId(scenarioId); // Set the selected scenario ID
-    setDateModalOpen(true); // Open the date range modal
+    setSelectedScenarioId(scenarioId);
+    setSitesModalOpen(true);
   };
   const CustomToast = ({ message, type }) => {
     return (
@@ -237,11 +242,43 @@ export default function Scenarios() {
       const siteNames = response.data.siteNames.join(", ");
       showToast(`Sites: ${siteNames}`, "success");
     } catch (error) {
-      console.error("Error getting rate:", error);
-      showToast("Error getting rate", "error");
+      console.error("Error getting sites", error);
+      showToast("Error getting sites", "error");
     }
   };
-
+  const handleRobotsClick = (scenarioId) => {
+    setSelectedScenarioId(scenarioId);
+    setRobotsModalOpen(true);
+  };
+  const handleRobotsName = async () => {
+    try {
+      const bearerToken = localStorage.getItem('token');
+      
+      // Format the dates
+      const fromDate = dateRange.from.replace('T', ' ') + ':00'; // Add seconds
+      const toDate = dateRange.to.replace('T', ' ') + ':00'; // Add seconds
+      
+      const response = await axios.post(
+        `http://localhost:8080/scenario/robot/${selectedScenarioId}`,
+        {
+          dates: {
+            from: fromDate,
+            to: toDate
+          }
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${bearerToken}`
+          }
+        }
+      );
+      const robotNames = response.data.map(robot => robot.robot_name).join(", ");
+      showToast(`Robots: ${robotNames}`, "success");
+    } catch (error) {
+      console.error("Error getting robots:", error);
+      showToast("Error getting robots", "error");
+    }
+  };
 
   return (
     <div className="container">
@@ -344,7 +381,8 @@ export default function Scenarios() {
                           <DropdownItem> <FontAwesomeIcon icon={faBan} /> Disable</DropdownItem>
                           <DropdownItem divider />
                           <DropdownItem onClick={() => handleSitesClick(scenario.id)}>Sites</DropdownItem>
-                          <DropdownItem onClick={() => handleEfficiencyClick(scenario.id)}>Efficiency</DropdownItem>
+                          <DropdownItem onClick={() => handleRobotsClick(scenario.id)}>Robots</DropdownItem>
+                          <DropdownItem onClick={() => handleEfficiencyClick(scenario.id)}>Performance</DropdownItem>
                         </DropdownMenu>
                       </Dropdown>
                     </td>
@@ -382,10 +420,10 @@ export default function Scenarios() {
           <Button color="primary" onClick={() => setSuccessModalOpen(!successModalOpen)}>Close</Button>
         </ModalFooter>
       </Modal>
-      {/* Modellllllllllllllllllllllllllllllllllll2222222222222222222222*/} 
+      {/* *************************Efficinecy modal***************************************************************/} 
          {/* Main content */}
-         <Modal isOpen={dateModalOpen} toggle={() => setDateModalOpen(!dateModalOpen)}>
-        <ModalHeader toggle={() => setDateModalOpen(!dateModalOpen)}>Enter Date Range</ModalHeader>
+         <Modal isOpen={efficiencyModalOpen} toggle={() => setDateModalOpen(!dateModalOpen)}>
+         <ModalHeader toggle={() => setEfficiencyModalOpen(!efficiencyModalOpen)}>Select Date Range</ModalHeader>
         <ModalBody>
           <div className="form-group">
             <label htmlFor="from">From</label>
@@ -397,14 +435,17 @@ export default function Scenarios() {
           </div>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={handleDateRangeSubmit}>Submit</Button>
-          <Button color="warning" onClick={() => setDateModalOpen(!dateModalOpen)}>Check robots</Button>
+          <Button color="primary" onClick={handleEfficiencySubmit}>Submit</Button>
+          <Button color="secondary" onClick={() => setEfficiencyModalOpen(!efficiencyModalOpen)}>Cancel</Button>
+          <Button color="secondary" onClick={() => setEfficiencyModalOpen(!efficiencyModalOpen)}>Check robots</Button>
+          
 
         </ModalFooter>
       </Modal>
-   
-      <Modal isOpen={dateModalOpen} toggle={() => setDateModalOpen(!dateModalOpen)}>
-        <ModalHeader toggle={() => setDateModalOpen(!dateModalOpen)}>Enter Date Range</ModalHeader>
+         {/* *************************sites name modal***************************************************************/} 
+
+      <Modal isOpen={sitesModalOpen} toggle={() => setDateModalOpen(!dateModalOpen)}>
+      <ModalHeader toggle={() => setSitesModalOpen(!sitesModalOpen)}>Select Date Range</ModalHeader>
         <ModalBody>
           <div className="form-group">
             <label htmlFor="from">From</label>
@@ -417,11 +458,29 @@ export default function Scenarios() {
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={handleSitesName}>Submit</Button>
-          <Button color="warning" onClick={() => setDateModalOpen(!dateModalOpen)}>OK</Button>
+          <Button color="secondary" onClick={() => setSitesModalOpen(!sitesModalOpen)}>Cancel</Button>
 
         </ModalFooter>
         </Modal>
-      
+               {/* *************************robots name modal***************************************************************/} 
+               <Modal isOpen={robotsModalOpen} toggle={() => setDateModalOpen(!dateModalOpen)}>
+      <ModalHeader toggle={() => setRobotsModalOpen(!robotsModalOpen)}>Select Date Range</ModalHeader>
+        <ModalBody>
+          <div className="form-group">
+            <label htmlFor="from">From</label>
+            <input type="datetime-local" className="form-control" id="from" value={dateRange.from} onChange={(e) => setDateRange({ ...dateRange, from: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="to">To</label>
+            <input type="datetime-local" className="form-control" id="to" value={dateRange.to} onChange={(e) => setDateRange({ ...dateRange, to: e.target.value })} />
+          </div>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={handleRobotsName}>Submit</Button>
+          <Button color="secondary" onClick={() => setRobotsModalOpen(!robotsModalOpen)}>Cancel</Button>
+
+        </ModalFooter>
+        </Modal>
       <ToastContainer />
     </div>
   );
