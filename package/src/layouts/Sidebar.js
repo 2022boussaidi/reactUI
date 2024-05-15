@@ -25,7 +25,8 @@ const navigation = [
         href: "/robots",
         icon: "bi bi-robot",
         items: [
-          { title: "Performance", href: "/performance" , icon: "bi bi-bar-chart-line-fill ms-2" },
+          { title: "Logs", href: "/logs" , icon: "bi bi-bar-chart-line-fill ms-2" },
+          { title: "Error Summary", href: "/errors" , icon: "bi bi-bar-chart-line-fill ms-2" },
          
           
         ],

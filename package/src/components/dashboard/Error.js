@@ -13,7 +13,7 @@ const Error = () => {
 
   const loadData = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/error");
+      const response = await axios.post("http://localhost:5001/api/error");
       const apiData = response.data;
       if (apiData) {
         const parsedData = parseData(apiData);
@@ -41,6 +41,8 @@ const Error = () => {
     event.preventDefault();
     setCurrentPage(page);
   };
+   // Change page
+   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const currentData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -49,7 +51,7 @@ const Error = () => {
     <div>
       <Card>
         <CardBody>
-          <h4>Ekara Robot Top Error Count</h4>
+          <h4>Ekara_Robot_Top_Error_Count</h4>
           <Table bordered>
             <thead>
               <tr>
@@ -71,28 +73,47 @@ const Error = () => {
             </tbody>
           </Table>
           <Pagination>
-            <PaginationItem disabled={currentPage <= 1}>
-              <PaginationLink
-                onClick={(e) => handleClick(currentPage - 1, e)}
-                previous
-                href="#"
-              />
-            </PaginationItem>
-            {[...Array(totalPages)].map((_, i) => (
-              <PaginationItem active={i + 1 === currentPage} key={i}>
-                <PaginationLink onClick={(e) => handleClick(i + 1, e)} href="#">
-                  {i + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-            <PaginationItem disabled={currentPage >= totalPages}>
-              <PaginationLink
-                onClick={(e) => handleClick(currentPage + 1, e)}
-                next
-                href="#"
-              />
-            </PaginationItem>
-          </Pagination>
+        <PaginationItem disabled={currentPage <= 1}>
+          <PaginationLink
+            first
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              paginate(1);
+            }}
+          />
+        </PaginationItem>
+        <PaginationItem disabled={currentPage <= 1}>
+          <PaginationLink
+            previous
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              paginate(currentPage - 1);
+            }}
+          />
+        </PaginationItem>
+        <PaginationItem disabled={currentPage >= totalPages}>
+          <PaginationLink
+            next
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              paginate(currentPage + 1);
+            }}
+          />
+        </PaginationItem>
+        <PaginationItem disabled={currentPage >= totalPages}>
+          <PaginationLink
+            last
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              paginate(totalPages);
+            }}
+          />
+        </PaginationItem>
+      </Pagination>
         </CardBody>
       </Card>
     </div>

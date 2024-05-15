@@ -62,9 +62,9 @@ const Users = lazy(() => import("../components/dashboard/Users.js"));
 const Clients = lazy(() => import("../components/dashboard/Client.js"));
 const OverviewAnalytics= lazy(() => import("../views/OverviewAnalytics.js"));
 const ConsumptionData = lazy(() => import("../views/DataConsumption.js"));
-const OverviewPerformance= lazy(() => import("../views/OverviewPerformance.js"));
+const OverviewLogs= lazy(() => import("../views/OverviewLogs.js"));
 
-
+const OverviewErrors= lazy(() => import("../views/OverviewErrors.js"));
 
 
     
@@ -132,7 +132,9 @@ const ThemeRoutes = [
 { path: "/analytics", exact: true, element: <OverviewAnalytics/> },
 
 { path: "/consumption", exact: true, element: <ConsumptionData/> },
-{ path: "/performance", exact: true, element: <OverviewPerformance/> },
+{ path: "/logs", exact: true, element: <OverviewLogs/> },
+{ path: "/errors", exact: true, element: <OverviewErrors/> },
+
 
 
 

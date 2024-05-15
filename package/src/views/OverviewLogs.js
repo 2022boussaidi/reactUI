@@ -11,25 +11,30 @@ import NetworkOut from "../components/dashboard/NetworkOut";
 import DataConsumption from "../components/consumption/ApiConsumption";
 import Error from "../components/dashboard/Error";
 import LogLevelPieChart from "../components/dashboard/LogLevelPieChart";
+import Logs from "../components/dashboard/Logs";
+import TotalLog from "../components/dashboard/TotalLog";
 
-export default function OverviewPerformance() {
+export default function OverviewLogs() {
     
  
   return (
     <div>
-       <h4>Performance</h4>
+       <h4>Events</h4>
       {/***Top Cards***/}
      
       <Row>
       
       
-        
-        <Col sm="6" lg="6" xl="2" xxl="12">
-          <Error/>
+      <Col sm="6" lg="6" xl="2" xxl="12">
+          <Logs/>
         </Col>
-        <Col sm="6" lg="6" xl="2" xxl="6">
+        <Col sm="8" lg="8" xl="2" xxl="4">
+          <TotalLog/>
+        </Col>
+        <Col sm="6" lg="6" xl="2" xxl="8">
           <LogLevelPieChart/>
         </Col>
+        
        
        
         </Row>
