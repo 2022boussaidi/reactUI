@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import Chart from 'react-apexcharts';
 import axios from 'axios';
-import { Card, CardBody } from 'reactstrap';
+import { Card, CardBody , CardBodyTitle} from 'reactstrap';
 
 const ApiConsumption = () => {
   const [data, setData] = useState([]);
@@ -31,20 +31,51 @@ const ApiConsumption = () => {
     }
   };
 
+  const options = {
+    chart: {
+      type: 'area',
+      height: 300,
+    },
+    xaxis: {
+      type: 'category',
+    },
+    yaxis: {
+      labels: {
+        formatter: function (value) {
+          return value;
+        }
+      }
+    },
+    tooltip: {
+      x: {
+        format: 'dd/MM/yy HH:mm'
+      },
+    },
+    legend: {
+      position: 'top',
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.7,
+        opacityTo: 0.9,
+      },
+    }
+  };
+
+  const series = [{
+    name: 'API',
+    data: data.map(item => ({ x: item.x, y: item.y }))
+  }];
+
   return (
     <div>
-        <Card>
-            <CardBody>
-     
-      <AreaChart width={850} height={300} data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="x" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Area type="monotone" dataKey="y" stackId="1" name="API" fill="#8884d8" />
-      </AreaChart>
-      </CardBody>
+      <Card>
+        <CardBody>
+        <h5>API Consumption</h5>
+          <Chart options={options} series={series} type="area" height={300} />
+        </CardBody>
       </Card>
     </div>
   );

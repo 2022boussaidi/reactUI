@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { PieChart, Pie, Tooltip, Legend, Cell } from "recharts";
+import Chart from "react-apexcharts";
 import { Card, CardBody } from "reactstrap";
 
 export default function PScenarioEfficiency() {
@@ -49,51 +49,32 @@ export default function PScenarioEfficiency() {
     const globalMinAvailability = totalMinAvailability / totalScenarios;
     const globalMaxAvailability = totalMaxAvailability / totalScenarios;
 
-    // Divide the chart into 4 segments
     data = [
-      { name: 'globalMinPerformance', value: globalMinPerformance},
-      { name: 'globalMaxPerformance', value: globalMaxPerformance},
-      { name: 'globalMinAvailability', value:  globalMinAvailability},
-      { name: 'globalMaxAvailability ', value:  globalMaxAvailability },
+      { x: 'globalMinPerformance', y: globalMinPerformance },
+      { x: 'globalMaxPerformance', y: globalMaxPerformance },
+      { x: 'globalMinAvailability', y: globalMinAvailability },
+      { x: 'globalMaxAvailability', y: globalMaxAvailability },
     ];
   }
 
-  const COLORS = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'];
+  const options = {
+    chart: {
+      type: 'pie',
+      height: 400,
+    },
+    labels: data.map(item => item.x),
+    colors: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+    legend: {
+      position: 'top',
+    },
+  };
 
   return (
     <div>
       <Card>
         <CardBody>
           <h5>Global Performance and Availability</h5>
-          <PieChart width={450} height={400}>
-            <Pie
-              data={data}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius={130}
-              fill="#8884d8"
-              label={({ cx, cy, midAngle, innerRadius, outerRadius, index }) => {
-                const RADIAN = Math.PI / 180;
-                const radius = 25 + innerRadius + (outerRadius - innerRadius);
-                const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-                return (
-                  <text x={x} y={y} fill={COLORS[index]} textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-                    {data[index].name}
-                  </text>
-                );
-              }}
-            >
-              {
-                data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
-              }
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
+          <Chart options={options} series={data.map(item => item.y)} type="pie" height={400} />
         </CardBody>
       </Card>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import Chart from 'react-apexcharts';
 import axios from 'axios';
 import { Card, CardBody } from 'reactstrap';
 
@@ -31,20 +31,69 @@ const AndroidConsumption = () => {
     }
   };
 
+  const options = {
+    chart: {
+      type: 'area',
+      height: 300,
+    },
+    xaxis: {
+      type: 'category',
+    },
+    yaxis: {
+      labels: {
+        formatter: function (value) {
+          return value;
+        }
+      }
+    },
+    tooltip: {
+      x: {
+        format: 'dd/MM/yy HH:mm'
+      },
+    },
+    legend: {
+      position: 'top',
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.7,
+        opacityTo: 0.9,
+      
+        colorStops: [
+          {
+            offset: 0,
+            color: '#cccc58',
+            opacity: 0.5
+          },
+          {
+            offset: 100,
+            color: '#cccc58',
+            opacity: 0.9
+          }
+        ]
+      },
+    },
+    stroke: {
+      curve: 'smooth',
+      width: 2,
+      colors: ['#cccc58']
+    }
+  };
+
+  const series = [{
+    name: 'MOBILE-ANDROID',
+    data: data.map(item => ({ x: item.x, y: item.y }))
+  }];
+
   return (
     <div>
-        <Card>
-            <CardBody>
-     
-      <AreaChart width={850} height={300} data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="x" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Area type="monotone" dataKey="y" stackId="1" name="MOBILE-ANDROID" fill="#ccc658" />
-      </AreaChart>
-      </CardBody>
+      <Card>
+        <CardBody>
+        <h5>Android Consumption</h5>
+          <Chart options={options} series={series} type="area" height={300} width={500} />
+        </CardBody>
       </Card>
     </div>
   );

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import Chart from 'react-apexcharts';
 import { Card, CardBody } from "reactstrap";
 
 function NetworkIn() {
   const [metrics, setMetrics] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4002/NetworkIn')
+    axios.get('http://localhost:4000/NetworkIn')
       .then(response => {
         setMetrics(response.data);
       })
@@ -16,33 +16,69 @@ function NetworkIn() {
       });
   }, []);
 
-  const formatYAxis = (tick) => {
-    if (tick >= 1000000) {
-      return `${(tick / 1000000).toFixed(2)} MB`;
-    } else if (tick >= 1000) {
-      return `${(tick / 1000).toFixed(2)} KB`;
+  const formatYAxis = (value) => {
+    if (value >= 1000000) {
+      return `${(value / 1000000).toFixed(2)} MB`;
+    } else if (value >= 1000) {
+      return `${(value / 1000).toFixed(2)} KB`;
     }
-    return `${tick} Bytes`;
+    return `${value} Bytes`;
   };
+
+  const options = {
+    chart: {
+      type: 'line',
+      height: 400,
+    },
+    xaxis: {
+      categories: metrics.map(metric => metric.Timestamp),
+    },
+    yaxis: {
+      labels: {
+        formatter: formatYAxis,
+      },
+      title: {
+        text: 'Bytes',
+        rotate: -90,
+        offsetX: -10,
+        offsetY: -15,
+        style: {
+          fontSize: '12px',
+          fontWeight: 'bold',
+          fontFamily: 'Arial',
+        }
+      }
+    },
+    tooltip: {
+      shared: true
+    },
+    legend: {
+      position: 'top'
+    },
+    colors: ['#007bff', '#dc3545', '#fd7e14'] // Change colors here
+  };
+
+  const series = [
+    {
+      name: 'Average',
+      data: metrics.map(metric => metric.Average),
+    },
+    {
+      name: 'Maximum',
+      data: metrics.map(metric => metric.Maximum),
+    },
+    {
+      name: 'Minimum',
+      data: metrics.map(metric => metric.Minimum),
+    }
+  ];
 
   return (
     <div>
       <Card>
         <CardBody>
           <h5>NetworkIn</h5>
-          <LineChart width={550} height={400} data={metrics}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="Timestamp" />
-            <YAxis label={{ value: 'Bytes', angle: -90, position: 'insideLeft' }} tickFormatter={formatYAxis} />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="Average" stroke="green" />
-            <Line type="monotone" dataKey="Maximum" stroke="red" />
-            <Line type="monotone" dataKey="Minimum" stroke="violet" />
-
-
-            {/* Add more lines if needed for other metrics */}
-          </LineChart>
+          <Chart options={options} series={series} type="line" height={400} />
         </CardBody>
       </Card>
     </div>
