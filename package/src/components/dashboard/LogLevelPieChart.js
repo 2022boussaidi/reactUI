@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import Chart from 'react-apexcharts';
 import axios from 'axios';
 import { Card, CardBody } from 'reactstrap';
 
-const COLORS = ['#00C49F', '#FFBB28', '#FF8042', '#0088FE'];
-
 const LogLevelPieChart = () => {
   const [data, setData] = useState([]);
+  const [labels, setLabels] = useState([]);
 
   useEffect(() => {
     loadData();
@@ -14,11 +13,12 @@ const LogLevelPieChart = () => {
 
   const loadData = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/count_logs");
+      const response = await axios.post("http://localhost:5001/api/count_logs");
       const apiData = response.data;
       if (apiData) {
         const parsedData = parseData(apiData);
-        setData(parsedData);
+        setData(parsedData.map(item => item.value));
+        setLabels(parsedData.map(item => item.name));
       }
     } catch (error) {
       console.error("Error loading data:", error);
@@ -33,31 +33,46 @@ const LogLevelPieChart = () => {
     }));
   };
 
+  const chartOptions = {
+    chart: {
+      type: 'pie'
+    },
+    labels: labels,
+    colors: ['#00C49F', '#FFBB28', '#FF8042', '#0088FE'],
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 200
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }],
+    legend: {
+      position: 'top',
+      horizontalAlign: 'center'
+    },
+    tooltip: {
+      y: {
+        formatter: (val) => `${val}`
+      }
+    }
+  };
+
   return (
     <div>
       <Card>
         <CardBody>
           <h4>Log-level Pie Chart</h4>
-          <ResponsiveContainer width="100%" height={400}>
-            <PieChart>
-              <Pie
-                data={data}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(2)}%`}
-                outerRadius={150}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend verticalAlign="top" height={36} />
-            </PieChart>
-          </ResponsiveContainer>
+          <Chart
+            options={chartOptions}
+            series={data}
+            type="pie"
+            width="100%"
+            height={400}
+          />
         </CardBody>
       </Card>
     </div>
