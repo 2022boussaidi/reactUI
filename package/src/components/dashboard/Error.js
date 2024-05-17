@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Card, CardBody, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Error = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,16 +25,21 @@ const Error = () => {
     }
   };
 
-  const parseData = (apiData) => {
-    const buckets = apiData.aggregations["2"].buckets;
-    const parsedData = buckets.flatMap(bucket3 => 
-      bucket3["3"].buckets.map(bucket4 => ({
-        site: bucket3.key,
-        robot: bucket4.key,
-        severity: bucket4["4"].buckets.map(b => b.key).join(', '),
-        count: bucket4.doc_count
-      }))
-    );
+ const parseData = (apiData) => {
+    const buckets = apiData.aggregations['2'].buckets;
+    const parsedData = buckets.flatMap(bucket => {
+      const robotBuckets = bucket['3'].buckets;
+      return robotBuckets.flatMap(robotBucket => {
+        const severityBuckets = robotBucket['4'].buckets;
+        return severityBuckets.map(severityBucket => ({
+          Ekara_Site_Agent: bucket.key,
+          Ekara_Robot: robotBucket.key,
+          Robot_Severity: severityBucket.key,
+          Count: severityBucket.doc_count // Add count from API response
+        }));
+      });
+    });
+
     return parsedData;
   };
 
@@ -41,11 +47,29 @@ const Error = () => {
     event.preventDefault();
     setCurrentPage(page);
   };
+
    // Change page
    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const currentData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  // Function to send toast notification
+  const sendNotification = (robotName) => {
+    toast.error(`Check robot: ${robotName}`, {
+     
+      autoClose: 5000, // Close the toast after 3 seconds
+    });
+  };
+
+  // Check for errors or warnings above a certain threshold and trigger notifications
+  useEffect(() => {
+    currentData.forEach(item => {
+      if (item.Count > 50) {
+        sendNotification(item.Ekara_Robot);
+      }
+    });
+  }, [currentData]);
 
   return (
     <div>
@@ -64,10 +88,10 @@ const Error = () => {
             <tbody>
               {currentData.map((item, index) => (
                 <tr key={index}>
-                  <td>{item.site}</td>
-                  <td>{item.robot}</td>
-                  <td>{item.severity}</td>
-                  <td>{item.count}</td>
+                  <td>{item.Ekara_Site_Agent}</td>
+                  <td>{item.Ekara_Robot}</td>
+                  <td>{item.Robot_Severity}</td>
+                  <td>{item.Count}</td>
                 </tr>
               ))}
             </tbody>
@@ -116,6 +140,8 @@ const Error = () => {
       </Pagination>
         </CardBody>
       </Card>
+      {/* Toast container for notifications */}
+      <ToastContainer />
     </div>
   );
 };

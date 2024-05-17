@@ -55,6 +55,8 @@ const Logs = () => {
             <th>Agent Hostname</th>
             <th>Role</th>
             <th>Site</th>
+
+
             <th>Input Type</th>
           </tr>
         </thead>

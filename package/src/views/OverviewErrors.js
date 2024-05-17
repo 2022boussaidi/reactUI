@@ -13,6 +13,8 @@ import Error from "../components/dashboard/Error";
 import LogLevelPieChart from "../components/dashboard/LogLevelPieChart";
 import Logs from "../components/dashboard/Logs";
 import ErrorLineChart from "../components/dashboard/ErrorLineChart";
+import PredictionTable from "../components/dashboard/PredictionTable";
+import AlertError from "../components/dashboard/AlertError";
 
 export default function OverviewErrors() {
     
@@ -30,8 +32,11 @@ export default function OverviewErrors() {
           <Error/>
         </Col>
          
-        <Col sm="6" lg="6" xl="2" xxl="12">
+        <Col sm="6" lg="6" xl="2" xxl="6">
           <ErrorLineChart/>
+        </Col>
+        <Col sm="6" lg="6" xl="2" xxl="6">
+          <PredictionTable/>
         </Col>
        
         

@@ -28,7 +28,7 @@ export default function OverviewLogs() {
       <Col sm="6" lg="6" xl="2" xxl="12">
           <Logs/>
         </Col>
-        <Col sm="8" lg="8" xl="2" xxl="4">
+        <Col sm="8" lg="8" xl="2" xxl="12">
           <TotalLog/>
         </Col>
         <Col sm="6" lg="6" xl="2" xxl="8">
