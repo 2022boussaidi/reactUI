@@ -7,7 +7,7 @@ function NetworkIn() {
   const [metrics, setMetrics] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/NetworkIn')
+    axios.get('http://localhost:4000/cloudwacth/NetworkIn')
       .then(response => {
         setMetrics(response.data);
       })

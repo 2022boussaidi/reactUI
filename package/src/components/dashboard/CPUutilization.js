@@ -7,7 +7,7 @@ function CPUUtilization() {
   const [metrics, setMetrics] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/metrics')
+    axios.get('http://localhost:4000/cloudwatch/metrics')
       .then(response => {
         setMetrics(response.data);
       })

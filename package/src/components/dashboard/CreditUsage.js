@@ -7,7 +7,7 @@ function CreditUsage() {
   const [metrics, setMetrics] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/credit_usage')
+    axios.get('http://localhost:4000/cloudwatch/credit_usage')
       .then(response => {
         setMetrics(response.data);
       })
