@@ -9,7 +9,7 @@ const Dashboard = lazy(() => import("../layouts/Dashboard.js"));
 
 
 const About = lazy(() => import("../views/About.js"));
-const Alerts = lazy(() => import("../views/ui/Alerts"));
+/**const Alerts = lazy(() => import("../views/ui/Alerts"));*/
 const Badges = lazy(() => import("../views/ui/Badges"));
 const Buttons = lazy(() => import("../views/ui/Dashboard.js"));
 const Cards = lazy(() => import("../views/ui/Cards"));
@@ -65,6 +65,12 @@ const ConsumptionData = lazy(() => import("../views/DataConsumption.js"));
 const OverviewLogs= lazy(() => import("../views/OverviewLogs.js"));
 
 const OverviewErrors= lazy(() => import("../views/OverviewErrors.js"));
+const OverviewMeasures= lazy(() => import("../views/OverviewMeasures.js"));
+const Alert= lazy(() => import("../components/dashboard/AlertComponent.js"));
+const AlertModel= lazy(() => import("../components/dashboard/Alertmodel.js"));
+
+
+
 
 
     
@@ -94,7 +100,7 @@ const ThemeRoutes = [
       
      
       { path: "/about", exact: true, element: <About /> },
-      { path: "/alerts", exact: true, element: <Alerts /> },
+     /* { path: "/alerts", exact: true, element: <Alerts /> },*/
       { path: "/badges", exact: true, element: <Badges /> },
       { path: "/inventory", exact: true, element: <Buttons /> },
       { path: "/cards", exact: true, element: <Cards /> },
@@ -134,6 +140,11 @@ const ThemeRoutes = [
 { path: "/consumption", exact: true, element: <ConsumptionData/> },
 { path: "/logs", exact: true, element: <OverviewLogs/> },
 { path: "/errors", exact: true, element: <OverviewErrors/> },
+{ path: "/last_measures", exact: true, element: <OverviewMeasures/> },
+{ path: "/alerts", exact: true, element: <Alert/> },
+{ path: "/alerts_model", exact: true, element: <AlertModel/> },
+
+
 
 
 

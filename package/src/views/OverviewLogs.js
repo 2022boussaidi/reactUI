@@ -13,6 +13,7 @@ import Error from "../components/dashboard/Error";
 import LogLevelPieChart from "../components/dashboard/LogLevelPieChart";
 import Logs from "../components/dashboard/Logs";
 import TotalLog from "../components/dashboard/TotalLog";
+import ActionByRobot from "../components/dashboard/ActionByRobot";
 
 export default function OverviewLogs() {
     
@@ -31,8 +32,11 @@ export default function OverviewLogs() {
         <Col sm="8" lg="8" xl="2" xxl="12">
           <TotalLog/>
         </Col>
-        <Col sm="6" lg="6" xl="2" xxl="8">
+        <Col sm="6" lg="6" xl="2" xxl="4">
           <LogLevelPieChart/>
+        </Col>
+        <Col sm="6" lg="6" xl="2" xxl="8">
+          <ActionByRobot/>
         </Col>
         
        

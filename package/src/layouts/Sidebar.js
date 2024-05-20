@@ -27,7 +27,8 @@ const navigation = [
         items: [
           { title: "Logs", href: "/logs" , icon: "bi bi-bar-chart-line-fill ms-2" },
           { title: "Error Summary", href: "/errors" , icon: "bi bi-bar-chart-line-fill ms-2" },
-         
+          { title: "Last measures", href: "/last_measures" , icon: "bi bi-bar-chart-line-fill ms-2" },
+
           
         ],
       },
@@ -78,7 +79,7 @@ const navigation = [
     
   
         title: "Alerts ",
-        href: "/",
+        href: "/alerts",
         icon: "bi bi-patch-exclamation-fill",
       },
   

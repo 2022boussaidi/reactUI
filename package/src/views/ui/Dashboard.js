@@ -3,7 +3,7 @@ import axios from "axios";
 import TopCards from "./TopCards";
 import { Row, Col } from "reactstrap";
 import Inventory from "../../components/dashboard/Inventory";
-import AlertComponent from "../../components/dashboard/ALertComponent";
+import AlertComponent from "../../components/dashboard/AlertComponent";
 
 const Buttons = () => {
   const [kpi, setKpi] = useState(null);
@@ -89,9 +89,7 @@ const Buttons = () => {
         <Col sm="12" lg="12">
           <Inventory />
         </Col>
-        <Col sm="12" lg="12">
-          <AlertComponent />
-        </Col>
+      
       </Row>
     </div>
   );
