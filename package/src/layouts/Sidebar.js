@@ -63,7 +63,6 @@ const navigation = [
           { title: "worspaces", href: "/workspaces", icon: "bi bi-building-fill ms-2" },
           { title: "users", href: "/users" , icon: "bi bi-person-lines-fill ms-2"},
           { title: "clients", href: "/clients", icon: "bi bi-people-fill ms-2" },
-          { title: "user journey", href: "management/user journey", icon: "bi bi-person-vcard ms-2" },
           
         ],
       },

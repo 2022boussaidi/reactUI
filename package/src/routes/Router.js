@@ -66,7 +66,7 @@ const OverviewLogs= lazy(() => import("../views/OverviewLogs.js"));
 
 const OverviewErrors= lazy(() => import("../views/OverviewErrors.js"));
 const OverviewMeasures= lazy(() => import("../views/OverviewMeasures.js"));
-const Alert= lazy(() => import("../components/dashboard/AlertComponent.js"));
+const Alert= lazy(() => import("../views/OverviewALerts.js"));
 const AlertModel= lazy(() => import("../components/dashboard/Alertmodel.js"));
 
 
