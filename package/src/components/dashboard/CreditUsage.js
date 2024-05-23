@@ -118,7 +118,7 @@ function CreditUsage() {
     <div>
       <Card>
         <CardBody>
-          <h5>Credit_usage</h5>
+          <h5>CPU_Credit_usage</h5>
           <Form>
             <FormGroup className="mb-3">
               <Label for="from" className="me-2">From:</Label>
