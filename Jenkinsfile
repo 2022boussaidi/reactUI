@@ -16,13 +16,7 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                // Checkout the code from your Git repository
-                git 'https://github.com/2022boussaidi/reactUI.git'
-            }
-        }
-
+       
         stage('Build React App') {
             steps {
                 // Install project dependencies and build the React application
