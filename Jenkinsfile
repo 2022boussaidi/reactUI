@@ -3,7 +3,7 @@
 pipeline {
     agent any
  
-    tools { nodejs "NodeJS_22" }
+    tools { nodejs "NodeJS_14" }
 
     environment {
         // Define environment variables used throughout the pipeline
