@@ -13,8 +13,13 @@ pipeline {
         serverIp = "YOUR_SERVER_IP"                    // Replace with your server's IP address
         serverUser = "YOUR_SERVER_USERNAME"            // Replace with your server's username
     }
-
+ 
     stages {
+          stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/ip-label']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/2022boussaidi/reactUI']]])
+            }
+        }
 
        
         stage('Build React App') {
