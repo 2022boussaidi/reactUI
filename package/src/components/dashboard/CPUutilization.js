@@ -12,7 +12,7 @@ function CPUUtilization() {
 
   useEffect(() => {
     fetchMetrics();
-  }, [startDate, endDate]);
+  }, [startDate, endDate]); 
 
   const fetchMetrics = async () => {
     try {

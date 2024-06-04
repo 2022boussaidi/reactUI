@@ -45,7 +45,7 @@ const PredictionTable = () => {
     const fetchPredictedData = async () => {
       try {
         const predictions = await Promise.all(data.map(async (item) => {
-          const response = await axios.post('http://localhost:5004/predict/GBM_2_AutoML_1_20240516_212404', item); // Replace 'model_name' with your actual model name
+          const response = await axios.post('http://localhost:5002/predict/GBM_2_AutoML_1_20240516_212404', item); // Replace 'model_name' with your actual model name
           return { ...item, Prediction: response.data.Prediction };
         }));
         setPredictedData(predictions);
@@ -83,7 +83,8 @@ const PredictionTable = () => {
             <th>Ekara Site Agent</th>
             <th>Ekara Robot</th>
             <th>Robot Severity</th>
-            <th style={{ color: 'red' }}>Predicted_Count</th>
+            <th style={{ color: 'black' }}  className="badge bg-warning" >Predicted_Count</th>
+
           </tr>
         </thead>
         <tbody>
@@ -92,7 +93,7 @@ const PredictionTable = () => {
               <td>{item.Ekara_Site_Agent}</td>
               <td>{item.Ekara_Robot}</td>
               <td>{item.Robot_Severity}</td>
-              <td style={{ color: 'red' }}>{item.Prediction}</td>
+              <td  className="badge bg-warning">{item.Prediction}</td>
             </tr>
           ))}
         </tbody>

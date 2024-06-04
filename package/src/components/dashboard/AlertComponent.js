@@ -8,7 +8,7 @@ const removeDuplicates = (alerts) => {
 };
 
 const fetchAlerts = async () => {
-    const response = await fetch('http://localhost:5000/api/alert');
+    const response = await fetch('http://localhost:5001/api/alerts/error-alert');
     const data = await response.json();
     return removeDuplicates(data.alerts);
 };

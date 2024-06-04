@@ -14,7 +14,7 @@ const AlertLog = () => {
   useEffect(() => {
     const fetchAlerts = async () => {
       try {
-        const response = await axios.get('http://localhost:7000/api/alert');
+        const response = await axios.get('http://localhost:5001/api/alerts/log-alert');
         setAlerts(response.data.alerts);
       } catch (error) {
         console.error('Error fetching alerts:', error);
@@ -54,10 +54,10 @@ const AlertLog = () => {
     <div>
       <Card>
         <CardBody>
-          <h2>
+          <h5>
             <FontAwesomeIcon icon={faExclamationTriangle} /> Alert Logs
-          </h2>
-          <Table bordered hover >
+          </h5>
+          <Table   striped hover >
             <thead>
               <tr>
                 <th scope="row">Severity</th>

@@ -25,9 +25,9 @@ const navigation = [
         href: "/robots",
         icon: "bi bi-robot",
         items: [
-          { title: "Logs", href: "/logs" , icon: "bi bi-bar-chart-line-fill ms-2" },
-          { title: "Error Summary", href: "/errors" , icon: "bi bi-bar-chart-line-fill ms-2" },
-          { title: "Last measures", href: "/last_measures" , icon: "bi bi-bar-chart-line-fill ms-2" },
+          { title: "Logs", href: "/logs" , icon: "bi bi-clipboard-pulse ms-3" },
+          { title: "Error Summary", href: "/errors" , icon: "bi bi-exclamation-triangle-fill ms-3" },
+          { title: "Last measures", href: "/last_measures" , icon: "bi bi-bar-chart-line-fill ms-3" },
 
           
         ],
@@ -37,8 +37,8 @@ const navigation = [
         href: "/queues",
         icon: "bi bi-layout-text-sidebar-reverse",
         items: [
-          { title: "Scenarios", href: "/scenarios" , icon: "bi bi-stack ms-2"},
-          { title: "Zones", href: "/zones" , icon: "bi bi-pin-map ms-2"},
+          { title: "Scenarios", href: "/scenarios" , icon: "bi bi-stack ms-3"},
+          { title: "Zones", href: "/zones" , icon: "bi bi-pin-map ms-3"},
         ],
       },
     
@@ -48,10 +48,10 @@ const navigation = [
       {
         title: " Analytics",
       
-        icon: "bi bi-pie-chart-fill",
+        icon: "bi bi-grid-3x2-gap",
         items: [
-          { title: "Instance metrics",   href: "/analytics", icon: "bi bi-building-fill ms-2" },
-          { title: "Consumption ",   href: "/consumption", icon: "bi bi-building-fill ms-2" },
+          { title: "Instance metrics",   href: "/analytics", icon: "bi bi-pie-chart-fill ms-3" },
+          { title: "Consumption ",   href: "/consumption", icon: "bi bi-graph-up ms-3" },
 
         
         ]
@@ -60,16 +60,16 @@ const navigation = [
         title: "Dive deeper",
         icon: "bi bi-zoom-in",
         items: [
-          { title: "worspaces", href: "/workspaces", icon: "bi bi-building-fill ms-2" },
-          { title: "users", href: "/users" , icon: "bi bi-person-lines-fill ms-2"},
-          { title: "clients", href: "/clients", icon: "bi bi-people-fill ms-2" },
+          { title: "worspaces", href: "/workspaces", icon: "bi bi-building-fill ms-3" },
+          { title: "users", href: "/users" , icon: "bi bi-person-lines-fill ms-3"},
+          { title: "clients", href: "/clients", icon: "bi bi-people-fill ms-3" },
           
         ],
       },
 
       {
         title: " Forecasting Hub",
-        href: "/",
+        href: "/prediction",
         icon: "bi bi-pie-chart-fill",
       },
   

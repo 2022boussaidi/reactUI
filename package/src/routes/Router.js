@@ -68,6 +68,8 @@ const OverviewErrors= lazy(() => import("../views/OverviewErrors.js"));
 const OverviewMeasures= lazy(() => import("../views/OverviewMeasures.js"));
 const Alert= lazy(() => import("../views/OverviewALerts.js"));
 const AlertModel= lazy(() => import("../components/dashboard/Alertmodel.js"));
+const OverviewForecasting= lazy(() => import("../views/OverviewForecasting.js"));
+
 
 
 
@@ -143,6 +145,8 @@ const ThemeRoutes = [
 { path: "/last_measures", exact: true, element: <OverviewMeasures/> },
 { path: "/alerts", exact: true, element: <Alert/> },
 { path: "/alerts_model", exact: true, element: <AlertModel/> },
+{ path: "/prediction", exact: true, element: <OverviewForecasting/> },
+
 
 
 
