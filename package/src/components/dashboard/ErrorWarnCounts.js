@@ -3,48 +3,52 @@ import Chart from 'react-apexcharts';
 import { Container, Row, Col, Card, CardBody } from 'reactstrap';
 
 function ErrorWarnCounts() {
-  const [warnPredictions, setWarnPredictions] = useState([]);
-  const [errPredictions, setErrPredictions] = useState([]);
+  const [warnCount, setWarnCount] = useState(0);
+  const [errCount, setErrCount] = useState(0);
 
   useEffect(() => {
-    // Fetch predictions from both WARN and ERR endpoints
-    fetch('http://localhost:5000/predict-count?log_level=WARN&steps=7')
+    // Fetch prediction for WARN log level
+    fetch('http://localhost:5000/predict-count?log_level=WARN&steps=1')
       .then(response => response.json())
-      .then(data => setWarnPredictions(data))
+      .then(data => {
+        if (data.length > 0) {
+          setWarnCount(data[0].predict);
+        }
+      })
       .catch(error => console.error('Error fetching WARN predictions:', error));
 
-    fetch('http://localhost:5000/predict-count?log_level=ERR&steps=7')
+    // Fetch prediction for ERR log level
+    fetch('http://localhost:5000/predict-count?log_level=ERR&steps=1')
       .then(response => response.json())
-      .then(data => setErrPredictions(data))
+      .then(data => {
+        if (data.length > 0) {
+          setErrCount(data[0].predict);
+        }
+      })
       .catch(error => console.error('Error fetching ERR predictions:', error));
   }, []);
 
   // Get the current date
   const currentDate = new Date().toLocaleDateString();
 
-  // Extract predicted counts from predictions arrays
-  const warnPredictedCounts = warnPredictions.map(prediction => prediction.predict);
-  const errPredictedCounts = errPredictions.map(prediction => prediction.predict);
-  const labels = Array.from({ length: warnPredictions.length }, (_, i) => i + 1);
-
   // ApexCharts configuration
   const chartOptions = {
     chart: {
-      type: 'line',
+      type: 'bar',
       height: 350,
       zoom: {
         enabled: false
       }
     },
     xaxis: {
-      categories: labels,
+      categories: ['WARN', 'ERR'],
       title: {
-        text: 'Days'
+        text: 'Log Levels'
       }
     },
     yaxis: {
       title: {
-        text: 'Predicted Counts'
+        text: 'Predicted Count'
       }
     },
     legend: {
@@ -54,12 +58,8 @@ function ErrorWarnCounts() {
 
   const series = [
     {
-      name: 'WARN',
-      data: warnPredictedCounts
-    },
-    {
-      name: 'ERR',
-      data: errPredictedCounts
+      name: 'Predicted Count',
+      data: [warnCount, errCount]
     }
   ];
 
@@ -70,8 +70,8 @@ function ErrorWarnCounts() {
           <Card>
             <CardBody>
               <h4>Error_Warn_Counts</h4>
-              <p className="mb-4 text-muted">This chart displays the predicted counts of ERR and WARN log levels for the next 7 days starting from {currentDate}.</p>
-              <Chart options={chartOptions} series={series} type="line" height={350} />
+              <p className="mb-4 text-muted">This chart displays the predicted counts of ERR and WARN log levels for the next day starting from {currentDate}.</p>
+              <Chart options={chartOptions} series={series} type="bar" height={350} />
             </CardBody>
           </Card>
         </Col>
